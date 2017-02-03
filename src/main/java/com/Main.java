@@ -2,11 +2,8 @@ package com;
 
 import com.api.YahooApi;
 import com.dto.StockData;
-import com.dto.YahooResponse;
 import com.gererator.RequestGenerator;
 import com.utils.Period;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
