@@ -1,6 +1,5 @@
-package com.dto;
+package com.core.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -14,7 +13,13 @@ public class YahooResponse {
     private Query query;
 
     public List<StockData> getStockData() {
-        return query.getResults().getStockDataList();
+        Results results = query.getResults();
+        if (results == null) {
+            System.out.println("No stocks for requested period, returning empty list.");
+            return new ArrayList<>();
+        }
+
+        return results.getStockDataList();
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)

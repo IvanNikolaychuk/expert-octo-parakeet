@@ -1,12 +1,13 @@
-package com.utils;
+package com.core.api.helpers;
 
 import lombok.Data;
+
+import static com.core.api.helpers.Constants.CURRENT_YEAR;
 
 @Data
 public class Period {
     private Date startDate;
     private Date endDate;
-    private static final int CURRENT_YEAR = 2017;
 
     private Period(Date startDate, Date endDate) {
         this.startDate = startDate;
@@ -126,8 +127,8 @@ public class Period {
         }
 
         private static Date build(int year, int month, int day) {
-            String formattedMonth = month + "".length() == 1 ? "0" + month : month + "";
-            String formattedDay = day + "".length() == 1 ? "0" + day : day + "";
+            String formattedMonth = (month + "").length() == 1 ? "0" + month : month + "";
+            String formattedDay = (day + "").length() == 1 ? "0" + day : day + "";
 
             return new Date(year + "-" + formattedMonth + "-" + formattedDay);
         }

@@ -1,6 +1,6 @@
-package com.gererator;
+package com.core.api.gererator;
 
-import com.utils.Period;
+import com.core.api.helpers.Period;
 
 import java.text.MessageFormat;
 
