@@ -1,16 +1,15 @@
-package com.jobs.analyzer;
+package com.tasks.analyzer;
 
 import com.core.db.dao.CompanyDao;
+import com.core.db.dao.StatisticDataDao;
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
 import com.core.db.entity.statistic.StatisticData;
 import com.core.db.entity.statistic.VolumeData;
-import com.jobs.analyzer.filters.CandlesFilter;
-import com.sun.org.glassfish.external.statistics.Statistic;
+import com.tasks.analyzer.filters.CandlesFilter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
 import java.util.List;
 
 import static com.core.api.helpers.Constants.CURRENT_YEAR;
@@ -21,18 +20,23 @@ import static com.core.api.helpers.Constants.CURRENT_YEAR;
 public class AvgStockVolumeComputer {
 
     public void execute() {
-        for (Company company : new CompanyDao().getAll()) {
-            StatisticData statisticData = new StatisticData(company);
+        StatisticDataDao statisticDataDao = new StatisticDataDao();
+        List<Company> companies = new CompanyDao().getAll();
+
+        for (Company company : companies) {
+            StatisticData statisticData = statisticDataDao.getByCompanyName(company);
 
             List<Candle> candlesThisYear = CandlesFilter.filter(company.getCandles(), CURRENT_YEAR);
-            statisticData.setVolumeOldData(new VolumeData(candlesThisYear.size(), calculateAvgVolume(candlesThisYear)));
+            statisticData.setVolumeYearData(new VolumeData(candlesThisYear.size(), calculateAvgVolume(candlesThisYear)));
 
             List<Candle> mostRecentCandles = CandlesFilter.filterMostRecent(candlesThisYear);
             statisticData.setVolumeRecentData(new VolumeData(mostRecentCandles.size(), calculateAvgVolume(mostRecentCandles)));
+
+            statisticDataDao.saveOrUpdate(statisticData);
         }
     }
 
-    private BigDecimal calculateAvgVolume(List<Candle> candles) {
+    public BigDecimal calculateAvgVolume(List<Candle> candles) {
         BigDecimal totalAmount = BigDecimal.ZERO;
 
         for (Candle candle : candles) {

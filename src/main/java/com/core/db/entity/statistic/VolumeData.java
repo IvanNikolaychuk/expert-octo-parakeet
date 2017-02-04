@@ -19,4 +19,7 @@ public class VolumeData {
         this.daysTraded = daysTraded;
         this.avgVolume = avgVolume;
     }
+
+    public VolumeData() {
+    }
 }

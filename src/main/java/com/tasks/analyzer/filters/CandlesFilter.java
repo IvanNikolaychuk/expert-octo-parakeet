@@ -1,4 +1,4 @@
-package com.jobs.analyzer.filters;
+package com.tasks.analyzer.filters;
 
 import com.core.api.helpers.Constants;
 import com.core.db.entity.Candle;
@@ -46,7 +46,7 @@ public class CandlesFilter {
 
         @Override
         public int compare(Candle first, Candle second) {
-            return first.getDate().compareTo(second.getDate());
+            return second.getDate().compareTo(first.getDate());
         }
     }
 }

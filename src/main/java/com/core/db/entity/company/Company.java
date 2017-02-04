@@ -1,6 +1,7 @@
 package com.core.db.entity.company;
 
 import com.core.db.entity.Candle;
+import com.core.db.entity.statistic.StatisticData;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class Company {
     @Column(name = "stock_currency")
     private StockCurrency stockCurrency;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "company")
+    private StatisticData statisticData;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "business_type")
     private BusinessType businessType;
@@ -28,7 +32,7 @@ public class Company {
     private List<Candle> candles;
 
     public Company() {
-        candles = new ArrayList<Candle>();
+        candles = new ArrayList<>();
     }
 
     public Company(String name, BusinessType businessType, StockCurrency stockCurrency) {

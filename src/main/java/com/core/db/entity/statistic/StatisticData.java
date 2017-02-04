@@ -17,8 +17,10 @@ public class StatisticData {
     @GeneratedValue
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Company company;
+
+    public StatisticData() {}
 
     public StatisticData(Company company) {
         this.company = company;
@@ -26,14 +28,14 @@ public class StatisticData {
 
     @AttributeOverrides({
             @AttributeOverride(name = "daysTraded", column = @Column(name = "days_traded_recent")),
-            @AttributeOverride(name = "amount", column = @Column(name = "days_traded_recent_volume"))
+            @AttributeOverride(name = "avgVolume", column = @Column(name = "recent_avg_volume"))
     })
     private VolumeData volumeRecentData;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "daysTraded", column = @Column(name = "days_traded_recent")),
-            @AttributeOverride(name = "amount", column = @Column(name = "days_traded_recent_volume"))
+            @AttributeOverride(name = "daysTraded", column = @Column(name = "days_traded_year")),
+            @AttributeOverride(name = "avgVolume", column = @Column(name = "year_avg_volume"))
     })
-    private VolumeData volumeOldData;
+    private VolumeData volumeYearData;
 
 }

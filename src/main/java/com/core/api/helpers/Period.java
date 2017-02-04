@@ -126,7 +126,7 @@ public class Period {
             return build(CURRENT_YEAR, 12, date);
         }
 
-        private static Date build(int year, int month, int day) {
+        public static Date build(int year, int month, int day) {
             String formattedMonth = (month + "").length() == 1 ? "0" + month : month + "";
             String formattedDay = (day + "").length() == 1 ? "0" + day : day + "";
 
