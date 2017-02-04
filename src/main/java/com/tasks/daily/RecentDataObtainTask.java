@@ -14,6 +14,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.tasks.utils.TimeUtils.isSameDay;
+
 public class RecentDataObtainTask {
 
     public void execute() {
@@ -46,9 +48,7 @@ public class RecentDataObtainTask {
         List<Candle> candles = company.getCandles();
 
         for (Candle candle : candles) {
-            if (candle.getCalendar().get(Calendar.DATE) == calendar.get(Calendar.DATE) &&
-                    candle.getCalendar().get(Calendar.YEAR) == calendar.get(Calendar.YEAR) &&
-                    candle.getCalendar().get(Calendar.MONTH) == calendar.get(Calendar.MONTH)) {
+            if (isSameDay(candle.getDate(), calendar)) {
                 return true;
             }
         }

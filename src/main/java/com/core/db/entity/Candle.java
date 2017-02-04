@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.core.db.entity.Candle.Trend.UP;
+
 /**
  * Created by ivnikolaychuk on 03.02.2017
  */
@@ -18,7 +20,7 @@ public class Candle {
     @GeneratedValue
     private int id;
 
-    private Date date;
+    private Calendar date;
 
     private BigDecimal body;
 
@@ -41,10 +43,8 @@ public class Candle {
 
     private BigDecimal high;
 
-    public Calendar getCalendar() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        return calendar;
+    public BigDecimal getGrowth() {
+        return close.subtract(open);
     }
 
     public enum Trend {

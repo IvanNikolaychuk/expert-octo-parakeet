@@ -1,4 +1,4 @@
-package com.tasks.analyzer.filters;
+package com.tasks.utils.filters;
 
 import com.core.api.helpers.Constants;
 import com.core.db.entity.Candle;
@@ -18,7 +18,7 @@ public class CandlesFilter {
             return candles;
         }
 
-        candles.sort(new ByDateComparator());
+        candles.sort(new RecentDateFirstComparator());
 
         List<Candle> mostRecent = new ArrayList<>(Constants.RECENT_CANDLES_NUMBER);
 
@@ -33,7 +33,7 @@ public class CandlesFilter {
         List<Candle> filtered = new ArrayList<>();
 
         for (Candle candle : candles) {
-            Calendar date = candle.getCalendar();
+            Calendar date = candle.getDate();
             if (date.get(Calendar.YEAR) == year) {
                 filtered.add(candle);
             }
@@ -42,11 +42,19 @@ public class CandlesFilter {
         return filtered;
     }
 
-    public static class ByDateComparator implements Comparator<Candle> {
+    public static class RecentDateFirstComparator implements Comparator<Candle> {
 
         @Override
         public int compare(Candle first, Candle second) {
             return second.getDate().compareTo(first.getDate());
+        }
+    }
+
+    public static class OldDateFirstComparator implements Comparator<Candle> {
+
+        @Override
+        public int compare(Candle first, Candle second) {
+            return (-1) * new RecentDateFirstComparator().compare(first, second);
         }
     }
 }

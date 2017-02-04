@@ -2,13 +2,13 @@ package com.tasks.once;
 
 import com.core.api.dto.StockData;
 import com.core.db.dao.CompanyDao;
+import com.core.db.dao.InvestmentPeriodDataDao;
 import com.core.db.dao.StatisticDataDao;
 import com.core.db.entity.company.Company;
-import com.core.db.entity.statistic.StatisticData;
+import com.core.db.entity.statistic.CommonStatisticData;
 import com.core.service.StockService;
 import com.tasks.utils.converter.StockDataToCandleConverter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.tasks.once.data.CompanyStaticDataHolder.getAllCompanies;
@@ -19,20 +19,23 @@ import static com.tasks.once.data.CompanyStaticDataHolder.getAllCompanies;
 public class CreateCompaniesTask {
 
     public void execute() {
-        StockService stockService = new StockService();
-        CompanyDao companyDao = new CompanyDao();
-
-        companyDao.clearAll();
-        new StatisticDataDao().clearAll();
+        clearPrevious();
 
         for (Company company : getAllCompanies()) {
-            List<StockData> stockDataList = stockService.queryStockDataStartingFromLastYear(company);
+            List<StockData> stockDataList = new StockService().queryStockDataStartingFromLastYear(company);
+
             company.addCandles(StockDataToCandleConverter.convert(stockDataList));
-            company.setStatisticData(new StatisticData(company));
-            companyDao.saveOrUpdate(company);
+            company.setCommonStatisticData(new CommonStatisticData(company));
+
+            new CompanyDao().saveOrUpdate(company);
         }
     }
 
+    private void clearPrevious() {
+        new CompanyDao().clearAll();
+        new StatisticDataDao().clearAll();
+        new InvestmentPeriodDataDao().clearAll();
+    }
 
 
     public static void main(String[] args) {

@@ -4,9 +4,9 @@ import com.core.db.dao.CompanyDao;
 import com.core.db.dao.StatisticDataDao;
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
-import com.core.db.entity.statistic.StatisticData;
+import com.core.db.entity.statistic.CommonStatisticData;
 import com.core.db.entity.statistic.VolumeData;
-import com.tasks.analyzer.filters.CandlesFilter;
+import com.tasks.utils.filters.CandlesFilter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -24,15 +24,15 @@ public class AvgStockVolumeComputer {
         List<Company> companies = new CompanyDao().getAll();
 
         for (Company company : companies) {
-            StatisticData statisticData = statisticDataDao.getByCompanyName(company);
+            CommonStatisticData commonStatisticData = statisticDataDao.getByCompanyName(company);
 
             List<Candle> candlesThisYear = CandlesFilter.filter(company.getCandles(), CURRENT_YEAR);
-            statisticData.setVolumeYearData(new VolumeData(candlesThisYear.size(), calculateAvgVolume(candlesThisYear)));
+            commonStatisticData.setVolumeYearData(new VolumeData(candlesThisYear.size(), calculateAvgVolume(candlesThisYear)));
 
             List<Candle> mostRecentCandles = CandlesFilter.filterMostRecent(candlesThisYear);
-            statisticData.setVolumeRecentData(new VolumeData(mostRecentCandles.size(), calculateAvgVolume(mostRecentCandles)));
+            commonStatisticData.setVolumeRecentData(new VolumeData(mostRecentCandles.size(), calculateAvgVolume(mostRecentCandles)));
 
-            statisticDataDao.saveOrUpdate(statisticData);
+            statisticDataDao.saveOrUpdate(commonStatisticData);
         }
     }
 

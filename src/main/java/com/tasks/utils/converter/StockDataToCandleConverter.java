@@ -6,6 +6,7 @@ import com.core.db.entity.Candle.Trend;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.core.db.entity.Candle.Trend.*;
@@ -18,7 +19,9 @@ public class StockDataToCandleConverter {
         Candle candle = new Candle();
 
         candle.setVolume(stockData.getVolume());
-        candle.setDate(stockData.getDate());
+        Calendar candleDate = Calendar.getInstance();
+        candleDate.setTime(stockData.getDate());
+        candle.setDate(candleDate);
         candle.setOpen(stockData.getOpen());
         candle.setClose(stockData.getClose());
         candle.setLow(stockData.getLow());

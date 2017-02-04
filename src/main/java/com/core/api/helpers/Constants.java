@@ -5,5 +5,6 @@ package com.core.api.helpers;
  */
 public class Constants {
     public static final int CURRENT_YEAR = 2017;
-    public static final int RECENT_CANDLES_NUMBER = 5;
+    public static final int RECENT_CANDLES_NUMBER = 8;
+    public static final int MAX_DAYS_INVESTING = 30;
 }

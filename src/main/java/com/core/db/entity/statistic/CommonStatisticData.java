@@ -10,8 +10,8 @@ import java.math.BigDecimal;
  * Created by ivnikolaychuk on 03.02.2017
  */
 @Data
-@Entity(name = "statistic_data")
-public class StatisticData {
+@Entity(name = "common_statistic_data")
+public class CommonStatisticData {
 
     @Id
     @GeneratedValue
@@ -20,9 +20,9 @@ public class StatisticData {
     @OneToOne
     private Company company;
 
-    public StatisticData() {}
+    public CommonStatisticData() {}
 
-    public StatisticData(Company company) {
+    public CommonStatisticData(Company company) {
         this.company = company;
     }
 

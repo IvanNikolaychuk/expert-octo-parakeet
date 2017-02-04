@@ -6,12 +6,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class StockDataCandleConverter {
 
     @Test
     public void stockDataWithPositiveTrendHasPositiveBodyLengthAndTrendUp() {
-        StockData stockData = new StockData();
+        StockData stockData = createTodaysStock();
         stockData.setOpen(BigDecimal.ZERO);
         stockData.setClose(BigDecimal.ONE);
         stockData.setLow(BigDecimal.ZERO);
@@ -24,7 +25,7 @@ public class StockDataCandleConverter {
 
     @Test
     public void stockDataWithNegativeTrendHasPositiveBodyLengthAndTrendDown() {
-        StockData stockData = new StockData();
+        StockData stockData = createTodaysStock();
         stockData.setOpen(BigDecimal.ONE);
         stockData.setClose(BigDecimal.ZERO);
         stockData.setLow(BigDecimal.ZERO);
@@ -37,7 +38,7 @@ public class StockDataCandleConverter {
 
     @Test
     public void lowShadowIsDefinedCorrectly() {
-        StockData stockData = new StockData();
+        StockData stockData = createTodaysStock();
         stockData.setHigh(BigDecimal.valueOf(11));
         stockData.setClose(BigDecimal.TEN);
 
@@ -51,7 +52,7 @@ public class StockDataCandleConverter {
 
     @Test
     public void upShadowIsDefinedCorrectly() {
-        StockData stockData = new StockData();
+        StockData stockData = createTodaysStock();
         stockData.setHigh(BigDecimal.TEN);
         stockData.setClose(BigDecimal.TEN);
 
@@ -60,5 +61,12 @@ public class StockDataCandleConverter {
 
         Candle candle = StockDataToCandleConverter.convert(stockData);
         Assert.assertEquals(candle.getUpperShadow(), BigDecimal.ZERO);
+    }
+
+
+    private StockData createTodaysStock() {
+        StockData stockData = new StockData();
+        stockData.setDate(new Date());
+        return stockData;
     }
 }

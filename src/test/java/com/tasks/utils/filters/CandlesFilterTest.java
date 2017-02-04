@@ -1,4 +1,4 @@
-package com.tasks.analyzer.filters;
+package com.tasks.utils.filters;
 
 import com.core.api.helpers.Constants;
 import com.core.db.entity.Candle;
@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.*;
 
+import static com.tasks.utils.TimeUtils.subtractDaysFromToday;
 import static org.junit.Assert.assertEquals;
 
 public class CandlesFilterTest {
@@ -27,23 +28,19 @@ public class CandlesFilterTest {
 
         assertEquals(mostRecentCandles.size(), Constants.RECENT_CANDLES_NUMBER);
 
-        for (int i = 0; i < mostRecentCandles.size(); i++) {
-            int candlerDate = mostRecentCandles.get(i).getCalendar().get(Calendar.DATE);
+        for (int index = 0; index < mostRecentCandles.size(); index++) {
+            int candlerDate = mostRecentCandles.get(index).getDate().get(Calendar.DATE);
 
-            Calendar expectedDate = Calendar.getInstance();
-            expectedDate.setTime(subtractDays(new Date(), i));
-
-            Assert.assertEquals(candlerDate, expectedDate.get(Calendar.DATE));
+            Assert.assertEquals(candlerDate, subtractDaysFromToday(index).get(Calendar.DATE));
         }
     }
 
     private List<Candle> generateCandles(int numberOfCandles) {
         List<Candle> candles = new ArrayList<>(numberOfCandles);
 
-        Date today = new Date();
         for (int counter = 0; counter < numberOfCandles; counter++) {
             Candle candle = new Candle();
-            candle.setDate(subtractDays(today, counter));
+            candle.setDate(subtractDaysFromToday(counter));
             candles.add(candle);
         }
 
@@ -52,11 +49,5 @@ public class CandlesFilterTest {
         return candles;
     }
 
-    private Date subtractDays(Date date, int numberOfDays) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, numberOfDays * (-1));
 
-        return calendar.getTime();
-    }
 }

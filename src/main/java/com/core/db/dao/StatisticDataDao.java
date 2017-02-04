@@ -1,7 +1,7 @@
 package com.core.db.dao;
 
 import com.core.db.entity.company.Company;
-import com.core.db.entity.statistic.StatisticData;
+import com.core.db.entity.statistic.CommonStatisticData;
 import com.core.db.helper.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,21 +14,21 @@ import java.util.List;
  * Created by ivnikolaychuk on 03.02.2017
  */
 public class StatisticDataDao {
-    public StatisticData getByCompanyName(Company companyName) {
+    public CommonStatisticData getByCompanyName(Company companyName) {
         try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
              Session session = sessionFactory.openSession()) {
 
-            return (StatisticData) session.createCriteria(StatisticData.class)
+            return (CommonStatisticData) session.createCriteria(CommonStatisticData.class)
                     .add(Restrictions.eq("company", companyName))
                     .uniqueResult();
         }
     }
 
-    public void saveOrUpdate(StatisticData statisticData) {
+    public void saveOrUpdate(CommonStatisticData commonStatisticData) {
         try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
              Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            session.saveOrUpdate(statisticData);
+            session.saveOrUpdate(commonStatisticData);
             transaction.commit();
         }
     }
@@ -38,12 +38,12 @@ public class StatisticDataDao {
              Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            List<StatisticData> statisticDataList = session
-                    .createCriteria(StatisticData.class)
+            List<CommonStatisticData> commonStatisticDataList = session
+                    .createCriteria(CommonStatisticData.class)
                     .list();
 
-            for (StatisticData statisticData : statisticDataList) {
-                session.delete(statisticData);
+            for (CommonStatisticData commonStatisticData : commonStatisticDataList) {
+                session.delete(commonStatisticData);
             }
             transaction.commit();
         }

@@ -1,7 +1,7 @@
 package com.core.db.entity.company;
 
 import com.core.db.entity.Candle;
-import com.core.db.entity.statistic.StatisticData;
+import com.core.db.entity.statistic.CommonStatisticData;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -22,7 +22,7 @@ public class Company {
     private StockCurrency stockCurrency;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "company")
-    private StatisticData statisticData;
+    private CommonStatisticData commonStatisticData;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "business_type")
