@@ -90,7 +90,7 @@ public class InvestmentPeriodsAnalyserTest {
         periodCandles.put(new Pair<>(subtractDaysFromToday(4), subtractDaysFromToday(1)),
                 candlesSecondPeriod);
 
-        List<InvestmentPeriodData> investmentPeriodDataList =
+        Set<InvestmentPeriodData> investmentPeriodDataList =
                 investmentPeriodsAnalyser.computeMostSuccessfulPeriods(periodCandles, company.getName());
 
         assertEquals(investmentPeriodDataList.size(), 2);

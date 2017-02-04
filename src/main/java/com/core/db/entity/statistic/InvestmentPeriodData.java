@@ -21,6 +21,8 @@ public class InvestmentPeriodData {
 
     @Column(name = "percentage_profit")
     private BigDecimal percentageProfit;
+
+    @Column(name = "company_name")
     private String companyName;
 
     @Enumerated(EnumType.STRING)

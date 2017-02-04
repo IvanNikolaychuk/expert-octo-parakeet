@@ -1,7 +1,6 @@
 package com.tasks.analyzer;
 
 import com.core.db.dao.InvestmentPeriodDataDao;
-import com.core.db.dao.StatisticDataDao;
 import com.tasks.daily.RecentDataObtainTask;
 
 /**
@@ -30,7 +29,6 @@ public class Analysers {
 
 
     private void cleanPreviousData() {
-            new StatisticDataDao().clearAll();
             new InvestmentPeriodDataDao().clearAll();
     }
 

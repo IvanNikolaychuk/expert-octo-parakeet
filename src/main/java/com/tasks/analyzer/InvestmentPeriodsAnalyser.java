@@ -6,6 +6,7 @@ import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
 import com.core.db.entity.statistic.InvestmentPeriodData;
 import com.tasks.utils.filters.CandlesFilter;
+import com.tasks.utils.filters.InvestmentPeriodDataFilter;
 import javafx.util.Pair;
 
 import java.math.BigDecimal;
@@ -17,10 +18,11 @@ import static com.google.common.collect.Iterables.getFirst;
 import static com.google.common.collect.Iterables.getLast;
 import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.tasks.utils.CandleUtils.calculateTotalProfit;
+import static com.tasks.utils.filters.InvestmentPeriodDataFilter.filterByPercentage;
 
 public class InvestmentPeriodsAnalyser {
 
-    public void execute() {
+    void execute() {
         for (Company company : new CompanyDao().getAll()) {
             performAnalysis(company);
         }
@@ -28,11 +30,13 @@ public class InvestmentPeriodsAnalyser {
 
     private void performAnalysis(Company company) {
         Map<Pair<Calendar, Calendar>, List<Candle>> periodCandles = createPossibleCombinations(company.getCandles());
-        new InvestmentPeriodDataDao().save(computeMostSuccessfulPeriods(periodCandles, company.getName()));
+        Set<InvestmentPeriodData> investmentPeriodDataSet = computeMostSuccessfulPeriods(periodCandles, company.getName());
+        Set<InvestmentPeriodData> filtered = filterByPercentage(investmentPeriodDataSet);
+        new InvestmentPeriodDataDao().save(filtered);
     }
 
-    List<InvestmentPeriodData> computeMostSuccessfulPeriods(Map<Pair<Calendar, Calendar>, List<Candle>> periodCandles, String companyName) {
-        List<InvestmentPeriodData> investmentPeriodDataList = new ArrayList<>();
+    Set<InvestmentPeriodData> computeMostSuccessfulPeriods(Map<Pair<Calendar, Calendar>, List<Candle>> periodCandles, String companyName) {
+        Set<InvestmentPeriodData> investmentPeriodDataList = new HashSet<>();
 
         for (Map.Entry<Pair<Calendar, Calendar>, List<Candle>> periodCandlesEntry : periodCandles.entrySet()) {
             List<Candle> candlesInPeriod = periodCandlesEntry.getValue();

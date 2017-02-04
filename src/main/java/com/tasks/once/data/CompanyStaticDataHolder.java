@@ -46,13 +46,13 @@ public class CompanyStaticDataHolder {
         List<Company> companies = new ArrayList<Company>();
 
         companies.add(new Company("BMY", PHARMACEUTICS, DOLLAR));
-//        companies.add(new Company("AGN", PHARMACEUTICS, DOLLAR));
-//        companies.add(new Company("AMGN", PHARMACEUTICS, DOLLAR));
-//        companies.add(new Company("ABBV", PHARMACEUTICS, DOLLAR));
-//        companies.add(new Company("GILD", PHARMACEUTICS, DOLLAR));
-//        companies.add(new Company("CELG", PHARMACEUTICS, DOLLAR));
-//        companies.add(new Company("PFE", PHARMACEUTICS, DOLLAR));
-//        companies.add(new Company("BIIB", PHARMACEUTICS, DOLLAR));
+        companies.add(new Company("AGN", PHARMACEUTICS, DOLLAR));
+        companies.add(new Company("AMGN", PHARMACEUTICS, DOLLAR));
+        companies.add(new Company("ABBV", PHARMACEUTICS, DOLLAR));
+        companies.add(new Company("GILD", PHARMACEUTICS, DOLLAR));
+        companies.add(new Company("CELG", PHARMACEUTICS, DOLLAR));
+        companies.add(new Company("PFE", PHARMACEUTICS, DOLLAR));
+        companies.add(new Company("BIIB", PHARMACEUTICS, DOLLAR));
 
         return companies;
     }

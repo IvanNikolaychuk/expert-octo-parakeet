@@ -6,6 +6,7 @@ import com.core.db.helper.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class StatisticDataDao {
 
             List<CommonStatisticData> commonStatisticDataList = session
                     .createCriteria(CommonStatisticData.class)
+                    .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                     .list();
 
             for (CommonStatisticData commonStatisticData : commonStatisticDataList) {

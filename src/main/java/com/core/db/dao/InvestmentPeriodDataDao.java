@@ -8,10 +8,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.util.List;
+import java.util.Set;
 
 public class InvestmentPeriodDataDao {
 
-    public void save(List<InvestmentPeriodData> investmentPeriodDataList) {
+    public void save(Set<InvestmentPeriodData> investmentPeriodDataList) {
         try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
              Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
