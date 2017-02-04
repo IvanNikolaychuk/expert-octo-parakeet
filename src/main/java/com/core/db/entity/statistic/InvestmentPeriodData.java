@@ -16,8 +16,11 @@ public class InvestmentPeriodData {
     @GeneratedValue
     private int id;
 
-    private Calendar begin;
-    private Calendar end;
+    @Column(name = "begin_date")
+    private Calendar beginDate;
+
+    @Column(name = "end_date")
+    private Calendar endDate;
 
     @Column(name = "percentage_profit")
     private BigDecimal percentageProfit;
@@ -35,17 +38,17 @@ public class InvestmentPeriodData {
 
     public InvestmentPeriodData(
             String companyName,
-            Calendar begin,
-            Calendar end,
+            Calendar beginDate,
+            Calendar endDate,
             BigDecimal percentageProfit,
             Candle.Trend trend) {
-        this.begin = begin;
-        this.end = end;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
         this.percentageProfit = percentageProfit;
         this.trend = trend;
         this.companyName = companyName;
 
-        days = TimeUnit.MILLISECONDS.toDays(Math.abs(end.getTimeInMillis() - begin.getTimeInMillis()));
+        days = TimeUnit.MILLISECONDS.toDays(Math.abs(endDate.getTimeInMillis() - beginDate.getTimeInMillis()));
     }
 
 
@@ -57,8 +60,8 @@ public class InvestmentPeriodData {
 
         InvestmentPeriodData that = (InvestmentPeriodData) o;
 
-        if (begin != null ? !TimeUtils.isSameDay(begin, that.begin) : that.begin != null) return false;
-        if (end != null ? !TimeUtils.isSameDay(end, that.end) : that.end != null) return false;
+        if (beginDate != null ? !TimeUtils.isSameDay(beginDate, that.beginDate) : that.beginDate != null) return false;
+        if (endDate != null ? !TimeUtils.isSameDay(endDate, that.endDate) : that.endDate != null) return false;
         if (percentageProfit != null ? !percentageProfit.equals(that.percentageProfit) : that.percentageProfit != null)
             return false;
         if (companyName != null ? !companyName.equals(that.companyName) : that.companyName != null) return false;

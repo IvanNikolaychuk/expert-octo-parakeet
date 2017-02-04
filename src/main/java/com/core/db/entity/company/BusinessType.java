@@ -5,5 +5,16 @@ package com.core.db.entity.company;
  */
 public enum BusinessType {
     PHARMACEUTICS,
-    ENERGETIC
+    ENERGETIC,
+    MECHANICAL_ENGINEERING,
+    FINANCE,
+    FOOD,
+    IT,
+    METALLURGY,
+    MOUNTAIN,
+    PETROCHEMICAL,
+    RETAIL,
+    TRANSPORT,
+    TELECOMMUNICATION,
+    OTHER
 }

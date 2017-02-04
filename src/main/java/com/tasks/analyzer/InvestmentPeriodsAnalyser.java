@@ -19,6 +19,7 @@ import static com.google.common.collect.Iterables.getLast;
 import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.tasks.utils.CandleUtils.calculateTotalProfit;
 import static com.tasks.utils.filters.InvestmentPeriodDataFilter.filterByPercentage;
+import static com.tasks.utils.filters.InvestmentPeriodDataFilter.removeOverlaps;
 
 public class InvestmentPeriodsAnalyser {
 
@@ -32,6 +33,8 @@ public class InvestmentPeriodsAnalyser {
         Map<Pair<Calendar, Calendar>, List<Candle>> periodCandles = createPossibleCombinations(company.getCandles());
         Set<InvestmentPeriodData> investmentPeriodDataSet = computeMostSuccessfulPeriods(periodCandles, company.getName());
         Set<InvestmentPeriodData> filtered = filterByPercentage(investmentPeriodDataSet);
+        removeOverlaps(filtered);
+
         new InvestmentPeriodDataDao().save(filtered);
     }
 

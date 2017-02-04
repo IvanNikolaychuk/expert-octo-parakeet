@@ -27,7 +27,7 @@ public class RecentDataObtainTask {
         for (Company company : companies) {
             if (companyHasDataForThisDay(company, calendar)) {
                 System.out.println("Company has data for " + calendar.getTime() + ". No data would be added.");
-                break;
+                continue;
             }
 
             final String url = RequestGenerator.generateFor(company.getName(),
