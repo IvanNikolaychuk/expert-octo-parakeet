@@ -3,6 +3,7 @@ package com.tasks.utils.converter;
 import com.core.api.dto.StockData;
 import com.core.db.entity.Candle;
 import com.core.db.entity.Candle.Trend;
+import com.tasks.utils.CandleUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.core.db.entity.Candle.Trend.*;
+import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
 
 /**
  * Created by ivnikolaychuk on 03.02.2017
@@ -45,6 +47,7 @@ public class StockDataToCandleConverter {
 
         candle.setLowerShadow(candle.getOpen().subtract(candle.getLow()));
         candle.setUpperShadow(candle.getHigh().subtract(candle.getClose()));
+        candle.setPercentageProfit(calculatePercentageProfit(candle));
     }
 
     public static List<Candle> convert(List<StockData> stockDataList) {

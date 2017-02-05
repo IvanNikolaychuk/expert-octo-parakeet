@@ -94,7 +94,6 @@ public class CompanyStaticDataHolder {
         companies.add(new Company("EBAY", RETAIL, DOLLAR));
         companies.add(new Company("WMT", RETAIL, DOLLAR));
         companies.add(new Company("BABA", RETAIL, DOLLAR));
-        companies.add(new Company("EBAY", RETAIL, DOLLAR));
         companies.add(new Company("DG", RETAIL, DOLLAR));
         companies.add(new Company("DLTR", RETAIL, DOLLAR));
         companies.add(new Company("AMZN", RETAIL, DOLLAR));

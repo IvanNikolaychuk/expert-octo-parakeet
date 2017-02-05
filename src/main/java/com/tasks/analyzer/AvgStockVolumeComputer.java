@@ -26,7 +26,7 @@ public class AvgStockVolumeComputer {
         for (Company company : companies) {
             CommonStatisticData commonStatisticData = statisticDataDao.getByCompanyName(company);
 
-            List<Candle> candlesThisYear = CandlesFilter.filter(company.getCandles(), CURRENT_YEAR);
+            List<Candle> candlesThisYear = CandlesFilter.filterByYear(company.getCandles(), CURRENT_YEAR);
             commonStatisticData.setVolumeYearData(new VolumeData(candlesThisYear.size(), calculateAvgVolume(candlesThisYear)));
 
             List<Candle> mostRecentCandles = CandlesFilter.filterMostRecent(candlesThisYear);

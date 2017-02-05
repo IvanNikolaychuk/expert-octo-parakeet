@@ -1,5 +1,6 @@
 package com.core.db.entity;
 
+import com.tasks.utils.TimeUtils;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -43,9 +44,8 @@ public class Candle {
 
     private BigDecimal high;
 
-    public BigDecimal getGrowth() {
-        return close.subtract(open);
-    }
+    @Column(name = "percentage_profit")
+    private BigDecimal percentageProfit;
 
     public enum Trend {
         UP,

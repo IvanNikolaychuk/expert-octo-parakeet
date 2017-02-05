@@ -5,6 +5,7 @@ import com.core.db.dao.InvestmentPeriodDataDao;
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
 import com.core.db.entity.statistic.InvestmentPeriodData;
+import com.tasks.utils.CandleUtils;
 import com.tasks.utils.filters.CandlesFilter;
 import com.tasks.utils.filters.InvestmentPeriodDataFilter;
 import javafx.util.Pair;
@@ -18,6 +19,7 @@ import static com.google.common.collect.Iterables.getFirst;
 import static com.google.common.collect.Iterables.getLast;
 import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.tasks.utils.CandleUtils.calculateTotalProfit;
+import static com.tasks.utils.CandleUtils.getFirst;
 import static com.tasks.utils.filters.InvestmentPeriodDataFilter.filterByPercentage;
 import static com.tasks.utils.filters.InvestmentPeriodDataFilter.removeOverlaps;
 
@@ -50,7 +52,7 @@ public class InvestmentPeriodsAnalyser {
 
                 investmentPeriodDataList.add(
                         new InvestmentPeriodData(companyName, first.getDate(), last.getDate(),
-                                calculatePercentageProfit(candlePair), UP)
+                                calculatePercentageProfit(first, last), UP)
                 );
             }
         }
@@ -96,8 +98,8 @@ public class InvestmentPeriodsAnalyser {
 
     private Pair<Calendar, Calendar> computePeriod(List<Candle> candles) {
         candles.sort(new CandlesFilter.OldDateFirstComparator());
-        final Candle oldest = candles.get(0);
-        final Candle youngest = candles.get(candles.size() - 1);
+        final Candle oldest = getFirst(candles);
+        final Candle youngest = getLast(candles);
 
         return new Pair<>(oldest.getDate(), youngest.getDate());
     }

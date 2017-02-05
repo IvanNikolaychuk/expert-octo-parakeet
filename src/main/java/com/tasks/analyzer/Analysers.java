@@ -1,6 +1,7 @@
 package com.tasks.analyzer;
 
 import com.core.db.dao.InvestmentPeriodDataDao;
+import com.core.db.dao.StrongBullCandleDao;
 import com.tasks.daily.RecentDataObtainTask;
 
 /**
@@ -14,6 +15,7 @@ public class Analysers {
         analyseAvgVolume();
         analyseInvestmentPeriods();
     }
+
 
     private void analyseInvestmentPeriods() {
         new InvestmentPeriodsAnalyser().execute();
@@ -29,7 +31,7 @@ public class Analysers {
 
 
     private void cleanPreviousData() {
-            new InvestmentPeriodDataDao().clearAll();
+        new InvestmentPeriodDataDao().clearAll();
     }
 
     public static void main(String[] args) {

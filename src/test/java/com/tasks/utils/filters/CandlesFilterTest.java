@@ -8,7 +8,10 @@ import org.junit.Test;
 import java.util.*;
 
 import static com.tasks.utils.TimeUtils.subtractDaysFromToday;
+import static com.tasks.utils.TimeUtils.today;
+import static com.tasks.utils.TimeUtils.yesterday;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CandlesFilterTest {
 
@@ -31,8 +34,22 @@ public class CandlesFilterTest {
         for (int index = 0; index < mostRecentCandles.size(); index++) {
             int candlerDate = mostRecentCandles.get(index).getDate().get(Calendar.DATE);
 
-            Assert.assertEquals(candlerDate, subtractDaysFromToday(index).get(Calendar.DATE));
+            assertEquals(candlerDate, subtractDaysFromToday(index).get(Calendar.DATE));
         }
+    }
+
+    @Test
+    public void candlesAreFilteredByPeriod() {
+        Candle todaysCandle = new Candle();
+        todaysCandle.setDate(today());
+        Candle candleFromLastWeek = new Candle();
+        candleFromLastWeek.setDate(subtractDaysFromToday(7));
+
+        List<Candle> candles = Arrays.asList(todaysCandle, candleFromLastWeek);
+        List<Candle> filtered = CandlesFilter.filterByDate(candles, yesterday(), today());
+
+        assertEquals(filtered.size(), 1);
+        assertTrue(filtered.contains(todaysCandle));
     }
 
     private List<Candle> generateCandles(int numberOfCandles) {

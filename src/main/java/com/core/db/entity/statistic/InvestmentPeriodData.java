@@ -1,6 +1,7 @@
 package com.core.db.entity.statistic;
 
 import com.core.db.entity.Candle;
+import com.sun.istack.internal.NotNull;
 import com.tasks.utils.TimeUtils;
 import lombok.Data;
 
@@ -26,6 +27,7 @@ public class InvestmentPeriodData {
     private BigDecimal percentageProfit;
 
     @Column(name = "company_name")
+    @NotNull
     private String companyName;
 
     @Enumerated(EnumType.STRING)

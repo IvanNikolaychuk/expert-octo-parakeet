@@ -2,6 +2,7 @@ package com.tasks.utils.filters;
 
 import com.core.api.helpers.Constants;
 import com.core.db.entity.Candle;
+import com.tasks.utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,12 +30,24 @@ public class CandlesFilter {
         return mostRecent;
     }
 
-    public static List<Candle> filter(List<Candle> candles, int year) {
+    public static List<Candle> filterByYear(List<Candle> candles, int year) {
         List<Candle> filtered = new ArrayList<>();
 
         for (Candle candle : candles) {
             Calendar date = candle.getDate();
             if (date.get(Calendar.YEAR) == year) {
+                filtered.add(candle);
+            }
+        }
+
+        return filtered;
+    }
+
+    public static List<Candle> filterByDate(List<Candle> candles, Calendar from, Calendar to) {
+        List<Candle> filtered = new ArrayList<>();
+
+        for (Candle candle : candles) {
+            if (TimeUtils.between(candle.getDate(), from, to)) {
                 filtered.add(candle);
             }
         }

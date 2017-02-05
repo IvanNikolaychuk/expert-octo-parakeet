@@ -1,6 +1,5 @@
 package com.core.db.dao;
 
-import com.core.db.entity.company.Company;
 import com.core.db.helper.HibernateUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +9,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Set;
 
 public class AbstractDao<T> {
     public List<T> getAll() {
@@ -51,7 +51,7 @@ public class AbstractDao<T> {
         }
     }
 
-    public void save(List<T> objects) {
+    public void save(Set<T> objects) {
         try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
              Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();

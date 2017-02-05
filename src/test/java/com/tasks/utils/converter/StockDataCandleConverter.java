@@ -5,62 +5,87 @@ import com.core.db.entity.Candle;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.util.Date;
+
+import static java.math.BigDecimal.*;
 
 public class StockDataCandleConverter {
 
     @Test
     public void stockDataWithPositiveTrendHasPositiveBodyLengthAndTrendUp() {
         StockData stockData = createTodaysStock();
-        stockData.setOpen(BigDecimal.ZERO);
-        stockData.setClose(BigDecimal.ONE);
-        stockData.setLow(BigDecimal.ZERO);
-        stockData.setHigh(BigDecimal.ONE);
+        stockData.setOpen(ONE);
+        stockData.setClose(valueOf(2));
+        stockData.setLow(ONE);
+        stockData.setHigh(valueOf(2));
 
         Candle candle = StockDataToCandleConverter.convert(stockData);
-        Assert.assertEquals(candle.getBody(), BigDecimal.ONE);
+        Assert.assertEquals(candle.getBody(), ONE);
         Assert.assertEquals(candle.getTrend(), Candle.Trend.UP);
     }
 
     @Test
     public void stockDataWithNegativeTrendHasPositiveBodyLengthAndTrendDown() {
         StockData stockData = createTodaysStock();
-        stockData.setOpen(BigDecimal.ONE);
-        stockData.setClose(BigDecimal.ZERO);
-        stockData.setLow(BigDecimal.ZERO);
-        stockData.setHigh(BigDecimal.ONE);
+        stockData.setOpen(ONE);
+        stockData.setClose(ZERO);
+        stockData.setLow(ZERO);
+        stockData.setHigh(ONE);
 
         Candle candle = StockDataToCandleConverter.convert(stockData);
-        Assert.assertEquals(candle.getBody(), BigDecimal.ONE);
+        Assert.assertEquals(candle.getBody(), ONE);
         Assert.assertEquals(candle.getTrend(), Candle.Trend.DOWN);
+    }
+
+   @Test
+    public void percentageProfitNegativeTrend() {
+        StockData stockData = createTodaysStock();
+        stockData.setOpen(ONE);
+        stockData.setClose(ZERO);
+        stockData.setLow(ZERO);
+        stockData.setHigh(ONE);
+
+        Candle candle = StockDataToCandleConverter.convert(stockData);
+        Assert.assertEquals(candle.getPercentageProfit(), valueOf(100).negate());
+    }
+
+    @Test
+    public void percentageProfitPositiveTrend() {
+        StockData stockData = createTodaysStock();
+        stockData.setOpen(ONE);
+        stockData.setClose(valueOf(2));
+        stockData.setLow(ZERO);
+        stockData.setHigh(valueOf(2));
+
+        Candle candle = StockDataToCandleConverter.convert(stockData);
+        Assert.assertEquals(candle.getPercentageProfit(), valueOf(100));
     }
 
     @Test
     public void lowShadowIsDefinedCorrectly() {
         StockData stockData = createTodaysStock();
-        stockData.setHigh(BigDecimal.valueOf(11));
-        stockData.setClose(BigDecimal.TEN);
+        stockData.setHigh(valueOf(11));
+        stockData.setClose(TEN);
 
-        stockData.setLow(BigDecimal.valueOf(4));
-        stockData.setOpen(BigDecimal.valueOf(5));
+        stockData.setLow(valueOf(4));
+        stockData.setOpen(valueOf(5));
 
         Candle candle = StockDataToCandleConverter.convert(stockData);
-        Assert.assertEquals(candle.getLowerShadow(), BigDecimal.ONE);
+        Assert.assertEquals(candle.getLowerShadow(), ONE);
     }
 
 
     @Test
     public void upShadowIsDefinedCorrectly() {
         StockData stockData = createTodaysStock();
-        stockData.setHigh(BigDecimal.TEN);
-        stockData.setClose(BigDecimal.TEN);
+        stockData.setHigh(TEN);
+        stockData.setClose(TEN);
 
-        stockData.setLow(BigDecimal.valueOf(4));
-        stockData.setOpen(BigDecimal.valueOf(5));
+        stockData.setLow(valueOf(4));
+        stockData.setOpen(valueOf(5));
 
         Candle candle = StockDataToCandleConverter.convert(stockData);
-        Assert.assertEquals(candle.getUpperShadow(), BigDecimal.ZERO);
+        Assert.assertEquals(candle.getUpperShadow(), ZERO);
     }
 
 

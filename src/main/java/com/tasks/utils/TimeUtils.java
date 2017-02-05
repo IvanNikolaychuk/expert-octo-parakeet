@@ -18,6 +18,14 @@ public class TimeUtils {
         return today;
     }
 
+    public static Calendar yesterday() {
+        Calendar today = Calendar.getInstance();
+        today.setTime(new Date());
+        today.add(Calendar.DAY_OF_MONTH, (-1));
+
+        return today;
+    }
+
     public static Calendar today() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
