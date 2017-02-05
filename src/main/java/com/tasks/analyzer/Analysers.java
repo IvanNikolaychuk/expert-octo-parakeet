@@ -14,6 +14,11 @@ public class Analysers {
         obtainRecentData();
         analyseAvgVolume();
         analyseInvestmentPeriods();
+        analyseCandlePatterns();
+    }
+
+    private void analyseCandlePatterns() {
+        new CandlesPatternAnalyser().execute();
     }
 
 

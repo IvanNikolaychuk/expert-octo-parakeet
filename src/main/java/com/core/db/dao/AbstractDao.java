@@ -8,6 +8,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +58,17 @@ public class AbstractDao<T> {
             Transaction transaction = session.beginTransaction();
             for (T obj : objects) {
                 session.save(obj);
+            }
+            transaction.commit();
+        }
+    }
+
+    public void update(List<T> objects) {
+        try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            for (T obj : objects) {
+                session.update(obj);
             }
             transaction.commit();
         }

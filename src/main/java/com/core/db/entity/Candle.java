@@ -44,11 +44,19 @@ public class Candle {
 
     private BigDecimal high;
 
+    @Enumerated(EnumType.STRING)
+    private Pattern pattern;
+
     @Column(name = "percentage_profit")
     private BigDecimal percentageProfit;
 
     public enum Trend {
         UP,
         DOWN
+    }
+
+    public enum Pattern {
+        NONE,
+        STRONG_BULL
     }
 }
