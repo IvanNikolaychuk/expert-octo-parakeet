@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by ivnikolaychuk on 03.02.2017
  */
-public class StatisticDataDao {
+public class StatisticDataDao extends AbstractDao<CommonStatisticData> {
     public CommonStatisticData getByCompanyName(Company companyName) {
         try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
              Session session = sessionFactory.openSession()) {
@@ -22,32 +22,6 @@ public class StatisticDataDao {
             return (CommonStatisticData) session.createCriteria(CommonStatisticData.class)
                     .add(Restrictions.eq("company", companyName))
                     .uniqueResult();
-        }
-    }
-
-    public void saveOrUpdate(CommonStatisticData commonStatisticData) {
-        try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
-             Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-            session.saveOrUpdate(commonStatisticData);
-            transaction.commit();
-        }
-    }
-
-    public void clearAll() {
-        try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
-             Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
-
-            List<CommonStatisticData> commonStatisticDataList = session
-                    .createCriteria(CommonStatisticData.class)
-                    .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-                    .list();
-
-            for (CommonStatisticData commonStatisticData : commonStatisticDataList) {
-                session.delete(commonStatisticData);
-            }
-            transaction.commit();
         }
     }
 }
