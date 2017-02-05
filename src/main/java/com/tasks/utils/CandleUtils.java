@@ -21,8 +21,7 @@ public class CandleUtils {
         return lastCandle.getClose().subtract(firstCandle.getOpen());
     }
 
-    public static BigDecimal calculatePercentageProfit(Candle first, Candle second) {
-        List<Candle> candles = asList(first, second);
+    public static BigDecimal calculatePercentageProfit(List<Candle> candles) {
         candles.sort(new CandlesFilter.OldDateFirstComparator());
 
         BigDecimal totalProfit = calculateTotalProfit(candles);
@@ -37,6 +36,11 @@ public class CandleUtils {
         return calculateTotalProfit(candles)
                 .multiply(valueOf(100))
                 .divide(getFirst(candles).getOpen(), RoundingMode.HALF_UP);
+    }
+
+    public static List<Candle> sort(List<Candle> candles, Comparator<Candle> comparator) {
+        candles.sort(comparator);
+        return candles;
     }
 
     public static Candle getFirst(List<Candle> candles) {

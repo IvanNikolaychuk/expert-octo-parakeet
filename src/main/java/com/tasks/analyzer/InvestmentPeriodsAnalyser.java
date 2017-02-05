@@ -52,7 +52,7 @@ public class InvestmentPeriodsAnalyser {
 
                 investmentPeriodDataList.add(
                         new InvestmentPeriodData(companyName, first.getDate(), last.getDate(),
-                                calculatePercentageProfit(first, last), UP)
+                                calculatePercentageProfit(Arrays.asList(first, last)), UP)
                 );
             }
         }

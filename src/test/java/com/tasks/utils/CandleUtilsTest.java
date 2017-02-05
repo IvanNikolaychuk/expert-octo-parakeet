@@ -35,7 +35,16 @@ public class CandleUtilsTest {
         Candle first = createTodaysCandle(BigDecimal.valueOf(100), BigDecimal.valueOf(100));
         Candle second = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(120));
 
-        Assert.assertEquals(CandleUtils.calculatePercentageProfit(first, second), BigDecimal.valueOf(20));
+        Assert.assertEquals(CandleUtils.calculatePercentageProfit(Arrays.asList(first, second)), BigDecimal.valueOf(20));
+    }
+
+    @Test
+    public void calculateTotalPercentageGrowthPositiveTrend_threeCandles() {
+        Candle first = createTodaysCandle(BigDecimal.valueOf(100), BigDecimal.valueOf(100));
+        Candle second = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(120));
+        Candle third = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(150));
+
+        Assert.assertEquals(CandleUtils.calculatePercentageProfit(Arrays.asList(first, second, third)), BigDecimal.valueOf(50));
     }
 
     @Test
@@ -43,7 +52,7 @@ public class CandleUtilsTest {
         Candle first = createTodaysCandle(BigDecimal.valueOf(100), BigDecimal.valueOf(100));
         Candle second = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(80));
 
-        Assert.assertEquals(CandleUtils.calculatePercentageProfit(first, second), BigDecimal.valueOf(20).negate());
+        Assert.assertEquals(CandleUtils.calculatePercentageProfit(Arrays.asList(first, second)), BigDecimal.valueOf(20).negate());
     }
 
     @Test

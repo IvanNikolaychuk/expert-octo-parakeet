@@ -1,7 +1,7 @@
 package com.tasks.analyzer.drafts.helpers;
 
 import com.core.db.entity.Candle;
-import com.tasks.analyzer.drafts.algorithms.StrongBullCandleAlgorithm;
+import com.tasks.analyzer.drafts.algorithms.*;
 
 import java.util.List;
 
