@@ -1,4 +1,4 @@
-package com.tasks.analyzer;
+package com.tasks.analyzer.patterns;
 
 import com.core.db.dao.CandlesDao;
 import com.core.db.dao.CompanyDao;

@@ -18,7 +18,6 @@ public class CandleSequence {
         return currentIndex < candles.size();
     }
 
-
     public Candle next() {
         return candles.get(currentIndex++);
     }

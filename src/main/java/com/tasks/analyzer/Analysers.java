@@ -1,7 +1,7 @@
 package com.tasks.analyzer;
 
 import com.core.db.dao.InvestmentPeriodDataDao;
-import com.core.db.dao.StrongBullCandleDao;
+import com.tasks.analyzer.patterns.CandlesPatternAnalyser;
 import com.tasks.daily.RecentDataObtainTask;
 
 /**
