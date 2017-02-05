@@ -10,6 +10,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class CandleSequenceTest {
+
     @Test
     public void sequenceHasNoElementsWhenCreatedWithEmptyList() {
         CandleSequence candleSequence = new CandleSequence(new ArrayList<>());
@@ -30,5 +31,15 @@ public class CandleSequenceTest {
         assertEquals(candleSequence.next(), second);
 
         assertFalse(candleSequence.hasNext());
+    }
+
+    @Test
+    public void firstCandleIsNeverStrungBull() {
+
+    }
+
+    @Test
+    public void candleIsNeverStrungBull() {
+
     }
 }

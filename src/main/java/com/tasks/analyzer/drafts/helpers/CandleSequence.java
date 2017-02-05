@@ -23,11 +23,14 @@ public class CandleSequence {
         return candles.get(currentIndex++);
     }
 
-    public boolean isStrongBullCandle(Candle candle) {
-        if (!candles.get(currentIndex - 1).equals(candle)) {
+    public boolean isStrongBullCandle(Candle target) {
+        if (!candles.get(currentIndex - 1).equals(target)) {
             throw new IllegalStateException("It was expected that passed candle is a current one");
         }
-        return StrongBullCandleAlgorithm.isStrongBullCandle(candle);
+
+        final int indexOfCandleBeforeTargetCandle = currentIndex - 2;
+        return indexOfCandleBeforeTargetCandle >= 0 &&
+                StrongBullCandleAlgorithm.isStrongBullCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
 
     }
 

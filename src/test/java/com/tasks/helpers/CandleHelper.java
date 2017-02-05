@@ -4,6 +4,7 @@ import com.core.db.entity.Candle;
 
 import java.math.BigDecimal;
 
+import static com.core.db.entity.Candle.Trend.UP;
 import static com.tasks.utils.TimeUtils.today;
 import static com.tasks.utils.TimeUtils.yesterday;
 
@@ -35,6 +36,22 @@ public class CandleHelper {
     public static Candle createYesterdaysCandle() {
         Candle candle = new Candle();
         candle.setDate(yesterday());
+
+        return candle;
+    }
+
+    public static Candle createYesterdaysCandleWithUpperTrend(BigDecimal open, BigDecimal close) {
+        Candle candle = createYesterdaysCandle(open, close);
+        candle.setBody(close.subtract(open));
+
+        return candle;
+    }
+
+
+    public static Candle createTodaysCandleWithUpperTrend(BigDecimal open, BigDecimal close) {
+        Candle candle = createTodaysCandle(open, close);
+        candle.setTrend(UP);
+        candle.setBody(close.subtract(open));
 
         return candle;
     }
