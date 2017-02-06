@@ -40,7 +40,7 @@ public class StockService {
         url = RequestGenerator.generateFor(company.getName(), Period.of(august(year, 2), november(year, 1)));
         listOfStocks.addAll(YahooApi.query(url));
 
-        url = RequestGenerator.generateFor(company.getName(), Period.of(december(year, 2), december(year, 31)));
+        url = RequestGenerator.generateFor(company.getName(), Period.of(november(year, 2), december(year, 31)));
         listOfStocks.addAll(YahooApi.query(url));
 
         return listOfStocks;

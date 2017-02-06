@@ -11,9 +11,9 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 
-import static com.tasks.analyzer.patterns.StrongBullAnalyser.Movement;
-import static com.tasks.analyzer.patterns.StrongBullAnalyser.Movement.BACK;
-import static com.tasks.analyzer.patterns.StrongBullAnalyser.Movement.FORWARD;
+import static com.tasks.analyzer.patterns.StrongBullStatisticDataAnalyser.Movement;
+import static com.tasks.analyzer.patterns.StrongBullStatisticDataAnalyser.Movement.BACK;
+import static com.tasks.analyzer.patterns.StrongBullStatisticDataAnalyser.Movement.FORWARD;
 import static com.tasks.utils.TimeUtils.subtractDaysFromToday;
 import static java.math.BigDecimal.*;
 import static org.mockito.Matchers.any;
@@ -23,11 +23,11 @@ import static org.mockito.Mockito.doCallRealMethod;
 import static org.mockito.Mockito.mock;
 
 public class StrongBullAnalyserTest {
-    private StrongBullAnalyser strongBullAnalyser;
+    private StrongBullStatisticDataAnalyser strongBullStatisticDataAnalyser;
 
     @Before
     public void setUp() {
-        strongBullAnalyser = new StrongBullAnalyser();
+        strongBullStatisticDataAnalyser = new StrongBullStatisticDataAnalyser();
     }
 
     @Test
@@ -38,7 +38,7 @@ public class StrongBullAnalyserTest {
 
         StrongBullStatisticData strongBullStatisticData = new StrongBullStatisticData();
 
-        strongBullAnalyser.analyseTrend(yestredays, candleByDateSequence, strongBullStatisticData, Movement.FORWARD);
+        strongBullStatisticDataAnalyser.analyseTrend(yestredays, candleByDateSequence, strongBullStatisticData, Movement.FORWARD);
 
         Assert.assertNull(strongBullStatisticData.getAfterDays());
         Assert.assertNull(strongBullStatisticData.getAfterPercentageProfit());
@@ -53,7 +53,7 @@ public class StrongBullAnalyserTest {
 
         StrongBullStatisticData strongBullStatisticData = new StrongBullStatisticData();
 
-        strongBullAnalyser.analyseTrend(yestredays, candleByDateSequence, strongBullStatisticData, Movement.FORWARD);
+        strongBullStatisticDataAnalyser.analyseTrend(yestredays, candleByDateSequence, strongBullStatisticData, Movement.FORWARD);
 
         Assert.assertEquals(2, strongBullStatisticData.getAfterDays().intValue());
         Assert.assertEquals(valueOf(100), strongBullStatisticData.getAfterPercentageProfit());
@@ -68,7 +68,7 @@ public class StrongBullAnalyserTest {
 
         StrongBullStatisticData strongBullStatisticData = new StrongBullStatisticData();
 
-        strongBullAnalyser.analyseTrend(todays, candleByDateSequence, strongBullStatisticData, BACK);
+        strongBullStatisticDataAnalyser.analyseTrend(todays, candleByDateSequence, strongBullStatisticData, BACK);
 
         Assert.assertEquals(1, strongBullStatisticData.getBeforeDays().intValue());
         Assert.assertEquals(valueOf(900), strongBullStatisticData.getBeforePercentageProfit());
@@ -83,7 +83,7 @@ public class StrongBullAnalyserTest {
 
         StrongBullStatisticData strongBullStatisticData = new StrongBullStatisticData();
 
-        strongBullAnalyser.analyseTrend(todays, candleByDateSequence, strongBullStatisticData, BACK);
+        strongBullStatisticDataAnalyser.analyseTrend(todays, candleByDateSequence, strongBullStatisticData, BACK);
 
         Assert.assertEquals(1, strongBullStatisticData.getBeforeDays().intValue());
         Assert.assertEquals(valueOf(90).negate(), strongBullStatisticData.getBeforePercentageProfit());
@@ -97,7 +97,7 @@ public class StrongBullAnalyserTest {
 
         StrongBullStatisticData strongBullStatisticData = new StrongBullStatisticData();
 
-        strongBullAnalyser.analyseTrend(yestredays, candleByDateSequence, strongBullStatisticData, Movement.FORWARD);
+        strongBullStatisticDataAnalyser.analyseTrend(yestredays, candleByDateSequence, strongBullStatisticData, Movement.FORWARD);
 
         Assert.assertEquals(2, strongBullStatisticData.getAfterDays().intValue());
         Assert.assertEquals(valueOf(80).negate(), strongBullStatisticData.getAfterPercentageProfit());
@@ -111,10 +111,10 @@ public class StrongBullAnalyserTest {
         Candle twoDaysAgo = new Candle();
         twoDaysAgo.setDate(subtractDaysFromToday(2));
 
-        strongBullAnalyser = mock(StrongBullAnalyser.class);
-        doCallRealMethod().when(strongBullAnalyser).analyse(anyList(), anyList());
-        strongBullAnalyser.analyse(Arrays.asList(twoDaysAgo, yesterdaysStrongBull, todays), Arrays.asList(yesterdaysStrongBull));
-        Mockito.verify(strongBullAnalyser).analyseTrend(eq(todays), any(), any(), eq(FORWARD));
-        Mockito.verify(strongBullAnalyser).analyseTrend(eq(twoDaysAgo), any(), any(), eq(BACK));
+        strongBullStatisticDataAnalyser = mock(StrongBullStatisticDataAnalyser.class);
+        doCallRealMethod().when(strongBullStatisticDataAnalyser).analyse(anyList(), anyList());
+        strongBullStatisticDataAnalyser.analyse(Arrays.asList(twoDaysAgo, yesterdaysStrongBull, todays), Arrays.asList(yesterdaysStrongBull));
+        Mockito.verify(strongBullStatisticDataAnalyser).analyseTrend(eq(todays), any(), any(), eq(FORWARD));
+        Mockito.verify(strongBullStatisticDataAnalyser).analyseTrend(eq(twoDaysAgo), any(), any(), eq(BACK));
     }
 }

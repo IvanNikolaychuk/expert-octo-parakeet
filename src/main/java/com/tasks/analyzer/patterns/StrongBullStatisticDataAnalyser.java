@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.core.api.helpers.Constants.MIN_ACCEPTED_PERCENTAGE_CHANGE_FOR_STRONG_BULL_CANDLE;
-import static com.tasks.analyzer.patterns.StrongBullAnalyser.Movement.BACK;
-import static com.tasks.analyzer.patterns.StrongBullAnalyser.Movement.FORWARD;
+import static com.tasks.analyzer.patterns.StrongBullStatisticDataAnalyser.Movement.BACK;
+import static com.tasks.analyzer.patterns.StrongBullStatisticDataAnalyser.Movement.FORWARD;
 import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.tasks.utils.filters.CandlesFilter.filterStrongBull;
 import static java.math.BigDecimal.ZERO;
 
-public class StrongBullAnalyser {
+public class StrongBullStatisticDataAnalyser {
 
     public void execute() {
         List<Company> companies = new CompanyDao().getAll();
@@ -112,6 +112,6 @@ public class StrongBullAnalyser {
     }
 
     public static void main(String[] args) {
-        new StrongBullAnalyser().execute();
+        new StrongBullStatisticDataAnalyser().execute();
     }
 }
