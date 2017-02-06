@@ -8,6 +8,7 @@ import org.hibernate.criterion.CriteriaSpecification;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -61,6 +62,10 @@ public class AbstractDao<T> {
             }
             transaction.commit();
         }
+    }
+
+    public void save(List<T> objects) {
+        save(new HashSet<T>(objects));
     }
 
     public void update(List<T> objects) {

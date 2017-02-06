@@ -24,10 +24,10 @@ public class StrongBullCandleAlgorithm {
      static boolean shadowsAreLow(Candle candle) {
 
         boolean lowerShadowIsLow = calculateShadowPercentage(candle.getBody(), candle.getLowerShadow())
-                .compareTo(Constants.MAX_ACCEPTED_SHADOW_FROM_TOTAL_LENGTH_PERCENTAGE_FOR_STRONG_BULL_CANDLE) <= 0;
+                .compareTo(Constants.MAX_ACCEPTED_LOWER_SHADOW_FROM_TOTAL_LENGTH_PERCENTAGE_FOR_STRONG_BULL_CANDLE) <= 0;
 
         boolean upperShadowIsLow = calculateShadowPercentage(candle.getBody(), candle.getUpperShadow())
-                .compareTo(Constants.MAX_ACCEPTED_SHADOW_FROM_TOTAL_LENGTH_PERCENTAGE_FOR_STRONG_BULL_CANDLE) <= 0;
+                .compareTo(Constants.MAX_ACCEPTED_UPPER_SHADOW_FROM_TOTAL_LENGTH_PERCENTAGE_FOR_STRONG_BULL_CANDLE) <= 0;
 
         return lowerShadowIsLow && upperShadowIsLow;
     }

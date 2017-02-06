@@ -18,7 +18,7 @@ public class CandleUtilsTest {
         Candle second = createTodaysCandle(BigDecimal.TEN, BigDecimal.ZERO);
 
         List<Candle> candles = Arrays.asList(first, second);
-        Assert.assertEquals(CandleUtils.calculateTotalProfit(candles), BigDecimal.TEN.negate());
+        Assert.assertEquals(CandleUtils.calculateProfit(candles), BigDecimal.TEN.negate());
     }
 
     @Test
@@ -27,7 +27,7 @@ public class CandleUtilsTest {
         Candle second = createTodaysCandle(BigDecimal.ONE, BigDecimal.TEN);
 
         List<Candle> candles = Arrays.asList(first, second);
-        Assert.assertEquals(CandleUtils.calculateTotalProfit(candles), BigDecimal.TEN);
+        Assert.assertEquals(CandleUtils.calculateProfit(candles), BigDecimal.TEN);
     }
 
     @Test

@@ -1,14 +1,10 @@
 package com.core.db.entity;
 
-import com.tasks.utils.TimeUtils;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Date;
-
-import static com.core.db.entity.Candle.Trend.UP;
 
 /**
  * Created by ivnikolaychuk on 03.02.2017

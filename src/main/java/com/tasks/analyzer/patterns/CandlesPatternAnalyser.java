@@ -4,7 +4,7 @@ import com.core.db.dao.CandlesDao;
 import com.core.db.dao.CompanyDao;
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
-import com.tasks.analyzer.drafts.helpers.CandleSequence;
+import com.tasks.analyzer.drafts.helpers.CandleByDateSequence;
 import com.tasks.utils.CandleUtils;
 import com.tasks.utils.filters.CandlesFilter;
 
@@ -26,10 +26,10 @@ public class CandlesPatternAnalyser {
     }
 
     public void findAndSetPatterns(List<Candle> candles) {
-        CandleSequence candleSequence = new CandleSequence(candles);
-        while (candleSequence.hasNext()) {
-            Candle candle = candleSequence.next();
-            if (candleSequence.isStrongBullCandle(candle)) {
+        CandleByDateSequence candleByDateSequence = new CandleByDateSequence(candles);
+        while (candleByDateSequence.hasNext()) {
+            Candle candle = candleByDateSequence.next();
+            if (candleByDateSequence.isStrongBullCandle(candle)) {
                 candle.setPattern(STRONG_BULL);
             } else {
                 candle.setPattern(NONE);

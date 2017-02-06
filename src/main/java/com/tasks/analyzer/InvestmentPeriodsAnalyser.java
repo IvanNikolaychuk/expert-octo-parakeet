@@ -5,9 +5,7 @@ import com.core.db.dao.InvestmentPeriodDataDao;
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
 import com.core.db.entity.statistic.InvestmentPeriodData;
-import com.tasks.utils.CandleUtils;
 import com.tasks.utils.filters.CandlesFilter;
-import com.tasks.utils.filters.InvestmentPeriodDataFilter;
 import javafx.util.Pair;
 
 import java.math.BigDecimal;
@@ -18,7 +16,7 @@ import static com.core.db.entity.Candle.Trend.UP;
 import static com.google.common.collect.Iterables.getFirst;
 import static com.google.common.collect.Iterables.getLast;
 import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
-import static com.tasks.utils.CandleUtils.calculateTotalProfit;
+import static com.tasks.utils.CandleUtils.calculateProfit;
 import static com.tasks.utils.CandleUtils.getFirst;
 import static com.tasks.utils.filters.InvestmentPeriodDataFilter.filterByPercentage;
 import static com.tasks.utils.filters.InvestmentPeriodDataFilter.removeOverlaps;
@@ -68,7 +66,7 @@ public class InvestmentPeriodsAnalyser {
         for (int currentCandleIndex = 0; currentCandleIndex < candlesInPeriod.size(); currentCandleIndex++) {
             for (int candleIndex = currentCandleIndex; candleIndex < candlesInPeriod.size(); candleIndex++) {
                 List<Candle> subList = candlesInPeriod.subList(currentCandleIndex, candleIndex + 1);
-                BigDecimal totalProfit = calculateTotalProfit(subList);
+                BigDecimal totalProfit = calculateProfit(subList);
 
                 if (biggestProfit.compareTo(totalProfit) == -1) {
                     mostSuccessful = new Pair<>(getFirst(subList, null), getLast(subList, null));

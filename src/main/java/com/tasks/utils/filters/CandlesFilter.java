@@ -14,6 +14,18 @@ import java.util.List;
  */
 public class CandlesFilter {
 
+    public static List<Candle> filterStrongBull(List<Candle> candles) {
+        List<Candle> filtered = new ArrayList<>();
+
+        for (Candle candle : candles) {
+            if (candle.getPattern() == Candle.Pattern.STRONG_BULL) {
+                filtered.add(candle);
+            }
+        }
+
+        return filtered;
+    }
+
     public static List<Candle> filterMostRecent(List<Candle> candles) {
         if (candles.size() <= Constants.RECENT_CANDLES_NUMBER) {
             return candles;
