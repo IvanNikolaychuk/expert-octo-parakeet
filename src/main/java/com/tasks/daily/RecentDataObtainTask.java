@@ -30,18 +30,31 @@ public class RecentDataObtainTask {
                 continue;
             }
 
+            waitSecondToNotBeBlockedByYahoo();
+
             final String url = RequestGenerator.generateFor(company.getName(),
                     Period.of(forDate(calendar), forDate(calendar)));
 
             StockData stockData = YahooApi.querySingle(url);
             if (stockData == null) {
                 System.out.println("No stock data for " + forDate(calendar).toString());
-                break;
+                waitSecondToNotBeBlockedByYahoo();
+                stockData = YahooApi.querySingle(url);
+                if (stockData == null) {
+                    System.out.println("No stock data for " + forDate(calendar).toString());
+                    break;
+                }
             }
 
             company.addCandle(StockDataToCandleConverter.convert(stockData));
             companyDao.saveOrUpdate(company);
         }
+    }
+
+    private void waitSecondToNotBeBlockedByYahoo() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {}
     }
 
     private boolean companyHasDataForThisDay(Company company, Calendar calendar) {
@@ -65,5 +78,9 @@ public class RecentDataObtainTask {
 
     private Period.Date forDate(Calendar calendar) {
         return Period.Date.build(Constants.CURRENT_YEAR, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DATE));
+    }
+
+    public static void main(String[] args) {
+        new RecentDataObtainTask().execute();
     }
 }
