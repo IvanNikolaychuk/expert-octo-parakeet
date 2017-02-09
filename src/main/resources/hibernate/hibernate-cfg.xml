@@ -18,6 +18,7 @@
         <mapping class="com.core.db.entity.statistic.InvestmentPeriodData"/>
         <mapping class="com.core.db.entity.statistic.StrongBullCandle"/>
         <mapping class="com.core.db.entity.statistic.StrongBullStatisticData"/>
+        <mapping class="com.core.db.entity.statistic.CompanyGrowthStatisticData"/>
 
     </session-factory>
 </hibernate-configuration>

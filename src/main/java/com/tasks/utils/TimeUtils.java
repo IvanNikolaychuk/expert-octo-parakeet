@@ -18,6 +18,14 @@ public class TimeUtils {
         return today;
     }
 
+    public static Calendar subtractDaysFrom(Calendar startDate, int numberOfDays) {
+        Calendar result = Calendar.getInstance();
+        result.setTime(startDate.getTime());
+        result.add(Calendar.DATE, numberOfDays * (-1));
+
+        return result;
+    }
+
     public static Calendar yesterday() {
         Calendar today = Calendar.getInstance();
         today.setTime(new Date());

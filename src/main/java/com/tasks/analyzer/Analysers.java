@@ -1,6 +1,8 @@
 package com.tasks.analyzer;
 
+import com.core.db.dao.CompanyGrowthStatisticDao;
 import com.core.db.dao.InvestmentPeriodDataDao;
+import com.core.db.entity.statistic.CompanyGrowthStatisticData;
 import com.tasks.analyzer.patterns.CandlesPatternAnalyser;
 import com.tasks.daily.RecentDataObtainTask;
 
@@ -15,6 +17,11 @@ public class Analysers {
         analyseAvgVolume();
         analyseInvestmentPeriods();
         analyseCandlePatterns();
+        analyseCompanyGrowth();
+    }
+
+    private void analyseCompanyGrowth() {
+        new CompanyGrowthAnalyser().execute();
     }
 
     private void analyseCandlePatterns() {
@@ -37,6 +44,7 @@ public class Analysers {
 
     private void cleanPreviousData() {
         new InvestmentPeriodDataDao().clearAll();
+        new CompanyGrowthStatisticDao().clearAll();
     }
 
     public static void main(String[] args) {
