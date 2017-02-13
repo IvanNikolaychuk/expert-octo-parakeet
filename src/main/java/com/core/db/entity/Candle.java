@@ -53,6 +53,8 @@ public class Candle {
 
     public enum Pattern {
         NONE,
-        STRONG_BULL
+        STRONG_BULL,
+        STRONG_GAP_FALL,
+        STRONG_GAP_RISE,
     }
 }

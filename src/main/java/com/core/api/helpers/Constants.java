@@ -17,4 +17,8 @@ public class Constants {
     public static final BigDecimal MAX_ACCEPTED_LOWER_SHADOW_FROM_TOTAL_LENGTH_PERCENTAGE_FOR_STRONG_BULL_CANDLE = BigDecimal.valueOf(20);
     public static final BigDecimal MAX_ACCEPTED_UPPER_SHADOW_FROM_TOTAL_LENGTH_PERCENTAGE_FOR_STRONG_BULL_CANDLE = BigDecimal.valueOf(15);
     public static final BigDecimal MIN_ACCEPTED_PERCENTAGE_CHANGE_FOR_STRONG_BULL_CANDLE = BigDecimal.valueOf(10);
+
+    public static final BigDecimal MIN_ACCEPTED_FALL_PERCENTAGE_FOR_STRONG_FALL_CANDLE = BigDecimal.valueOf(8).negate();
+    public static final BigDecimal MIN_ACCEPTED_RISE_PERCENTAGE_FOR_STRONG_FALL_CANDLE = BigDecimal.valueOf(8);
+
 }

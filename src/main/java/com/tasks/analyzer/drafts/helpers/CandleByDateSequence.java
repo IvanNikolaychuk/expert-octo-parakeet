@@ -57,4 +57,25 @@ public class CandleByDateSequence {
         throw new IllegalStateException(newCurrent + " is not found in candle list. Size of candle list: " + candles.size());
     }
 
+    public boolean isStrongGapFallCandle(Candle target) {
+        if (!candles.get(currentIndex - 1).equals(target)) {
+            throw new IllegalStateException("It was expected that passed candle is a current one");
+        }
+
+        final int indexOfCandleBeforeTargetCandle = currentIndex - 2;
+
+        return indexOfCandleBeforeTargetCandle >= 0 &&
+                StrongGapFallCandleAlgorithm.isStrongGapFallCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
+    }
+
+    public boolean isStrongGapRiseCandle(Candle target) {
+        if (!candles.get(currentIndex - 1).equals(target)) {
+            throw new IllegalStateException("It was expected that passed candle is a current one");
+        }
+
+        final int indexOfCandleBeforeTargetCandle = currentIndex - 2;
+
+        return indexOfCandleBeforeTargetCandle >= 0 &&
+                StrongGapRiseCandleAlgorithm.isStrongGapRiseCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
+    }
 }

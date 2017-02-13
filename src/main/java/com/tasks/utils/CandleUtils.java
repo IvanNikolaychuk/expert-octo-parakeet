@@ -29,6 +29,28 @@ public class CandleUtils {
                 .divide(getFirst(candles).getOpen(), RoundingMode.HALF_UP);
     }
 
+
+    public static BigDecimal calculateGapPercentageProfit(List<Candle> candles) {
+        if (candles.size() != 2) {
+            throw new IllegalStateException("For gap calculation there should be erectly 2 candles");
+        }
+        candles.sort(new CandlesFilter.OldDateFirstComparator());
+
+        BigDecimal totalProfit = calculateGapProfit(candles);
+
+        return totalProfit
+                .multiply(valueOf(100))
+                .divide(getFirst(candles).getClose(), RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal calculateGapProfit(List<Candle> candles) {
+        candles.sort(new CandlesFilter.OldDateFirstComparator());
+        final Candle firstCandle = getFirst(candles);
+        final Candle lastCandle = getLast(candles);
+
+        return lastCandle.getOpen().subtract(firstCandle.getClose());
+    }
+
     public static BigDecimal calculatePercentageProfit(Candle candle) {
         List<Candle> candles = singletonList(candle);
         return calculateProfit(candles)

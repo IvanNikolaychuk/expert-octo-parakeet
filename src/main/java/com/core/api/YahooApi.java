@@ -3,6 +3,7 @@ package com.core.api;
 import com.core.api.dto.StockData;
 import com.core.api.dto.YahooResponse;
 import com.core.api.dto.YahooSingleStockResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -22,8 +23,10 @@ public class YahooApi {
         RestTemplate restTemplate = new RestTemplate();
         System.out.println("Queering url: " + url);
 
-        return restTemplate
-                .getForEntity(url, YahooSingleStockResponse.class)
+        ResponseEntity<YahooSingleStockResponse> responseEntity = restTemplate
+                .getForEntity(url, YahooSingleStockResponse.class);
+
+        return responseEntity
                 .getBody()
                 .getStockData();
     }
