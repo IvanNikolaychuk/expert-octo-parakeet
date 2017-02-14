@@ -2,7 +2,7 @@ package com.tasks.analyzer.patterns;
 
 import com.core.db.entity.Candle;
 import com.core.db.entity.statistic.StrongBullStatisticData;
-import com.tasks.analyzer.drafts.helpers.CandleByDateSequence;
+import com.tasks.analyzer.helpers.CandleByDateSequence;
 import com.tasks.helpers.CandleHelper;
 import org.junit.Assert;
 import org.junit.Before;

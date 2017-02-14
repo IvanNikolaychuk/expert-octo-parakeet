@@ -1,7 +1,6 @@
-package com.tasks.analyzer.drafts.algorithms;
+package com.tasks.analyzer.algorithms;
 
 import com.core.db.entity.Candle;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.junit.Assert;
 import org.junit.Test;
 

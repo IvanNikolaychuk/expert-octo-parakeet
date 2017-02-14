@@ -1,7 +1,7 @@
-package com.tasks.analyzer.drafts.helper;
+package com.tasks.analyzer.helper;
 
 import com.core.db.entity.Candle;
-import com.tasks.analyzer.drafts.helpers.CandleByDateSequence;
+import com.tasks.analyzer.helpers.CandleByDateSequence;
 import org.junit.Assert;
 import org.junit.Test;
 

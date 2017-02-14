@@ -82,4 +82,12 @@ public class CandlesFilter {
             return (-1) * new RecentDateFirstComparator().compare(first, second);
         }
     }
+
+    public static class HighVolumeFirstComparator implements Comparator<Candle> {
+
+        @Override
+        public int compare(Candle first, Candle second) {
+            return second.getVolume().compareTo(first.getVolume());
+        }
+    }
 }

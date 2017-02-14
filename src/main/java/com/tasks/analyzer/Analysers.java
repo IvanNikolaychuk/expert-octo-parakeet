@@ -2,7 +2,6 @@ package com.tasks.analyzer;
 
 import com.core.db.dao.CompanyGrowthStatisticDao;
 import com.core.db.dao.InvestmentPeriodDataDao;
-import com.core.db.entity.statistic.CompanyGrowthStatisticData;
 import com.tasks.analyzer.patterns.CandlesPatternAnalyser;
 import com.tasks.daily.RecentDataObtainTask;
 
@@ -34,7 +33,7 @@ public class Analysers {
     }
 
     private void analyseAvgVolume() {
-        new AvgStockVolumeComputer().execute();
+        new StockVolumeAnalyser().execute();
     }
 
     private void obtainRecentData() {

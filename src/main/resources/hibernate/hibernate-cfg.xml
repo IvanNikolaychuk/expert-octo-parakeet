@@ -14,7 +14,7 @@
 
         <mapping class="com.core.db.entity.Candle"/>
         <mapping class="com.core.db.entity.company.Company"/>
-        <mapping class="com.core.db.entity.statistic.CommonStatisticData"/>
+        <mapping class="com.core.db.entity.statistic.VolumeStatisticData"/>
         <mapping class="com.core.db.entity.statistic.InvestmentPeriodData"/>
         <mapping class="com.core.db.entity.statistic.StrongBullCandle"/>
         <mapping class="com.core.db.entity.statistic.StrongBullStatisticData"/>

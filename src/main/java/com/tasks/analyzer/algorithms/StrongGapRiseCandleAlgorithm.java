@@ -1,4 +1,4 @@
-package com.tasks.analyzer.drafts.algorithms;
+package com.tasks.analyzer.algorithms;
 
 import com.core.db.entity.Candle;
 

@@ -4,8 +4,8 @@ import com.core.db.dao.CandlesDao;
 import com.core.db.dao.CompanyDao;
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
-import com.tasks.analyzer.drafts.algorithms.StrongGapFallCandleAlgorithm;
-import com.tasks.analyzer.drafts.helpers.CandleByDateSequence;
+import com.tasks.analyzer.algorithms.StrongGapFallCandleAlgorithm;
+import com.tasks.analyzer.helpers.CandleByDateSequence;
 import com.tasks.utils.CandleUtils;
 import com.tasks.utils.filters.CandlesFilter;
 
