@@ -19,6 +19,7 @@
         <mapping class="com.core.db.entity.statistic.StrongBullCandle"/>
         <mapping class="com.core.db.entity.statistic.StrongBullStatisticData"/>
         <mapping class="com.core.db.entity.statistic.CompanyGrowthStatisticData"/>
+        <mapping class="com.core.db.entity.statistic.GapCandleData"/>
 
     </session-factory>
 </hibernate-configuration>

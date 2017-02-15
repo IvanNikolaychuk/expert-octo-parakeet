@@ -16,20 +16,6 @@ import static com.core.db.entity.company.StockCurrency.DOLLAR;
  */
 public class CompanyStaticDataHolder {
 
-    public static List<Company> getCompanies(BusinessType businessType, StockCurrency stockCurrency) {
-        List<Company> allCompanies = getAllCompanies();
-
-        List<Company> filtered = new ArrayList<Company>();
-
-        for (Company company : allCompanies) {
-            if (company.getBusinessType() == businessType && company.getStockCurrency() == stockCurrency) {
-                filtered.add(company);
-            }
-        }
-
-        return filtered;
-    }
-
     public static List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<Company>();
 
@@ -37,15 +23,14 @@ public class CompanyStaticDataHolder {
         companies.addAll(getPharmaUsaCompanies());
         companies.addAll(getEnergeticUsaCompanies());
         companies.addAll(getMechanicalEngineeringUsaCompanies());
-        companies.addAll(getFinanceUsaCompanies());
         companies.addAll(getFoodUsaCompanies());
         companies.addAll(getItUsaCompanies());
-        companies.addAll(getMetallurgyCompanies());
         companies.addAll(getMountainCompanies());
         companies.addAll(getPetrochemicalCompanies());
         companies.addAll(getRetailCompanies());
         companies.addAll(getTelecommunicationCompanies());
         companies.addAll(getTransportCompanies());
+        companies.addAll(getFinanceUsaCompanies());
         companies.addAll(getAllOtherCompanies());
 
         return companies;
@@ -211,7 +196,6 @@ public class CompanyStaticDataHolder {
         List<Company> companies = new ArrayList<>();
 
         companies.add(new Company("NRG", ENERGETIC, DOLLAR));
-        companies.add(new Company("CHK", ENERGETIC, DOLLAR));
         companies.add(new Company("FSLR", ENERGETIC, DOLLAR));
         companies.add(new Company("CVX", ENERGETIC, DOLLAR));
         companies.add(new Company("VLO", ENERGETIC, DOLLAR));

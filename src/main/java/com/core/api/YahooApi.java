@@ -14,11 +14,23 @@ public class YahooApi {
         RestTemplate restTemplate = new RestTemplate();
         System.out.println("Queering url: " + url);
 
-        return restTemplate
-                .getForEntity(url, YahooResponse.class)
+        ResponseEntity<YahooResponse> responseEntity;
+        try {
+            responseEntity = restTemplate
+                    .getForEntity(url, YahooResponse.class);
+        } catch (HttpClientErrorException exception) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            return query(url);
+        }
+
+        return responseEntity
                 .getBody()
                 .getStockData();
     }
+
 
     public static StockData querySingle(String url) {
         RestTemplate restTemplate = new RestTemplate();
@@ -26,8 +38,12 @@ public class YahooApi {
 
         ResponseEntity<YahooSingleStockResponse> responseEntity;
         try {
-             responseEntity = restTemplate.getForEntity(url, YahooSingleStockResponse.class);
+            responseEntity = restTemplate.getForEntity(url, YahooSingleStockResponse.class);
         } catch (HttpClientErrorException exception) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
             responseEntity = restTemplate.getForEntity(url, YahooSingleStockResponse.class);
         }
 

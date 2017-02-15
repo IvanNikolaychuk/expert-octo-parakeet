@@ -43,9 +43,5 @@ public class CandlesPatternAnalyser {
 
     public static void main(String[] args) {
         new CandlesPatternAnalyser().execute();
-        List<String> datas = StrongGapFallCandleAlgorithm.getData();
-        for(String data : datas) {
-            System.out.println(data);
-        }
     }
 }

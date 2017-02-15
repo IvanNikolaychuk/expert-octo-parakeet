@@ -15,6 +15,11 @@ public class CandleByDateSequence {
 
     public CandleByDateSequence(List<Candle> candles) {
         this.candles = CandleUtils.sort(candles, new CandlesFilter.OldDateFirstComparator());
+        for (int i = 0; i < candles.size() - 1; i++) {
+            if (candles.get(i).getDate().compareTo(candles.get(i + 1).getDate() ) > 0) {
+                throw new IllegalStateException();
+            }
+        }
         this.currentIndex = 0;
     }
 
@@ -78,6 +83,6 @@ public class CandleByDateSequence {
         final int indexOfCandleBeforeTargetCandle = currentIndex - 2;
 
         return indexOfCandleBeforeTargetCandle >= 0 &&
-                StrongGapRiseCandleAlgorithm.isStrongGapRiseCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
+                StrongGapRiseCandleAlgorithm.isStrongGapGrowCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
     }
 }

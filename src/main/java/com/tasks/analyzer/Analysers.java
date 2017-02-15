@@ -2,6 +2,7 @@ package com.tasks.analyzer;
 
 import com.core.db.dao.CompanyGrowthStatisticDao;
 import com.core.db.dao.InvestmentPeriodDataDao;
+import com.tasks.analyzer.draft.InvestmentPeriodsAnalyser;
 import com.tasks.analyzer.patterns.CandlesPatternAnalyser;
 import com.tasks.daily.RecentDataObtainTask;
 

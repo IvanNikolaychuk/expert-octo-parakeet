@@ -1,8 +1,9 @@
-package com.tasks.analyzer;
+package com.tasks.analyzer.draft;
 
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
 import com.core.db.entity.statistic.InvestmentPeriodData;
+import com.tasks.analyzer.draft.InvestmentPeriodsAnalyser;
 import com.tasks.utils.TimeUtils;
 import javafx.util.Pair;
 import org.junit.Assert;

@@ -21,7 +21,7 @@ import static com.tasks.once.data.CompanyStaticDataHolder.getAllCompanies;
 public class CreateCompaniesTask {
 
     public void execute() {
-        clearPrevious();
+//        clearPrevious();
 
         for (Company company : getAllCompanies()) {
             List<StockData> stockDataList = new StockService().queryStockDataStartingFromLastYear(company);

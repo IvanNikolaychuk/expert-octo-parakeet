@@ -1,4 +1,4 @@
-package com.tasks.analyzer;
+package com.tasks.analyzer.draft;
 
 import com.core.db.dao.CompanyDao;
 import com.core.db.dao.InvestmentPeriodDataDao;
@@ -23,7 +23,7 @@ import static com.tasks.utils.filters.InvestmentPeriodDataFilter.removeOverlaps;
 
 public class InvestmentPeriodsAnalyser {
 
-    void execute() {
+    public void execute() {
         for (Company company : new CompanyDao().getAll()) {
             performAnalysis(company);
         }

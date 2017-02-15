@@ -14,11 +14,11 @@ import java.util.List;
  */
 public class CandlesFilter {
 
-    public static List<Candle> filterStrongBull(List<Candle> candles) {
+    public static List<Candle> filterByPattern(List<Candle> candles, Candle.Pattern pattern) {
         List<Candle> filtered = new ArrayList<>();
 
         for (Candle candle : candles) {
-            if (candle.getPattern() == Candle.Pattern.STRONG_BULL) {
+            if (candle.getPattern() == pattern) {
                 filtered.add(candle);
             }
         }
