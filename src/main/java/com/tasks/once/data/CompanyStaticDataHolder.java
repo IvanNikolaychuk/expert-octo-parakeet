@@ -18,20 +18,20 @@ public class CompanyStaticDataHolder {
 
     public static List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<Company>();
+        companies.add(new Company("CMI", MECHANICAL_ENGINEERING, DOLLAR));
 
-
-        companies.addAll(getPharmaUsaCompanies());
-        companies.addAll(getEnergeticUsaCompanies());
-        companies.addAll(getMechanicalEngineeringUsaCompanies());
-        companies.addAll(getFoodUsaCompanies());
-        companies.addAll(getItUsaCompanies());
-        companies.addAll(getMountainCompanies());
-        companies.addAll(getPetrochemicalCompanies());
-        companies.addAll(getRetailCompanies());
-        companies.addAll(getTelecommunicationCompanies());
-        companies.addAll(getTransportCompanies());
-        companies.addAll(getFinanceUsaCompanies());
-        companies.addAll(getAllOtherCompanies());
+//        companies.addAll(getPharmaUsaCompanies());
+//        companies.addAll(getEnergeticUsaCompanies());
+//        companies.addAll(getMechanicalEngineeringUsaCompanies());
+//        companies.addAll(getFoodUsaCompanies());
+//        companies.addAll(getItUsaCompanies());
+//        companies.addAll(getMountainCompanies());
+//        companies.addAll(getPetrochemicalCompanies());
+//        companies.addAll(getRetailCompanies());
+//        companies.addAll(getTelecommunicationCompanies());
+//        companies.addAll(getTransportCompanies());
+//        companies.addAll(getFinanceUsaCompanies());
+//        companies.addAll(getAllOtherCompanies());
 
         return companies;
     }
@@ -146,7 +146,6 @@ public class CompanyStaticDataHolder {
     private static List<Company> getFinanceUsaCompanies() {
         List<Company> companies = new ArrayList<>();
 
-        companies.add(new Company("MS", FINANCE, DOLLAR));
         companies.add(new Company("V", FINANCE, DOLLAR));
         companies.add(new Company("BAC", FINANCE, DOLLAR));
         companies.add(new Company("AXP", FINANCE, DOLLAR));

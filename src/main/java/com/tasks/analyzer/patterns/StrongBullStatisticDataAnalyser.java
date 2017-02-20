@@ -53,7 +53,7 @@ public class StrongBullStatisticDataAnalyser {
                 Candle prevBeforeTarget = candleByDateSequence.getCurrent();
                 TrendData trendData = new TrendAnalyser().analyseTrend(prevBeforeTarget, candleByDateSequence, BACK);
                 strongBullStatisticData.setBeforeDays(trendData.getNumberOfDays());
-                strongBullStatisticData.setAfterPercentageProfit(trendData.getPercentageProfit());
+                strongBullStatisticData.setBeforePercentageProfit(trendData.getPercentageProfit());
             }
         }
 

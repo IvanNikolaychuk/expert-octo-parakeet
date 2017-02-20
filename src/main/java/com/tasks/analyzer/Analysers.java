@@ -4,6 +4,7 @@ import com.core.db.dao.CompanyGrowthStatisticDao;
 import com.core.db.dao.InvestmentPeriodDataDao;
 import com.tasks.analyzer.draft.InvestmentPeriodsAnalyser;
 import com.tasks.analyzer.patterns.CandlesPatternAnalyser;
+import com.tasks.analyzer.trend.TrendAnalyser;
 import com.tasks.daily.RecentDataObtainTask;
 
 /**
@@ -18,6 +19,11 @@ public class Analysers {
         analyseInvestmentPeriods();
         analyseCandlePatterns();
         analyseCompanyGrowth();
+        analyseGaps();
+    }
+
+    private void analyseGaps() {
+        new GapsAnalyser(new TrendAnalyser()).execute();
     }
 
     private void analyseCompanyGrowth() {

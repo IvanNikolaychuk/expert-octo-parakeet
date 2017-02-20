@@ -27,6 +27,10 @@ public class CandleByDateSequence {
         return currentIndex < candles.size();
     }
 
+    public boolean hasNext(int afterCurrent) {
+        return currentIndex + afterCurrent < candles.size();
+    }
+
     public boolean hasPrev() {
         return currentIndex - 1 >= 0;
     }

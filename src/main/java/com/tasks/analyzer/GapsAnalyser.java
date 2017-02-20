@@ -37,7 +37,7 @@ public class GapsAnalyser {
         List<GapCandleData> gapCandleDataList = new ArrayList<>();
         for (Candle candle : gapCandles) {
             candleByDateSequence.setCurrent(candle);
-            boolean hasBeforeAndNext = candleByDateSequence.hasPrev() && candleByDateSequence.hasNext();
+            boolean hasBeforeAndNext = candleByDateSequence.hasPrev() && candleByDateSequence.hasNext(1);
             if (!hasBeforeAndNext) continue;
 
             Candle beforeCandle = candleByDateSequence.prev();

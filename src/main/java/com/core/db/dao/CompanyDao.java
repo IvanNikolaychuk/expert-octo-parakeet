@@ -26,4 +26,13 @@ public class CompanyDao extends AbstractDao<Company> {
         }
     }
 
+    public void remove(Company company) {
+        try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.delete(company);
+            transaction.commit();
+        }
+    }
+
 }
