@@ -2,17 +2,21 @@ package com.tasks.utils;
 
 import com.core.db.entity.Candle;
 import com.tasks.utils.filters.CandlesFilter;
+import com.tasks.utils.filters.CandlesFilter.OldDateFirstComparator;
+import javafx.util.Pair;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 
 import static java.math.BigDecimal.valueOf;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 import static java.util.Collections.singletonList;
 
 public class CandleUtils {
     public static BigDecimal calculateProfit(List<Candle> candles) {
-        candles.sort(new CandlesFilter.OldDateFirstComparator());
+        candles.sort(new OldDateFirstComparator());
         final Candle firstCandle = getFirst(candles);
         final Candle lastCandle = getLast(candles);
 
@@ -20,7 +24,7 @@ public class CandleUtils {
     }
 
     public static BigDecimal calculatePercentageProfit(List<Candle> candles) {
-        candles.sort(new CandlesFilter.OldDateFirstComparator());
+        candles.sort(new OldDateFirstComparator());
 
         BigDecimal totalProfit = calculateProfit(candles);
 
@@ -34,7 +38,7 @@ public class CandleUtils {
         if (candles.size() != 2) {
             throw new IllegalStateException("For gap calculation there should be erectly 2 candles");
         }
-        candles.sort(new CandlesFilter.OldDateFirstComparator());
+        candles.sort(new OldDateFirstComparator());
 
         BigDecimal totalProfit = calculateGapProfit(candles);
 
@@ -44,7 +48,7 @@ public class CandleUtils {
     }
 
     public static BigDecimal calculateGapProfit(List<Candle> candles) {
-        candles.sort(new CandlesFilter.OldDateFirstComparator());
+        candles.sort(new OldDateFirstComparator());
         final Candle firstCandle = getFirst(candles);
         final Candle lastCandle = getLast(candles);
 
@@ -71,4 +75,22 @@ public class CandleUtils {
         return candles.get(candles.size() - 1);
     }
 
+    public static List<Candle> getCandlesForMonthAndYear(List<Candle> candles, int month, int year) {
+        candles = sort(candles, new OldDateFirstComparator());
+
+        List<Candle> filtered = new ArrayList<>();
+
+        for(Candle candle : candles) {
+            Calendar candleDate = candle.getDate();
+            if (candleDate.get(MONTH) ==  month && candleDate.get(YEAR) == year) {
+                filtered.add(candle);
+            }
+        }
+
+
+        if (filtered.isEmpty()) {
+            throw new IllegalStateException("No first candle was found in month: " + month + " and year " + year);
+        }
+        return filtered;
+    }
 }

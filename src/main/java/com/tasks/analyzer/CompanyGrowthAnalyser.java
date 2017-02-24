@@ -1,30 +1,27 @@
 package com.tasks.analyzer;
 
+import com.core.db.dao.CandlesDao;
 import com.core.db.dao.CompanyDao;
 import com.core.db.dao.CompanyGrowthStatisticDao;
 import com.core.db.entity.Candle;
 import com.core.db.entity.company.Company;
 import com.core.db.entity.statistic.CompanyGrowthStatisticData;
 import com.tasks.utils.CandleUtils;
-import com.tasks.utils.TimeUtils;
-import com.tasks.utils.filters.CandlesFilter;
-import com.tasks.utils.filters.CandlesFilter.RecentDateFirstComparator;
+import com.tasks.utils.filters.CandlesFilter.OldDateFirstComparator;
+import javafx.util.Pair;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
-import static com.tasks.utils.CandleUtils.getFirst;
-import static com.tasks.utils.TimeUtils.subtractDaysFrom;
-import static com.tasks.utils.TimeUtils.subtractDaysFromToday;
-import static java.util.Arrays.asList;
+import static com.tasks.utils.CandleUtils.*;
+import static java.util.Calendar.*;
 
 public class CompanyGrowthAnalyser {
     public void execute() {
         CompanyDao companyDao = new CompanyDao();
 
         for(Company company : companyDao.getAll()) {
-            List<Candle> candles = CandleUtils.sort(company.getCandles(), new RecentDateFirstComparator());
+            List<Candle> candles = CandleUtils.sort(company.getCandles(), new OldDateFirstComparator());
             analyse(company.getName(), candles);
         }
     }
@@ -33,27 +30,34 @@ public class CompanyGrowthAnalyser {
         CompanyGrowthStatisticDao companyGrowthStatisticDao = new CompanyGrowthStatisticDao();
         Set<CompanyGrowthStatisticData> companyGrowthStatisticDataSet = new HashSet<>();
 
-        for (int month = 1; month < 7; month++) {
-            Calendar approximateOldCandleDate = subtractDaysFrom(getFirst(candles).getDate(), 30 * month);
-            Candle mostRecentCandle = getFirst(candles);
-            Candle moreOldCandle = findCandle(candles, approximateOldCandleDate);
+        Candle firstCandle = getFirst(candles);
+        int currentMonth = firstCandle.getDate().get(MONTH);
+        int currentYear = firstCandle.getDate().get(YEAR);
 
-            BigDecimal percentageProfit = calculatePercentageProfit(asList(mostRecentCandle, moreOldCandle));
-            companyGrowthStatisticDataSet.add(new CompanyGrowthStatisticData(companyName, month, percentageProfit));
+        Candle lastCandle = getLast(candles);
+        int lastMonth = lastCandle.getDate().get(MONTH);
+        int lastYear = lastCandle.getDate().get(YEAR);
+
+        while (currentMonth != lastMonth + 1 || currentYear < lastYear) {
+            Calendar from = Calendar.getInstance();
+            from.set(currentYear, currentMonth, 1);
+
+            Calendar to = Calendar.getInstance();
+            to.set(currentYear, currentMonth, 25);
+
+            BigDecimal percentageProfit = calculatePercentageProfit(getCandlesForMonthAndYear(candles, currentMonth, currentYear));
+            companyGrowthStatisticDataSet.add(new CompanyGrowthStatisticData(companyName, from, to, percentageProfit));
+            if (currentMonth == DECEMBER) {
+                currentMonth = JANUARY;
+                currentYear++;
+            } else {
+                currentMonth++;
+            }
         }
 
         companyGrowthStatisticDao.save(companyGrowthStatisticDataSet);
     }
 
-    private Candle findCandle(List<Candle> candles, Calendar approximateCandleDate) {
-        for(Candle candle : candles) {
-            if (candle.getDate().compareTo(approximateCandleDate) <= 0) {
-                return candle;
-            }
-        }
-
-        return null;
-    }
 
     public static void main(String[] args) {
         new CompanyGrowthStatisticDao().clearAll();

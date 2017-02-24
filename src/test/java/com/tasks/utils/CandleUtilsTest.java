@@ -1,14 +1,18 @@
 package com.tasks.utils;
 
 import com.core.db.entity.Candle;
-import org.junit.Assert;
+import javafx.util.Pair;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.tasks.helpers.CandleHelper.createTodaysCandle;
+import static com.tasks.utils.CandleUtils.getCandlesForMonthAndYear;
+import static java.util.Arrays.asList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CandleUtilsTest {
 
@@ -17,8 +21,8 @@ public class CandleUtilsTest {
         Candle first = createTodaysCandle(BigDecimal.TEN, BigDecimal.TEN);
         Candle second = createTodaysCandle(BigDecimal.TEN, BigDecimal.ZERO);
 
-        List<Candle> candles = Arrays.asList(first, second);
-        Assert.assertEquals(CandleUtils.calculateProfit(candles), BigDecimal.TEN.negate());
+        List<Candle> candles = asList(first, second);
+        assertEquals(CandleUtils.calculateProfit(candles), BigDecimal.TEN.negate());
     }
 
     @Test
@@ -26,8 +30,8 @@ public class CandleUtilsTest {
         Candle first = createTodaysCandle(BigDecimal.ZERO, BigDecimal.ONE);
         Candle second = createTodaysCandle(BigDecimal.ONE, BigDecimal.TEN);
 
-        List<Candle> candles = Arrays.asList(first, second);
-        Assert.assertEquals(CandleUtils.calculateProfit(candles), BigDecimal.TEN);
+        List<Candle> candles = asList(first, second);
+        assertEquals(CandleUtils.calculateProfit(candles), BigDecimal.TEN);
     }
 
     @Test
@@ -35,7 +39,7 @@ public class CandleUtilsTest {
         Candle first = createTodaysCandle(BigDecimal.valueOf(100), BigDecimal.valueOf(100));
         Candle second = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(120));
 
-        Assert.assertEquals(CandleUtils.calculatePercentageProfit(Arrays.asList(first, second)), BigDecimal.valueOf(20));
+        assertEquals(CandleUtils.calculatePercentageProfit(asList(first, second)), BigDecimal.valueOf(20));
     }
 
     @Test
@@ -44,7 +48,7 @@ public class CandleUtilsTest {
         Candle second = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(120));
         Candle third = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(150));
 
-        Assert.assertEquals(CandleUtils.calculatePercentageProfit(Arrays.asList(first, second, third)), BigDecimal.valueOf(50));
+        assertEquals(CandleUtils.calculatePercentageProfit(asList(first, second, third)), BigDecimal.valueOf(50));
     }
 
     @Test
@@ -52,14 +56,47 @@ public class CandleUtilsTest {
         Candle first = createTodaysCandle(BigDecimal.valueOf(100), BigDecimal.valueOf(100));
         Candle second = createTodaysCandle(BigDecimal.valueOf(90), BigDecimal.valueOf(80));
 
-        Assert.assertEquals(CandleUtils.calculatePercentageProfit(Arrays.asList(first, second)), BigDecimal.valueOf(20).negate());
+        assertEquals(CandleUtils.calculatePercentageProfit(asList(first, second)), BigDecimal.valueOf(20).negate());
     }
 
     @Test
     public void calculateTotalPercentageGrowthOneCandle() {
         Candle candle = createTodaysCandle(BigDecimal.ONE, BigDecimal.TEN);
 
-        Assert.assertEquals(CandleUtils.calculatePercentageProfit(candle), BigDecimal.valueOf(900));
+        assertEquals(CandleUtils.calculatePercentageProfit(candle), BigDecimal.valueOf(900));
     }
 
+    @Test
+    public void firstAndLastMonthCandlesAreFoundCorrectlyWhenDataExistsOnlyForCurrentMonth() {
+        Candle firstCandle = buildCandle(2017, Calendar.FEBRUARY, 1);
+        firstCandle.setId(1);
+        Candle secondCandle = buildCandle(2017, Calendar.FEBRUARY, 2);
+        secondCandle.setId(2);
+        List<Candle> filtered = getCandlesForMonthAndYear(asList(firstCandle, secondCandle), Calendar.FEBRUARY, 2017);
+
+        assertEquals(filtered.size(), 2);
+        assertTrue(filtered.contains(firstCandle));
+        assertTrue(filtered.contains(secondCandle));
+    }
+
+    @Test
+    public void firstAndLastMonthCandlesAreFoundCorrectlyWhenDataExistsOnlyForSeveralMonths() {
+        Candle firstCandle = buildCandle(2017, Calendar.FEBRUARY, 1);
+        Candle secondCandle = buildCandle(2017, Calendar.FEBRUARY, 2);
+        Candle thirdCandle = buildCandle(2017, Calendar.MARCH, 2);
+
+        List<Candle> filtered = getCandlesForMonthAndYear(asList(thirdCandle, firstCandle, secondCandle), Calendar.FEBRUARY, 2017);
+        assertEquals(filtered.size(), 2);
+        assertTrue(filtered.contains(firstCandle));
+        assertTrue(filtered.contains(secondCandle));
+    }
+
+    public Candle buildCandle(int year, int month, int day) {
+        Candle candle = new Candle();
+        Calendar date = Calendar.getInstance();
+        date.set(year, month, day);
+        candle.setDate(date);
+
+        return candle;
+    }
 }

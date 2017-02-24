@@ -1,9 +1,9 @@
 -- number of stocks
 
-select count(id), company_name from candle
+select company_name, avg(open), max(open), 100 * (max(open) - avg(open)) / avg(open) as delta from candle
 join company_candle on candle.id = company_candle.candles_id
 group by company_name
-order by count(id)
+order by delta desc
 
 -- or
 
@@ -13,6 +13,9 @@ join company_candle on candle.id = company_candle.candles_id
 group by company_name
 order by number_of_stocks
 ) a
+
+
+select count(id) from candle where pattern is null;
 
 -- compare avg and max open
 select company_name, avg(open), max(open) from candle

@@ -20,18 +20,18 @@ public class CompanyStaticDataHolder {
         List<Company> companies = new ArrayList<Company>();
         companies.add(new Company("CMI", MECHANICAL_ENGINEERING, DOLLAR));
 
-//        companies.addAll(getPharmaUsaCompanies());
-//        companies.addAll(getEnergeticUsaCompanies());
-//        companies.addAll(getMechanicalEngineeringUsaCompanies());
-//        companies.addAll(getFoodUsaCompanies());
-//        companies.addAll(getItUsaCompanies());
-//        companies.addAll(getMountainCompanies());
-//        companies.addAll(getPetrochemicalCompanies());
-//        companies.addAll(getRetailCompanies());
-//        companies.addAll(getTelecommunicationCompanies());
-//        companies.addAll(getTransportCompanies());
-//        companies.addAll(getFinanceUsaCompanies());
-//        companies.addAll(getAllOtherCompanies());
+        companies.addAll(getPharmaUsaCompanies());
+        companies.addAll(getEnergeticUsaCompanies());
+        companies.addAll(getMechanicalEngineeringUsaCompanies());
+        companies.addAll(getFoodUsaCompanies());
+        companies.addAll(getItUsaCompanies());
+        companies.addAll(getMountainCompanies());
+        companies.addAll(getPetrochemicalCompanies());
+        companies.addAll(getRetailCompanies());
+        companies.addAll(getTelecommunicationCompanies());
+        companies.addAll(getTransportCompanies());
+        companies.addAll(getFinanceUsaCompanies());
+        companies.addAll(getAllOtherCompanies());
 
         return companies;
     }
@@ -53,6 +53,32 @@ public class CompanyStaticDataHolder {
         companies.add(new Company("JNJ", OTHER, DOLLAR));
         companies.add(new Company("DIS", OTHER, DOLLAR));
         companies.add(new Company("PG", OTHER, DOLLAR));
+
+        companies.add(new Company("ATVI", OTHER, DOLLAR));
+        companies.add(new Company("MA", OTHER, DOLLAR));
+        companies.add(new Company("CPB", OTHER, DOLLAR));
+        companies.add(new Company("HSY", OTHER, DOLLAR));
+        companies.add(new Company("LUV", OTHER, DOLLAR));
+        companies.add(new Company("CRM", OTHER, DOLLAR));
+        companies.add(new Company("COG", OTHER, DOLLAR));
+        companies.add(new Company("UNH", OTHER, DOLLAR));
+        companies.add(new Company("ABT", OTHER, DOLLAR));
+        companies.add(new Company("HAL", OTHER, DOLLAR));
+        companies.add(new Company("CL", OTHER, DOLLAR));
+        companies.add(new Company("FDX", OTHER, DOLLAR));
+        companies.add(new Company("BK", OTHER, DOLLAR));
+        companies.add(new Company("ORCL", OTHER, DOLLAR));
+        companies.add(new Company("COST", OTHER, DOLLAR));
+        companies.add(new Company("FDX", OTHER, DOLLAR));
+        companies.add(new Company("PEP", OTHER, DOLLAR));
+        companies.add(new Company("GM", OTHER, DOLLAR));
+        companies.add(new Company("JPM", OTHER, DOLLAR));
+        companies.add(new Company("SLB", OTHER, DOLLAR));
+        companies.add(new Company("C", OTHER, DOLLAR));
+        companies.add(new Company("DPS", OTHER, DOLLAR));
+        companies.add(new Company("NKE", OTHER, DOLLAR));
+        companies.add(new Company("COH", OTHER, DOLLAR));
+        companies.add(new Company("NVDA", OTHER, DOLLAR));
 
         return companies;
     }
