@@ -36,12 +36,28 @@ public class CompanyGrowthStatisticData {
     @Column(name = "company_name")
     private String companyName;
 
+    @Column(name="open")
+    private BigDecimal open;
+
+    @Column(name="close")
+    private BigDecimal close;
+
+    @Column(name="months_from_today")
+    private int monthsFromToday;
+
     public CompanyGrowthStatisticData(String companyName, Calendar from, Calendar to, BigDecimal percentageProfit) {
         this.companyName = companyName;
+
         this.from = Calendar.getInstance();
         this.from.set(from.get(Calendar.YEAR), from.get(Calendar.MONTH), BEGIN_DAY_DEF, 0, 0, 0);
+
         this.to = Calendar.getInstance();
         this.to.set(to.get(Calendar.YEAR), to.get(Calendar.MONTH), END_DAY_DEF, 0, 0, 0);
+        Calendar now = Calendar.getInstance();
+
+        int diffYear = now.get(Calendar.YEAR) - from.get(Calendar.YEAR);
+        monthsFromToday = diffYear * 12 + now.get(Calendar.MONTH) - from.get(Calendar.MONTH);
+
         this.percentageProfit = percentageProfit;
     }
 

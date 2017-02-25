@@ -31,6 +31,15 @@ public class CompanyGrowStatisticDataTest {
         assertEquals(resultTo.get(YEAR), to.get(YEAR));
         assertEquals(resultTo.get(MONTH), to.get(MONTH));
         assertEquals(resultTo.get(DAY_OF_MONTH), END_DAY_DEF);
+    }
 
+    @Test
+    public void numberOfDaysIsCalculatedCorrectlySameMonth() {
+        Calendar prevYear = Calendar.getInstance();
+        prevYear.set(2017, prevYear.get(MONTH), 1);
+
+        CompanyGrowthStatisticData companyGrowthStatisticData = new CompanyGrowthStatisticData("", prevYear, prevYear, BigDecimal.ONE);
+
+        Assert.assertEquals(companyGrowthStatisticData.getMonthsFromToday(), 0);
     }
 }

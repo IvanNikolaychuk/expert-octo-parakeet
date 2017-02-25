@@ -45,8 +45,12 @@ public class CompanyGrowthAnalyser {
             Calendar to = Calendar.getInstance();
             to.set(currentYear, currentMonth, 25);
 
-            BigDecimal percentageProfit = calculatePercentageProfit(getCandlesForMonthAndYear(candles, currentMonth, currentYear));
-            companyGrowthStatisticDataSet.add(new CompanyGrowthStatisticData(companyName, from, to, percentageProfit));
+            List<Candle> filtered = getCandlesForMonthAndYear(candles, currentMonth, currentYear);
+            CompanyGrowthStatisticData companyGrowthStatisticData = new CompanyGrowthStatisticData(companyName, from, to, calculatePercentageProfit(filtered));
+            companyGrowthStatisticData.setOpen(getFirst(filtered).getOpen());
+            companyGrowthStatisticData.setClose(getLast(filtered).getClose());
+            companyGrowthStatisticDataSet.add(companyGrowthStatisticData);
+
             if (currentMonth == DECEMBER) {
                 currentMonth = JANUARY;
                 currentYear++;

@@ -36,6 +36,46 @@ public class CompanyStaticDataHolder {
         return companies;
     }
 
+    private static List<Company> getFinanceUsaCompanies() {
+        List<Company> companies = new ArrayList<>();
+
+        companies.add(new Company("V", FINANCE, DOLLAR));
+        companies.add(new Company("BAC", FINANCE, DOLLAR));
+        companies.add(new Company("AXP", FINANCE, DOLLAR));
+        companies.add(new Company("BLK", FINANCE, DOLLAR));
+        companies.add(new Company("AIG", FINANCE, DOLLAR));
+        companies.add(new Company("MET", FINANCE, DOLLAR));
+        companies.add(new Company("PYPL", FINANCE, DOLLAR));
+        companies.add(new Company("JPM", FINANCE, DOLLAR));
+        companies.add(new Company("C", FINANCE, DOLLAR));
+
+        return companies;
+    }
+
+
+    private static List<Company> getItUsaCompanies() {
+        List<Company> companies = new ArrayList<>();
+
+        companies.add(new Company("BIDU", IT, DOLLAR));
+        companies.add(new Company("NFLX", IT, DOLLAR));
+        companies.add(new Company("MSFT", IT, DOLLAR));
+        companies.add(new Company("IBM", IT, DOLLAR));
+        companies.add(new Company("AAPL", IT, DOLLAR));
+        companies.add(new Company("CSCO", IT, DOLLAR));
+        companies.add(new Company("GOOG", IT, DOLLAR));
+        companies.add(new Company("FB", IT, DOLLAR));
+        companies.add(new Company("YHOO", IT, DOLLAR));
+        companies.add(new Company("TSLA", IT, DOLLAR));
+        companies.add(new Company("INTC", IT, DOLLAR));
+        companies.add(new Company("MU", IT, DOLLAR));
+        companies.add(new Company("TWTR", IT, DOLLAR));
+        companies.add(new Company("CRM", IT, DOLLAR));
+        companies.add(new Company("NVDA", IT, DOLLAR));
+        companies.add(new Company("ORCL", IT, DOLLAR));
+
+        return companies;
+    }
+
     private static List<Company> getAllOtherCompanies() {
         List<Company> companies = new ArrayList<>();
         companies.add(new Company("PM", OTHER, DOLLAR));
@@ -59,7 +99,6 @@ public class CompanyStaticDataHolder {
         companies.add(new Company("CPB", OTHER, DOLLAR));
         companies.add(new Company("HSY", OTHER, DOLLAR));
         companies.add(new Company("LUV", OTHER, DOLLAR));
-        companies.add(new Company("CRM", OTHER, DOLLAR));
         companies.add(new Company("COG", OTHER, DOLLAR));
         companies.add(new Company("UNH", OTHER, DOLLAR));
         companies.add(new Company("ABT", OTHER, DOLLAR));
@@ -67,18 +106,26 @@ public class CompanyStaticDataHolder {
         companies.add(new Company("CL", OTHER, DOLLAR));
         companies.add(new Company("FDX", OTHER, DOLLAR));
         companies.add(new Company("BK", OTHER, DOLLAR));
-        companies.add(new Company("ORCL", OTHER, DOLLAR));
-        companies.add(new Company("COST", OTHER, DOLLAR));
-        companies.add(new Company("FDX", OTHER, DOLLAR));
-        companies.add(new Company("PEP", OTHER, DOLLAR));
         companies.add(new Company("GM", OTHER, DOLLAR));
-        companies.add(new Company("JPM", OTHER, DOLLAR));
         companies.add(new Company("SLB", OTHER, DOLLAR));
-        companies.add(new Company("C", OTHER, DOLLAR));
         companies.add(new Company("DPS", OTHER, DOLLAR));
-        companies.add(new Company("NKE", OTHER, DOLLAR));
         companies.add(new Company("COH", OTHER, DOLLAR));
-        companies.add(new Company("NVDA", OTHER, DOLLAR));
+
+        return companies;
+    }
+
+
+    private static List<Company> getRetailCompanies() {
+        List<Company> companies = new ArrayList<>();
+        companies.add(new Company("TIF", RETAIL, DOLLAR));
+        companies.add(new Company("EBAY", RETAIL, DOLLAR));
+        companies.add(new Company("WMT", RETAIL, DOLLAR));
+        companies.add(new Company("BABA", RETAIL, DOLLAR));
+        companies.add(new Company("DG", RETAIL, DOLLAR));
+        companies.add(new Company("DLTR", RETAIL, DOLLAR));
+        companies.add(new Company("AMZN", RETAIL, DOLLAR));
+        companies.add(new Company("NKE", RETAIL, DOLLAR));
+        companies.add(new Company("COST", RETAIL, DOLLAR));
 
         return companies;
     }
@@ -95,19 +142,6 @@ public class CompanyStaticDataHolder {
     private static List<Company> getTransportCompanies() {
         List<Company> companies = new ArrayList<>();
         companies.add(new Company("DAL", TRANSPORT, DOLLAR));
-
-        return companies;
-    }
-
-    private static List<Company> getRetailCompanies() {
-        List<Company> companies = new ArrayList<>();
-        companies.add(new Company("TIF", RETAIL, DOLLAR));
-        companies.add(new Company("EBAY", RETAIL, DOLLAR));
-        companies.add(new Company("WMT", RETAIL, DOLLAR));
-        companies.add(new Company("BABA", RETAIL, DOLLAR));
-        companies.add(new Company("DG", RETAIL, DOLLAR));
-        companies.add(new Company("DLTR", RETAIL, DOLLAR));
-        companies.add(new Company("AMZN", RETAIL, DOLLAR));
 
         return companies;
     }
@@ -132,53 +166,13 @@ public class CompanyStaticDataHolder {
         return companies;
     }
 
-    private static List<Company> getMetallurgyCompanies() {
-        List<Company> companies = new ArrayList<>();
-        companies.add(new Company("CLF", METALLURGY, DOLLAR));
-
-        return companies;
-    }
-
-    private static List<Company> getItUsaCompanies() {
-        List<Company> companies = new ArrayList<>();
-
-        companies.add(new Company("BIDU", IT, DOLLAR));
-        companies.add(new Company("NFLX", IT, DOLLAR));
-        companies.add(new Company("MSFT", IT, DOLLAR));
-        companies.add(new Company("IBM", IT, DOLLAR));
-        companies.add(new Company("AAPL", IT, DOLLAR));
-        companies.add(new Company("CSCO", IT, DOLLAR));
-        companies.add(new Company("GOOG", IT, DOLLAR));
-        companies.add(new Company("FB", IT, DOLLAR));
-        companies.add(new Company("YHOO", IT, DOLLAR));
-        companies.add(new Company("TSLA", IT, DOLLAR));
-        companies.add(new Company("INTC", IT, DOLLAR));
-        companies.add(new Company("MU", IT, DOLLAR));
-        companies.add(new Company("TWTR", IT, DOLLAR));
-
-        return companies;
-    }
 
     private static List<Company> getFoodUsaCompanies() {
         List<Company> companies = new ArrayList<>();
-
         companies.add(new Company("SBUX", FOOD, DOLLAR));
         companies.add(new Company("MCD", FOOD, DOLLAR));
         companies.add(new Company("KO", FOOD, DOLLAR));
-
-        return companies;
-    }
-
-    private static List<Company> getFinanceUsaCompanies() {
-        List<Company> companies = new ArrayList<>();
-
-        companies.add(new Company("V", FINANCE, DOLLAR));
-        companies.add(new Company("BAC", FINANCE, DOLLAR));
-        companies.add(new Company("AXP", FINANCE, DOLLAR));
-        companies.add(new Company("BLK", FINANCE, DOLLAR));
-        companies.add(new Company("AIG", FINANCE, DOLLAR));
-        companies.add(new Company("MET", FINANCE, DOLLAR));
-        companies.add(new Company("PYPL", FINANCE, DOLLAR));
+        companies.add(new Company("PEP", FOOD, DOLLAR));
 
         return companies;
     }

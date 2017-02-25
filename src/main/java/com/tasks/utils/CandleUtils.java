@@ -91,6 +91,7 @@ public class CandleUtils {
         if (filtered.isEmpty()) {
             throw new IllegalStateException("No first candle was found in month: " + month + " and year " + year);
         }
+        Collections.sort(filtered, new OldDateFirstComparator());
         return filtered;
     }
 }

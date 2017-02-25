@@ -9,5 +9,5 @@ from company_growth_statistic_data
   join company on company_name = name
 where from_date like '2017-02-01%'
 group by business_type
-having count(id) > 3
+having count(id) >= 5
 order by profit_per_company desc;
