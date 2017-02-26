@@ -1,9 +1,7 @@
 package com.tasks.utils.converter;
 
-import com.core.api.dto.StockData;
+import com.core.api.yahoo.dto.StockData;
 import com.core.db.entity.Candle;
-import com.core.db.entity.Candle.Trend;
-import com.tasks.utils.CandleUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

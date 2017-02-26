@@ -1,6 +1,6 @@
 package com.tasks.utils.converter;
 
-import com.core.api.dto.StockData;
+import com.core.api.yahoo.dto.StockData;
 import com.core.db.entity.Candle;
 import org.junit.Assert;
 import org.junit.Test;

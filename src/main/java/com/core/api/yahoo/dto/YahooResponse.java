@@ -1,4 +1,4 @@
-package com.core.api.dto;
+package com.core.api.yahoo.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

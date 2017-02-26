@@ -11,7 +11,7 @@ import javafx.util.Pair;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static com.core.api.helpers.Constants.MAX_DAYS_INVESTING;
+import static com.core.api.yahoo.helpers.Constants.MAX_DAYS_INVESTING;
 import static com.core.db.entity.Candle.Trend.UP;
 import static com.google.common.collect.Iterables.getFirst;
 import static com.google.common.collect.Iterables.getLast;

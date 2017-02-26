@@ -1,8 +1,10 @@
-package com.core.api.helpers;
+package com.core.api.yahoo.helpers;
 
 import lombok.Data;
 
-import static com.core.api.helpers.Constants.CURRENT_YEAR;
+import java.util.Calendar;
+
+import static com.core.api.yahoo.helpers.Constants.CURRENT_YEAR;
 
 @Data
 public class Period {
@@ -131,6 +133,10 @@ public class Period {
             String formattedDay = (day + "").length() == 1 ? "0" + day : day + "";
 
             return new Date(year + "-" + formattedMonth + "-" + formattedDay);
+        }
+
+        public static Period.Date forDate(Calendar calendar) {
+            return Period.Date.build(Constants.CURRENT_YEAR, calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.DATE));
         }
     }
 }

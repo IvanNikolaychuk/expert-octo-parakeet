@@ -1,8 +1,7 @@
 package com.tasks.utils.filters;
 
-import com.core.api.helpers.Constants;
+import com.core.api.yahoo.helpers.Constants;
 import com.core.db.entity.Candle;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;

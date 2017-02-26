@@ -1,8 +1,8 @@
 package com.core.api;
 
-import com.core.api.dto.StockData;
-import com.core.api.dto.YahooResponse;
-import com.core.api.dto.YahooSingleStockResponse;
+import com.core.api.yahoo.dto.StockData;
+import com.core.api.yahoo.dto.YahooResponse;
+import com.core.api.yahoo.dto.YahooSingleStockResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;

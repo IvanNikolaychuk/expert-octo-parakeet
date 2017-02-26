@@ -1,9 +1,6 @@
 package com.tasks.utils.filters;
 
-import com.core.api.helpers.Constants;
-import com.core.db.entity.Candle;
 import com.core.db.entity.statistic.InvestmentPeriodData;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -11,7 +8,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.core.api.helpers.Constants.*;
+import static com.core.api.yahoo.helpers.Constants.*;
 import static com.tasks.utils.TimeUtils.subtractDaysFromToday;
 import static com.tasks.utils.TimeUtils.today;
 import static java.math.BigDecimal.*;

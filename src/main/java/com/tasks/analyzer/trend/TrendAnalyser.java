@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.core.api.helpers.Constants.MIN_ACCEPTED_PERCENTAGE_CHANGE_FOR_TREND;
+import static com.core.api.yahoo.helpers.Constants.MIN_ACCEPTED_PERCENTAGE_CHANGE_FOR_TREND;
 import static com.tasks.analyzer.trend.Movement.FORWARD;
 import static com.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static java.math.BigDecimal.ZERO;

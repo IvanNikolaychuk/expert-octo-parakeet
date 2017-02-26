@@ -18,7 +18,6 @@ public class CompanyStaticDataHolder {
 
     public static List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<Company>();
-        companies.add(new Company("CMI", MECHANICAL_ENGINEERING, DOLLAR));
 
         companies.addAll(getPharmaUsaCompanies());
         companies.addAll(getEnergeticUsaCompanies());
@@ -87,7 +86,6 @@ public class CompanyStaticDataHolder {
         companies.add(new Company("DNB", OTHER, DOLLAR));
         companies.add(new Company("BSX", OTHER, DOLLAR));
         companies.add(new Company("DD", OTHER, DOLLAR));
-        companies.add(new Company("SOHU", OTHER, DOLLAR));
         companies.add(new Company("CBS", OTHER, DOLLAR));
         companies.add(new Company("DHR", OTHER, DOLLAR));
         companies.add(new Company("JNJ", OTHER, DOLLAR));
@@ -120,7 +118,6 @@ public class CompanyStaticDataHolder {
         companies.add(new Company("TIF", RETAIL, DOLLAR));
         companies.add(new Company("EBAY", RETAIL, DOLLAR));
         companies.add(new Company("WMT", RETAIL, DOLLAR));
-        companies.add(new Company("BABA", RETAIL, DOLLAR));
         companies.add(new Company("DG", RETAIL, DOLLAR));
         companies.add(new Company("DLTR", RETAIL, DOLLAR));
         companies.add(new Company("AMZN", RETAIL, DOLLAR));
@@ -181,7 +178,6 @@ public class CompanyStaticDataHolder {
         List<Company> companies = new ArrayList<Company>();
 
         companies.add(new Company("F", MECHANICAL_ENGINEERING, DOLLAR));
-        companies.add(new Company("RACE", MECHANICAL_ENGINEERING, DOLLAR));
         companies.add(new Company("EMR", MECHANICAL_ENGINEERING, DOLLAR));
         companies.add(new Company("AME", MECHANICAL_ENGINEERING, DOLLAR));
         companies.add(new Company("COL", MECHANICAL_ENGINEERING, DOLLAR));
@@ -191,7 +187,6 @@ public class CompanyStaticDataHolder {
         companies.add(new Company("BA", MECHANICAL_ENGINEERING, DOLLAR));
         companies.add(new Company("GE", MECHANICAL_ENGINEERING, DOLLAR));
         companies.add(new Company("CAT", MECHANICAL_ENGINEERING, DOLLAR));
-        companies.add(new Company("TTM", MECHANICAL_ENGINEERING, DOLLAR));
 
         return companies;
     }

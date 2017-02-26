@@ -1,6 +1,6 @@
-package com.core.api.gererator;
+package com.core.api.yahoo.gererator;
 
-import com.core.api.helpers.Period;
+import com.core.api.yahoo.helpers.Period;
 
 import java.text.MessageFormat;
 
