@@ -1,9 +1,7 @@
-package com.tasks.analyzer;
+package com.tasks.analyzer.volume;
 
-import com.core.db.dao.CompanyDao;
 import com.core.db.dao.VolumeStatisticDataDao;
 import com.core.db.entity.Candle;
-import com.core.db.entity.company.Company;
 import com.core.db.entity.statistic.VolumeStatisticData;
 import com.tasks.utils.filters.CandlesFilter;
 

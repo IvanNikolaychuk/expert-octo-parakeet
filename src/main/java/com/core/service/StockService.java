@@ -17,9 +17,9 @@ import static com.core.api.yahoo.helpers.Period.Date.february;
  */
 public class StockService {
 
-    public List<StockData> queryStocksSince2014(Company company) {
+    public List<StockData> queryStocksSince2015(Company company) {
         Calendar now = Calendar.getInstance();
 
-        return QuandlApi.query(company.getName(), Period.of(january(2014, 1), forDate(now)));
+        return QuandlApi.query(company.getName(), Period.of(january(2015, 1), forDate(now)));
     }
 }

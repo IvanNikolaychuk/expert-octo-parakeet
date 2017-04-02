@@ -2,9 +2,8 @@ package com.tasks.analyzer;
 
 import com.core.db.dao.CompanyGrowthStatisticDao;
 import com.core.db.dao.InvestmentPeriodDataDao;
-import com.tasks.analyzer.draft.InvestmentPeriodsAnalyser;
 import com.tasks.analyzer.patterns.CandlesPatternAnalyser;
-import com.tasks.analyzer.trend.TrendAnalyser;
+import com.tasks.analyzer.volume.StockVolumeAnalyser;
 import com.tasks.daily.RecentDataObtainTask;
 
 /**
@@ -16,28 +15,15 @@ public class Analysers {
         cleanPreviousData();
         obtainRecentData();
         analyseAvgVolume();
-        analyseInvestmentPeriods();
         analyseCandlePatterns();
-        analyseCompanyGrowth();
-        analyseGaps();
     }
 
-    private void analyseGaps() {
-        new GapsAnalyser(new TrendAnalyser()).execute();
-    }
 
-    private void analyseCompanyGrowth() {
-        new CompanyGrowthAnalyser().execute();
-    }
 
     private void analyseCandlePatterns() {
         new CandlesPatternAnalyser().execute();
     }
 
-
-    private void analyseInvestmentPeriods() {
-        new InvestmentPeriodsAnalyser().execute();
-    }
 
     private void analyseAvgVolume() {
         new StockVolumeAnalyser().execute();

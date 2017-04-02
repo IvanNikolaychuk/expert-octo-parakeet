@@ -24,7 +24,7 @@ public class CreateCompaniesTask {
 //        clearPrevious();
 
         for (Company company : getAllCompanies()) {
-            List<StockData> stockDataList = new StockService().queryStocksSince2014(company);
+            List<StockData> stockDataList = new StockService().queryStocksSince2015(company);
 
             company.addCandles(StockDataToCandleConverter.convert(stockDataList));
             company.setCommonStatisticData(new VolumeStatisticData(company, new ArrayList<Calendar>()));
