@@ -12,14 +12,12 @@
         <property name="hibernate.connection.password">root</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="com.core.db.entity.Candle"/>
-        <mapping class="com.core.db.entity.company.Company"/>
-        <mapping class="com.core.db.entity.statistic.VolumeStatisticData"/>
-        <mapping class="com.core.db.entity.statistic.InvestmentPeriodData"/>
-        <mapping class="com.core.db.entity.statistic.StrongBullCandle"/>
-        <mapping class="com.core.db.entity.statistic.StrongBullStatisticData"/>
-        <mapping class="com.core.db.entity.statistic.CompanyGrowthStatisticData"/>
-        <mapping class="com.core.db.entity.statistic.GapCandleData"/>
+        <mapping class="com.stocks.core.db.entity.Candle"/>
+        <mapping class="com.stocks.core.db.entity.company.Company"/>
+        <mapping class="com.stocks.core.db.entity.statistic.VolumeStatisticData"/>
+        <mapping class="com.stocks.core.db.entity.statistic.InvestmentPeriodData"/>
+        <mapping class="com.stocks.core.db.entity.statistic.StrongBullStatisticData"/>
+        <mapping class="com.stocks.core.db.entity.statistic.CompanyGrowthStatisticData"/>
 
     </session-factory>
 </hibernate-configuration>
