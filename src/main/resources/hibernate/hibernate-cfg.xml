@@ -15,7 +15,6 @@
         <mapping class="com.stocks.core.db.entity.Candle"/>
         <mapping class="com.stocks.core.db.entity.company.Company"/>
         <mapping class="com.stocks.core.db.entity.statistic.VolumeStatisticData"/>
-        <mapping class="com.stocks.core.db.entity.statistic.InvestmentPeriodData"/>
         <mapping class="com.stocks.core.db.entity.statistic.StrongBullStatisticData"/>
         <mapping class="com.stocks.core.db.entity.statistic.CompanyGrowthStatisticData"/>
 

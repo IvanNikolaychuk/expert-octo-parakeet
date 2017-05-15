@@ -1,7 +1,6 @@
 package com.stocks.tasks.analyzer;
 
 import com.stocks.core.db.dao.CompanyGrowthStatisticDao;
-import com.stocks.core.db.dao.InvestmentPeriodDataDao;
 import com.stocks.tasks.analyzer.patterns.CandlesPatternAnalyser;
 import com.stocks.tasks.analyzer.volume.StockVolumeAnalyser;
 import com.stocks.tasks.daily.RecentDataObtainTask;
@@ -35,7 +34,6 @@ public class Analysers {
 
 
     private void cleanPreviousData() {
-        new InvestmentPeriodDataDao().clearAll();
         new CompanyGrowthStatisticDao().clearAll();
     }
 

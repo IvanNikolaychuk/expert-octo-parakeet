@@ -2,7 +2,6 @@ package com.stocks.tasks.once;
 
 import com.stocks.core.api.yahoo.dto.StockData;
 import com.stocks.core.db.dao.CompanyDao;
-import com.stocks.core.db.dao.InvestmentPeriodDataDao;
 import com.stocks.core.db.dao.VolumeStatisticDataDao;
 import com.stocks.core.db.entity.company.Company;
 import com.stocks.core.db.entity.statistic.VolumeStatisticData;
@@ -34,7 +33,6 @@ public class CreateCompaniesTask {
     private void clearPrevious() {
         new CompanyDao().clearAll();
         new VolumeStatisticDataDao().clearAll();
-        new InvestmentPeriodDataDao().clearAll();
     }
 
 
