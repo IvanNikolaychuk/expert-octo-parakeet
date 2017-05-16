@@ -1,6 +1,7 @@
 package com.stocks.tasks.analyzer.helpers;
 
 import com.stocks.core.db.entity.Candle;
+import com.stocks.tasks.analyzer.algorithms.StrongBeerCandleAlgorithm;
 import com.stocks.tasks.analyzer.algorithms.StrongBullCandleAlgorithm;
 import com.stocks.tasks.analyzer.algorithms.StrongGapFallCandleAlgorithm;
 import com.stocks.tasks.analyzer.algorithms.StrongGapRiseCandleAlgorithm;
@@ -52,6 +53,17 @@ public class CandleByDateSequence {
         return indexOfCandleBeforeTargetCandle >= 0 &&
                 StrongBullCandleAlgorithm.isStrongBullCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
     }
+
+    public boolean isStrongBearCandle(Candle target) {
+        if (!candles.get(currentIndex - 1).equals(target)) {
+            throw new IllegalStateException("It was expected that passed candle is a current one");
+        }
+
+        final int indexOfCandleBeforeTargetCandle = currentIndex - 2;
+        return indexOfCandleBeforeTargetCandle >= 0 &&
+                StrongBeerCandleAlgorithm.isStrongBearCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
+    }
+
 
     public Candle getCurrent() {
         return candles.get(currentIndex);

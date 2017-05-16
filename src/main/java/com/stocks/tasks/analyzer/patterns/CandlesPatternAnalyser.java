@@ -17,7 +17,7 @@ public class CandlesPatternAnalyser {
     public void execute() {
         CandlesDao candlesDao = new CandlesDao();
 
-        for(Company company : new CompanyDao().getAll()) {
+        for (Company company : new CompanyDao().getAll()) {
             List<Candle> candles = CandleUtils.sort(company.getCandles(), new CandlesFilter.OldDateFirstComparator());
             findAndSetPatterns(candles);
             candlesDao.update(candles);
@@ -34,6 +34,8 @@ public class CandlesPatternAnalyser {
                 candle.setPattern(STRONG_GAP_FALL);
             } else if (candleByDateSequence.isStrongGapRiseCandle(candle)) {
                 candle.setPattern(STRONG_GAP_RISE);
+            } else if (candleByDateSequence.isStrongBearCandle(candle)) {
+                candle.setPattern(STRONG_BEAR);
             } else {
                 candle.setPattern(NONE);
             }
