@@ -11,7 +11,6 @@ import com.stocks.tasks.daily.RecentDataObtainTask;
 public class Analysers {
 
     public void execute() {
-        cleanPreviousData();
         obtainRecentData();
         analyseAvgVolume();
         analyseCandlePatterns();
@@ -32,10 +31,6 @@ public class Analysers {
         new RecentDataObtainTask().execute();
     }
 
-
-    private void cleanPreviousData() {
-        new CompanyGrowthStatisticDao().clearAll();
-    }
 
     public static void main(String[] args) {
         new Analysers().execute();

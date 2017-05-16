@@ -12,3 +12,4 @@ alter table company_candle add constraint FKakepcreu06scv2lc6qpysg9a7 foreign ke
 alter table company_candle add constraint FKiwospl5vc9ukqgshpicrdropd foreign key (company_name) references company (name);
 alter table company add column stock_currency varchar(255);
 alter table company add column business_type varchar(255);
+
