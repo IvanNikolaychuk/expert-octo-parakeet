@@ -1,9 +1,9 @@
 package com.stocks.core.api;
 
-import com.quandl.api.java.InvalidTokenException;
-import com.quandl.api.java.QDataset;
-import com.quandl.api.java.QEntry;
-import com.quandl.api.java.QuandlConnection;
+import com.stocks.core.api.quandl.java.InvalidTokenException;
+import com.stocks.core.api.quandl.java.QDataset;
+import com.stocks.core.api.quandl.java.QEntry;
+import com.stocks.core.api.quandl.java.QuandlConnection;
 import com.stocks.core.api.yahoo.dto.StockData;
 import com.stocks.core.api.yahoo.helpers.Period;
 

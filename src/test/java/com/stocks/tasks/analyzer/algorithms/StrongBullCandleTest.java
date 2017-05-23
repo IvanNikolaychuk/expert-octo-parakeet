@@ -24,13 +24,6 @@ public class StrongBullCandleTest {
     }
 
     @Test
-    public void bodyIsBig() {
-        assertFalse(StrongBullCandleAlgorithm.bodyIsBig(
-                createYesterdaysCandleWithUpperTrend(ONE, TEN), createYesterdaysCandleWithUpperTrend(ONE, TEN))
-        );
-    }
-
-    @Test
     public void candleIsStrongBull() {
         Candle candleBefore = createYesterdaysCandleWithUpperTrend(valueOf(2), valueOf(2));
         Candle target = createTodaysCandleWithUpperTrend(valueOf(2), valueOf(12));

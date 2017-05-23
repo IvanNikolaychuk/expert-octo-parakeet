@@ -16,7 +16,6 @@ public class StrongBullCandleAlgorithm {
 
         return target.getTrend() == Trend.UP
                 && percentageProfitIsBig(target)
-                && bodyIsBig(candleBefore, target)
                 && shadowsAreLow(target);
 
     }
@@ -39,10 +38,6 @@ public class StrongBullCandleAlgorithm {
                 .divide(bodyLength, BigDecimal.ROUND_UP);
     }
 
-     static boolean bodyIsBig(Candle candleBefore, Candle candle) {
-        return candleBefore.getBody().multiply(Constants.MIN_ACCEPTED_BODY_RATIO_FOR_STRONG_BULL_CANDLE)
-                .compareTo(candle.getBody()) <= 0;
-    }
 
      static boolean percentageProfitIsBig(Candle candle) {
         return CandleUtils.calculatePercentageProfit(candle)
