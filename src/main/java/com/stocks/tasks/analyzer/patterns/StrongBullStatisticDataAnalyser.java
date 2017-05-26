@@ -1,4 +1,4 @@
-package com.tasks.analyzer.patterns;
+package com.stocks.tasks.analyzer.patterns;
 
 import com.stocks.core.db.dao.AfterStrongBullStatisticDao;
 import com.stocks.core.db.dao.CompanyDao;
@@ -33,39 +33,39 @@ public class StrongBullStatisticDataAnalyser {
         List<AfterStrongBullStatistic> afterStrongBullStatistics = new ArrayList<>();
 
         CandleByDateSequence candleByDateSequence = new CandleByDateSequence(allCandles);
-        for (Candle firstCandle : strongBulls) {
-            afterStrongBullStatistics.add(analyse(firstCandle, candleByDateSequence));
+        for (Candle strongBull : strongBulls) {
+            afterStrongBullStatistics.add(analyse(strongBull, candleByDateSequence));
         }
 
         return afterStrongBullStatistics;
     }
 
-    private AfterStrongBullStatistic analyse(Candle firstCandle, CandleByDateSequence candleByDateSequence) {
-        AfterStrongBullStatistic afterStrongBullStatistic = new AfterStrongBullStatistic(firstCandle);
+    private AfterStrongBullStatistic analyse(Candle strongBull, CandleByDateSequence candleByDateSequence) {
+        AfterStrongBullStatistic afterStrongBullStatistic = new AfterStrongBullStatistic(strongBull);
 
-        candleByDateSequence.setCurrent(firstCandle);
+        candleByDateSequence.setCurrent(strongBull);
         int candleCounter = 0;
 
-        while (candleByDateSequence.hasNext() && candleCounter < 20) {
+        while (candleByDateSequence.hasNext() && candleCounter < 30) {
             candleCounter++;
             candleByDateSequence.next();
 
             try {
                 Candle nextCandle = candleByDateSequence.getCurrent();
-                afterStrongBullStatistic.setProfit(calculatePercentageProfit(firstCandle.getClose(), nextCandle.getClose()), candleCounter);
+                afterStrongBullStatistic.setProfit(calculatePercentageProfit(strongBull.getClose(), nextCandle.getClose()), candleCounter);
 
-                final boolean priceIsLowerThanSupport = firstCandle.getClose().compareTo(nextCandle.getClose()) > 0;
+                final boolean priceIsLowerThanSupport = strongBull.getClose().compareTo(nextCandle.getClose()) > 0;
                 if (afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose && priceIsLowerThanSupport) {
                     afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose = false;
                 }
 
-                final BigDecimal halfSupportLevel = firstCandle.getOpen().add(firstCandle.getBody().divide(BigDecimal.valueOf(2)));
+                final BigDecimal halfSupportLevel = strongBull.getLow().add(strongBull.getBody().divide(BigDecimal.valueOf(2)));
                 final boolean halfSupportIsBroken = halfSupportLevel.compareTo(nextCandle.getClose()) > 0;
                 if (!afterStrongBullStatistic.halfSupportIsBroken && halfSupportIsBroken) {
                     afterStrongBullStatistic.halfSupportIsBroken = true;
                 }
 
-                final boolean supportIsBroken = firstCandle.getOpen().compareTo(nextCandle.getClose()) > 0;
+                final boolean supportIsBroken = strongBull.getLow().compareTo(nextCandle.getClose()) > 0;
                 if (!afterStrongBullStatistic.supportIsBroken && supportIsBroken) {
                     afterStrongBullStatistic.supportIsBroken = true;
                 }

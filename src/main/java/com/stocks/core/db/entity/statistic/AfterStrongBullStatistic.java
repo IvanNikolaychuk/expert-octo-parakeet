@@ -28,6 +28,15 @@ public class AfterStrongBullStatistic {
     @Column(name = "after_20_day")
     private BigDecimal profitAfterTwentyDays;
 
+    @Column(name = "after_30_day")
+    private BigDecimal profitAfterThirtyDays;
+
+    @Column(name = "after_40_day")
+    private BigDecimal profitAfterFourtyDays;
+
+    @Column(name = "after_50_day")
+    private BigDecimal profitAfterFiftyDays;
+
     @Column(name = "half_support_is_broken")
     public boolean halfSupportIsBroken;
 
@@ -51,6 +60,9 @@ public class AfterStrongBullStatistic {
         if (daysPassed == 5) profitAfterFiveDays = profit;
         if (daysPassed == 10) profitAfterTenDays = profit;
         if (daysPassed == 20) profitAfterTwentyDays = profit;
+        if (daysPassed == 30)  profitAfterThirtyDays = profit;
+        if (daysPassed == 40)  profitAfterFourtyDays = profit;
+        if (daysPassed == 50)  profitAfterFiftyDays = profit;
     }
 
     @Id
@@ -58,7 +70,7 @@ public class AfterStrongBullStatistic {
     private int id;
 
     public boolean isValid() {
-        return profitAfterTwentyDays != null && profitAfterTenDays != null && profitAfterFiveDays != null
+        return profitAfterThirtyDays != null && profitAfterTwentyDays != null && profitAfterTenDays != null && profitAfterFiveDays != null
                 && profitAfterThreeDays != null && profitAfterOneDay != null;
     }
 }

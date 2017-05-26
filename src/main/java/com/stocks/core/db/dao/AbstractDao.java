@@ -23,6 +23,14 @@ public class AbstractDao<T> {
         }
     }
 
+    public T getById(int id) {
+        try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            return session
+                    .get(getObjectClass(), id);
+        }
+    }
+
     public void clearAll() {
         try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
              Session session = sessionFactory.openSession()) {
