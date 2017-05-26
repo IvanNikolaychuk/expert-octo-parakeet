@@ -38,13 +38,15 @@ public class StockDataToCandleConverter {
         if (body.compareTo(BigDecimal.ZERO) == -1) {
             candle.setBody(body.negate());
             candle.setTrend(DOWN);
+            candle.setUpperShadow(candle.getHigh().subtract(candle.getOpen()));
+            candle.setLowerShadow(candle.getClose().subtract(candle.getLow()));
         } else {
             candle.setBody(body);
             candle.setTrend(UP);
+            candle.setUpperShadow(candle.getHigh().subtract(candle.getClose()));
+            candle.setLowerShadow(candle.getOpen().subtract(candle.getLow()));
         }
 
-        candle.setLowerShadow(candle.getOpen().subtract(candle.getLow()));
-        candle.setUpperShadow(candle.getHigh().subtract(candle.getClose()));
         candle.setPercentageProfit(calculatePercentageProfit(candle));
     }
 

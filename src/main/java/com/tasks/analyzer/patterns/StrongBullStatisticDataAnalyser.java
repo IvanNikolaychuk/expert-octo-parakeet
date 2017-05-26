@@ -1,20 +1,18 @@
 package com.tasks.analyzer.patterns;
 
+import com.stocks.core.db.dao.AfterStrongBullStatisticDao;
 import com.stocks.core.db.dao.CompanyDao;
-import com.stocks.core.db.dao.StrongBullStatisticDataDao;
 import com.stocks.core.db.entity.Candle;
 import com.stocks.core.db.entity.company.Company;
-import com.stocks.core.db.entity.statistic.StrongBullStatisticData;
+import com.stocks.core.db.entity.statistic.AfterStrongBullStatistic;
 import com.stocks.tasks.analyzer.helpers.CandleByDateSequence;
-import com.stocks.tasks.analyzer.trend.TrendAnalyser;
-import com.stocks.tasks.analyzer.trend.TrendData;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.stocks.core.db.entity.Candle.Pattern.STRONG_BULL;
-import static com.stocks.tasks.analyzer.trend.Movement.BACK;
-import static com.stocks.tasks.analyzer.trend.Movement.FORWARD;
+import static com.stocks.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.stocks.tasks.utils.filters.CandlesFilter.filterByPattern;
 
 
@@ -22,43 +20,63 @@ public class StrongBullStatisticDataAnalyser {
 
     public void execute() {
         List<Company> companies = new CompanyDao().getAll();
-        StrongBullStatisticDataDao strongBullStatisticDataDao = new StrongBullStatisticDataDao();
+        AfterStrongBullStatisticDao strongBullStatisticDataDao = new AfterStrongBullStatisticDao();
         for (Company company : companies) {
             List<Candle> allCandles = company.getCandles();
             List<Candle> strongBulls = filterByPattern(allCandles, STRONG_BULL);
+
             strongBullStatisticDataDao.save(analyse(allCandles, strongBulls));
         }
     }
 
-    List<StrongBullStatisticData> analyse(List<Candle> allCandles, List<Candle> strongBulls) {
-        List<StrongBullStatisticData> strongBullStatisticDataList = new ArrayList<>();
+    private List<AfterStrongBullStatistic> analyse(List<Candle> allCandles, List<Candle> strongBulls) {
+        List<AfterStrongBullStatistic> afterStrongBullStatistics = new ArrayList<>();
 
         CandleByDateSequence candleByDateSequence = new CandleByDateSequence(allCandles);
-        for (Candle candle : strongBulls) {
-            StrongBullStatisticData strongBullStatisticData = new StrongBullStatisticData(candle);
-            strongBullStatisticDataList.add(strongBullStatisticData);
-
-            candleByDateSequence.setCurrent(candle);
-            // start with next after strong bull
-            if (candleByDateSequence.hasNext()) {
-                candleByDateSequence.next();
-                Candle nextAfterTarget = candleByDateSequence.getCurrent();
-                TrendData trendData = new TrendAnalyser().analyseTrend(nextAfterTarget, candleByDateSequence, FORWARD);
-                strongBullStatisticData.setAfterDays(trendData.getNumberOfDays());
-                strongBullStatisticData.setAfterPercentageProfit(trendData.getPercentageProfit());
-            }
-
-            candleByDateSequence.setCurrent(candle);
-            if (candleByDateSequence.hasPrev()) {
-                candleByDateSequence.prev();
-                Candle prevBeforeTarget = candleByDateSequence.getCurrent();
-                TrendData trendData = new TrendAnalyser().analyseTrend(prevBeforeTarget, candleByDateSequence, BACK);
-                strongBullStatisticData.setBeforeDays(trendData.getNumberOfDays());
-                strongBullStatisticData.setBeforePercentageProfit(trendData.getPercentageProfit());
-            }
+        for (Candle firstCandle : strongBulls) {
+            afterStrongBullStatistics.add(analyse(firstCandle, candleByDateSequence));
         }
 
-        return strongBullStatisticDataList;
+        return afterStrongBullStatistics;
+    }
+
+    private AfterStrongBullStatistic analyse(Candle firstCandle, CandleByDateSequence candleByDateSequence) {
+        AfterStrongBullStatistic afterStrongBullStatistic = new AfterStrongBullStatistic(firstCandle);
+
+        candleByDateSequence.setCurrent(firstCandle);
+        int candleCounter = 0;
+
+        while (candleByDateSequence.hasNext() && candleCounter < 20) {
+            candleCounter++;
+            candleByDateSequence.next();
+
+            try {
+                Candle nextCandle = candleByDateSequence.getCurrent();
+                afterStrongBullStatistic.setProfit(calculatePercentageProfit(firstCandle.getClose(), nextCandle.getClose()), candleCounter);
+
+                final boolean priceIsLowerThanSupport = firstCandle.getClose().compareTo(nextCandle.getClose()) > 0;
+                if (afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose && priceIsLowerThanSupport) {
+                    afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose = false;
+                }
+
+                final BigDecimal halfSupportLevel = firstCandle.getOpen().add(firstCandle.getBody().divide(BigDecimal.valueOf(2)));
+                final boolean halfSupportIsBroken = halfSupportLevel.compareTo(nextCandle.getClose()) > 0;
+                if (!afterStrongBullStatistic.halfSupportIsBroken && halfSupportIsBroken) {
+                    afterStrongBullStatistic.halfSupportIsBroken = true;
+                }
+
+                final boolean supportIsBroken = firstCandle.getOpen().compareTo(nextCandle.getClose()) > 0;
+                if (!afterStrongBullStatistic.supportIsBroken && supportIsBroken) {
+                    afterStrongBullStatistic.supportIsBroken = true;
+                }
+
+            } catch (IndexOutOfBoundsException e) {
+                continue;
+            }
+
+        }
+
+        return afterStrongBullStatistic;
     }
 
     public static void main(String[] args) {

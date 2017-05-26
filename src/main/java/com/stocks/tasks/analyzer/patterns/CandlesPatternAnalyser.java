@@ -36,7 +36,10 @@ public class CandlesPatternAnalyser {
                 candle.setPattern(STRONG_GAP_RISE);
             } else if (candleByDateSequence.isStrongBearCandle(candle)) {
                 candle.setPattern(STRONG_BEAR);
-            } else {
+            } else if (candleByDateSequence.isDojiCandle(candle)) {
+                candle.setPattern(DOJI);
+            }
+            else {
                 candle.setPattern(NONE);
             }
         }

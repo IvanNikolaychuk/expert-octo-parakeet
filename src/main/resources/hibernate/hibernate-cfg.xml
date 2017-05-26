@@ -17,6 +17,7 @@
         <mapping class="com.stocks.core.db.entity.statistic.VolumeStatisticData"/>
         <mapping class="com.stocks.core.db.entity.statistic.StrongBullStatisticData"/>
         <mapping class="com.stocks.core.db.entity.statistic.CompanyGrowthStatisticData"/>
+        <mapping class="com.stocks.core.db.entity.statistic.AfterStrongBullStatistic"/>
 
     </session-factory>
 </hibernate-configuration>

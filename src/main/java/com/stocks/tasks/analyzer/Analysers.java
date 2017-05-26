@@ -22,7 +22,6 @@ public class Analysers {
         new CandlesPatternAnalyser().execute();
     }
 
-
     private void analyseAvgVolume() {
         new StockVolumeAnalyser().execute();
     }

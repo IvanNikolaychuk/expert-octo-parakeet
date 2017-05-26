@@ -55,9 +55,18 @@ public class CandleUtils {
 
     public static BigDecimal calculatePercentageProfit(Candle candle) {
         List<Candle> candles = singletonList(candle);
+
         return calculateProfit(candles)
                 .multiply(valueOf(100))
                 .divide(getFirst(candles).getOpen(), RoundingMode.HALF_UP);
+    }
+
+
+    public static BigDecimal calculatePercentageProfit(BigDecimal open, BigDecimal close) {
+
+        return close.subtract(open)
+                .multiply(valueOf(100))
+                .divide(open, RoundingMode.HALF_UP);
     }
 
     public static List<Candle> sort(List<Candle> candles, Comparator<Candle> comparator) {

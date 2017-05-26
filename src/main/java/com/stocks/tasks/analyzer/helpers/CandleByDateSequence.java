@@ -1,10 +1,7 @@
 package com.stocks.tasks.analyzer.helpers;
 
 import com.stocks.core.db.entity.Candle;
-import com.stocks.tasks.analyzer.algorithms.StrongBeerCandleAlgorithm;
-import com.stocks.tasks.analyzer.algorithms.StrongBullCandleAlgorithm;
-import com.stocks.tasks.analyzer.algorithms.StrongGapFallCandleAlgorithm;
-import com.stocks.tasks.analyzer.algorithms.StrongGapRiseCandleAlgorithm;
+import com.stocks.tasks.analyzer.algorithms.*;
 import com.stocks.tasks.utils.CandleUtils;
 import com.stocks.tasks.utils.filters.CandlesFilter;
 
@@ -62,6 +59,10 @@ public class CandleByDateSequence {
         final int indexOfCandleBeforeTargetCandle = currentIndex - 2;
         return indexOfCandleBeforeTargetCandle >= 0 &&
                 StrongBeerCandleAlgorithm.isStrongBearCandle(candles.get(indexOfCandleBeforeTargetCandle), target);
+    }
+
+    public boolean isDojiCandle(Candle target) {
+        return DojiCandleAlgorithm.isDojiCandle(target);
     }
 
 
