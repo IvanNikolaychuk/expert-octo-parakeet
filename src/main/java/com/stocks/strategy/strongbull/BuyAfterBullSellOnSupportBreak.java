@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.stocks.core.db.entity.Candle.Pattern.STRONG_BULL;
+import static com.stocks.tasks.utils.CandleCommonOperations.candleBrokeResistance;
 import static com.stocks.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.stocks.tasks.utils.filters.CandlesFilter.filterByPattern;
 
@@ -54,7 +55,7 @@ public class BuyAfterBullSellOnSupportBreak {
             Candle nextCandle = candleByDateSequence.next();
             BigDecimal percProfit = calculatePercentageProfit(strongBull.getClose(), nextCandle.getClose());
 
-            if (strongBull.getLow().compareTo(nextCandle.getClose()) > 0) {
+            if (candleBrokeResistance(strongBull.getLow(), nextCandle)) {
                 profitData.totalProfitPerc = profitData.totalProfitPerc.add(percProfit);
                 profitData.totalPeriodsCounter++;
                 profitData.supportBreakCounter++;
