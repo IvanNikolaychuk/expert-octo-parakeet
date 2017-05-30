@@ -35,17 +35,6 @@ public class BuyAfterBullSellOnSupportBreak {
         new ProfitDataDao().save(profitDataList);
     }
 
-    private ProfitData calculateCommonProft(List<ProfitData> profitDataList) {
-        ProfitData common = new ProfitData("COMMON");
-        for (ProfitData profitData : profitDataList) {
-            common.supportBreakCounter = common.supportBreakCounter + profitData.supportBreakCounter;
-            common.totalPeriodsCounter = common.totalPeriodsCounter + profitData.totalPeriodsCounter;
-            common.totalProfitPerc = common.totalProfitPerc.add(profitData.totalProfitPerc);
-        }
-
-        return common;
-    }
-
     private ProfitData calculateProfitData(List<Candle> allCandles, List<Candle> strongBulls, String companyName) {
         ProfitData profitData = new ProfitData(companyName);
 
@@ -60,7 +49,7 @@ public class BuyAfterBullSellOnSupportBreak {
         candleByDateSequence.setCurrent(strongBull);
         int daysCounter = 0;
 
-        while (true) {
+        while (candleByDateSequence.hasNext()) {
             daysCounter++;
             Candle nextCandle = candleByDateSequence.next();
             BigDecimal percProfit = calculatePercentageProfit(strongBull.getClose(), nextCandle.getClose());
@@ -77,6 +66,17 @@ public class BuyAfterBullSellOnSupportBreak {
                 return;
             }
         }
+    }
+
+    private ProfitData calculateCommonProft(List<ProfitData> profitDataList) {
+        ProfitData common = new ProfitData("COMMON");
+        for (ProfitData profitData : profitDataList) {
+            common.supportBreakCounter = common.supportBreakCounter + profitData.supportBreakCounter;
+            common.totalPeriodsCounter = common.totalPeriodsCounter + profitData.totalPeriodsCounter;
+            common.totalProfitPerc = common.totalProfitPerc.add(profitData.totalProfitPerc);
+        }
+
+        return common;
     }
 
     public static void main(String[] args) {
