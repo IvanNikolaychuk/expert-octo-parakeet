@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.stocks.core.db.entity.Candle.Pattern.STRONG_BULL;
-import static com.stocks.tasks.utils.CandleCommonOperations.candleBrokeResistance;
 import static com.stocks.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.stocks.tasks.utils.filters.CandlesFilter.filterByPattern;
 
@@ -20,11 +19,13 @@ import static com.stocks.tasks.utils.filters.CandlesFilter.filterByPattern;
  * @author Ivan Nikolaichuk
  */
 public class BuyAfterBullSellOnSupportBreak {
+    private final ProfitDataDao profitDataDao = new ProfitDataDao();
+    private final CompanyDao companyDao = new CompanyDao();
 
     public void test() {
         List<ProfitData> profitDataList = new ArrayList<>();
 
-        for (Company company : new CompanyDao().getAll()) {
+        for (Company company : companyDao.getAll()) {
             List<Candle> allCandles = company.getCandles();
             ProfitData profitData = calculateProfitData(allCandles, filterByPattern(allCandles, STRONG_BULL), company.getName());
             if (profitData.totalPeriodsCounter != 0) {
@@ -32,8 +33,8 @@ public class BuyAfterBullSellOnSupportBreak {
             }
         }
 
-        profitDataList.add(calculateCommonProft(profitDataList));
-        new ProfitDataDao().save(profitDataList);
+        profitDataList.add(calculateCommonProfit(profitDataList));
+        profitDataDao.save(profitDataList);
     }
 
     private ProfitData calculateProfitData(List<Candle> allCandles, List<Candle> strongBulls, String companyName) {
@@ -55,12 +56,12 @@ public class BuyAfterBullSellOnSupportBreak {
             Candle nextCandle = candleByDateSequence.next();
             BigDecimal percProfit = calculatePercentageProfit(strongBull.getClose(), nextCandle.getClose());
 
-            if (candleBrokeResistance(strongBull.getLow(), nextCandle)) {
-                profitData.totalProfitPerc = profitData.totalProfitPerc.add(percProfit);
-                profitData.totalPeriodsCounter++;
-                profitData.supportBreakCounter++;
-                return;
-            }
+//            if (candleBrokeSupport(strongBull.getLow(), nextCandle)) {
+//                profitData.totalProfitPerc = profitData.totalProfitPerc.add(percProfit);
+//                profitData.totalPeriodsCounter++;
+//                profitData.supportBreakCounter++;
+//                return;
+//            }
             if (daysCounter == 30) {
                 profitData.totalPeriodsCounter++;
                 profitData.totalProfitPerc = profitData.totalProfitPerc.add(percProfit);
@@ -69,7 +70,7 @@ public class BuyAfterBullSellOnSupportBreak {
         }
     }
 
-    private ProfitData calculateCommonProft(List<ProfitData> profitDataList) {
+    private ProfitData calculateCommonProfit(List<ProfitData> profitDataList) {
         ProfitData common = new ProfitData("COMMON");
         for (ProfitData profitData : profitDataList) {
             common.supportBreakCounter = common.supportBreakCounter + profitData.supportBreakCounter;

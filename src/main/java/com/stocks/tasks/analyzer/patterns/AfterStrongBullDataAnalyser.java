@@ -12,11 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.stocks.core.db.entity.Candle.Pattern.STRONG_BULL;
+import static com.stocks.tasks.utils.CandleCommonOperations.candleBrokeSupport;
 import static com.stocks.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.stocks.tasks.utils.filters.CandlesFilter.filterByPattern;
 
 
-public class StrongBullStatisticDataAnalyser {
+public class AfterStrongBullDataAnalyser {
 
     public void execute() {
         List<Company> companies = new CompanyDao().getAll();
@@ -45,34 +46,27 @@ public class StrongBullStatisticDataAnalyser {
 
         candleByDateSequence.setCurrent(strongBull);
         int candleCounter = 0;
-
         while (candleByDateSequence.hasNext() && candleCounter < 30) {
             candleCounter++;
-            candleByDateSequence.next();
 
-            try {
-                Candle nextCandle = candleByDateSequence.getCurrent();
-                afterStrongBullStatistic.setProfit(calculatePercentageProfit(strongBull.getClose(), nextCandle.getClose()), candleCounter);
+            Candle nextCandle = candleByDateSequence.next();
+            afterStrongBullStatistic.setProfit(calculatePercentageProfit(strongBull.getClose(), nextCandle.getClose()), candleCounter);
 
-                final boolean priceIsLowerThanSupport = strongBull.getClose().compareTo(nextCandle.getClose()) > 0;
-                if (afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose && priceIsLowerThanSupport) {
-                    afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose = false;
-                }
-
-                final BigDecimal halfSupportLevel = strongBull.getLow().add(strongBull.getBody().divide(BigDecimal.valueOf(2)));
-                final boolean halfSupportIsBroken = halfSupportLevel.compareTo(nextCandle.getClose()) > 0;
-                if (!afterStrongBullStatistic.halfSupportIsBroken && halfSupportIsBroken) {
-                    afterStrongBullStatistic.halfSupportIsBroken = true;
-                }
-
-                final boolean supportIsBroken = strongBull.getLow().compareTo(nextCandle.getClose()) > 0;
-                if (!afterStrongBullStatistic.supportIsBroken && supportIsBroken) {
-                    afterStrongBullStatistic.supportIsBroken = true;
-                }
-
-            } catch (IndexOutOfBoundsException e) {
-                continue;
+            final boolean priceIsLowerThanSupport = strongBull.getClose().compareTo(nextCandle.getClose()) > 0;
+            if (afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose && priceIsLowerThanSupport) {
+                afterStrongBullStatistic.priceAlwaysWasHigherThanFirstClose = false;
             }
+
+            final BigDecimal halfSupportLevel = strongBull.getLow().add(strongBull.getBody().divide(BigDecimal.valueOf(2)));
+            final boolean halfSupportIsBroken = halfSupportLevel.compareTo(nextCandle.getClose()) > 0;
+            if (!afterStrongBullStatistic.halfSupportIsBroken && halfSupportIsBroken) {
+                afterStrongBullStatistic.halfSupportIsBroken = true;
+            }
+
+            if (!afterStrongBullStatistic.supportIsBroken && candleBrokeSupport(strongBull.getLow(), nextCandle)) {
+                afterStrongBullStatistic.supportIsBroken = true;
+            }
+
 
         }
 
@@ -80,6 +74,6 @@ public class StrongBullStatisticDataAnalyser {
     }
 
     public static void main(String[] args) {
-        new StrongBullStatisticDataAnalyser().execute();
+        new AfterStrongBullDataAnalyser().execute();
     }
 }

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * @author Ivan Nikolaichuk
  */
 public class CandleCommonOperations {
-    public static boolean candleBrokeResistance(BigDecimal resistanceLevel, Candle candle) {
-        return resistanceLevel.compareTo(candle.getClose()) > 0;
+    public static boolean candleBrokeSupport(BigDecimal supportLevel, Candle candle) {
+        return supportLevel.compareTo(candle.getClose()) > 0;
     }
 }
