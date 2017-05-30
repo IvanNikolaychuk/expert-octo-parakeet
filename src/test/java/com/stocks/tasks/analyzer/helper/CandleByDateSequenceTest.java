@@ -5,59 +5,36 @@ import com.stocks.tasks.analyzer.helpers.CandleByDateSequence;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static com.stocks.tasks.helpers.CandleHelper.createTodaysCandle;
 import static com.stocks.tasks.helpers.CandleHelper.createYesterdaysCandle;
 import static java.util.Collections.singletonList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class CandleByDateSequenceTest {
 
     @Test(expected = IllegalStateException.class)
-    public void exceptionIsThrownWhenTryingToSetCandleThatDoesntExistInSequence() {
+    public void exception_is_thrown_when_set_current_candle_that_is_not_in_sequence() {
         CandleByDateSequence candleByDateSequence = new CandleByDateSequence(singletonList(createTodaysCandle()));
         candleByDateSequence.setCurrent(createYesterdaysCandle());
     }
 
+
     @Test
-    public void currentCandle() {
+    public void testFlow() {
+        Candle yesterdays = createYesterdaysCandle();
         Candle todays = createTodaysCandle();
-        Candle yestredays = createYesterdaysCandle();
 
-        List<Candle> candles = Arrays.asList(yestredays, todays);
-        CandleByDateSequence candleByDateSequence = new CandleByDateSequence(candles);
+        CandleByDateSequence candleByDateSequence = new CandleByDateSequence(yesterdays, todays);
 
-        Assert.assertTrue(candleByDateSequence.hasNext());
-
-        candleByDateSequence.setCurrent(todays);
-        Assert.assertTrue(candleByDateSequence.hasNext());
-        Assert.assertEquals(candleByDateSequence.getCurrent(), todays);
-        Assert.assertEquals(candleByDateSequence.next(), todays);
-        Assert.assertFalse(candleByDateSequence.hasNext());
-    }
-
-    @Test
-    public void sequenceHasNoElementsWhenCreatedWithEmptyList() {
-        CandleByDateSequence candleByDateSequence = new CandleByDateSequence(new ArrayList<>());
-        assertFalse(candleByDateSequence.hasNext());
-    }
-
-    @Test
-    public void testIteration_AllCandlesAreSortedByDate() {
-        Candle first = createTodaysCandle();
-        Candle second = createYesterdaysCandle();
-
-        CandleByDateSequence candleByDateSequence = new CandleByDateSequence(Arrays.asList(first, second));
-
+        assertEquals(yesterdays, candleByDateSequence.getCurrent());
         assertTrue(candleByDateSequence.hasNext());
-        assertEquals(candleByDateSequence.next(), second);
 
-        assertTrue(candleByDateSequence.hasNext());
-        assertEquals(candleByDateSequence.next(), first);
-
+        assertEquals(todays, candleByDateSequence.next());
         assertFalse(candleByDateSequence.hasNext());
+        assertEquals(todays, candleByDateSequence.getCurrent());
     }
+
+
 }

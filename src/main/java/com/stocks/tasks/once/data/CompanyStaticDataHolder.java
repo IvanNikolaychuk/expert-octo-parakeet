@@ -222,7 +222,7 @@ public class CompanyStaticDataHolder {
                 "PEP", "A", "EXR", "EBAY", "AMT", "BDX", "ADM", "ORCL", "CELG", "KO", "ECL", "IBM", "BMY", "CTAS", "DLPH", "DVN",
                 "COST", "VRSK", "JBHT", "FLS", "CVX", "DLTR", "BXP", "BAC", "JPM", "BAX", "CAT", "WB", "AVY", "FE", "LMT", "MS",
                 "HON", "DE", "MU", "OXY", "BEN", "CLX", "BK", "DVA", "DOV", "EXPD", "UTX", "VZ", "BA", "CCI", "BWA", "INTC", "EMN",
-                "EFX", "CNP", "ETN", "ITW", "RDY", "TGT", "CINF", "TCS", "MAS", "BSX", "CL", "CSCO", "DHI", "FAST", "RHI", "WMT", "AXP",
+                "EFX", "CNP", "ETN", "ITW", "RDY", "TGT", "CINF", "MAS", "BSX", "CL", "CSCO", "DHI", "FAST", "RHI", "WMT", "AXP",
                 "SBUX", "HES", "AIZ", "ROP", "CERN", "SRCL", "DPS", "CBG", "CHRW", "NLSN", "AME", "FSLR", "AAP", "IBN", "PYPL", "DG",
                 "CMCSA", "AFL", "CPB", "F", "ROK", "CMA", "SNA", "SWK", "WM", "BF.B", "DNB", "AKAM", "CBS", "UNH", "DGX", "CHD", "COP",
                 "DISCK", "COF", "KMI", "DISCA", "GILD", "MRO", "COH", "TXT", "COL", "SCHW", "HAL", "AET", "RSG", "SLB", "CI", "ENDP",

@@ -11,10 +11,12 @@ import com.stocks.tasks.analyzer.helpers.CandleByDateSequence;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.stocks.core.db.entity.Candle.Pattern.STRONG_BULL;
 import static com.stocks.tasks.utils.CandleUtils.calculatePercentageProfit;
+import static com.stocks.tasks.utils.filters.CandlesFilter.filterByDate;
 import static com.stocks.tasks.utils.filters.CandlesFilter.filterByPattern;
 
 /**
@@ -28,7 +30,14 @@ public class BuyAfterBullSellOnSupportBreak {
         List<AfterStrongBullStatistic> afterStrongBullStatistics = new AfterStrongBullStatisticDao().getAll();
         for (Company company : companies) {
             List<Candle> allCandles = company.getCandles();
-            List<Candle> strongBulls = filterByPattern(allCandles, STRONG_BULL);
+
+            Calendar from = Calendar.getInstance();
+            from.set(2017, Calendar.APRIL, 1);
+
+            Calendar to = Calendar.getInstance();
+            to.set(2017, Calendar.MAY, 30);
+
+            List<Candle> strongBulls = filterByDate(filterByPattern(allCandles, STRONG_BULL), from, to);
 
             List<Candle> strongBullsToCheck = new ArrayList<>();
             for (Candle candle : strongBulls) {

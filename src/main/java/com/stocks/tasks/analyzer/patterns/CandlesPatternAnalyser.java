@@ -13,35 +13,23 @@ import java.util.List;
 import static com.stocks.core.db.entity.Candle.Pattern.*;
 
 public class CandlesPatternAnalyser {
+    private final CandlesDao candlesDao = new CandlesDao();
+    private final CompanyDao companyDao = new CompanyDao();
 
     public void execute() {
-        CandlesDao candlesDao = new CandlesDao();
 
-        for (Company company : new CompanyDao().getAll()) {
-            List<Candle> candles = CandleUtils.sort(company.getCandles(), new CandlesFilter.OldDateFirstComparator());
-            findAndSetPatterns(candles);
-            candlesDao.update(candles);
+        for (Company company : companyDao.getAll()) {
+            findAndSetPatterns(company.getCandles());
+            candlesDao.update(company.getCandles());
         }
     }
 
-    public void findAndSetPatterns(List<Candle> candles) {
+    private void findAndSetPatterns(List<Candle> candles) {
         CandleByDateSequence candleByDateSequence = new CandleByDateSequence(candles);
+
         while (candleByDateSequence.hasNext()) {
             Candle candle = candleByDateSequence.next();
-            if (candleByDateSequence.isStrongBullCandle(candle)) {
-                candle.setPattern(STRONG_BULL);
-            } else if (candleByDateSequence.isStrongGapFallCandle(candle)) {
-                candle.setPattern(STRONG_GAP_FALL);
-            } else if (candleByDateSequence.isStrongGapRiseCandle(candle)) {
-                candle.setPattern(STRONG_GAP_RISE);
-            } else if (candleByDateSequence.isStrongBearCandle(candle)) {
-                candle.setPattern(STRONG_BEAR);
-            } else if (candleByDateSequence.isDojiCandle(candle)) {
-                candle.setPattern(DOJI);
-            }
-            else {
-                candle.setPattern(NONE);
-            }
+            candle.setPattern(candleByDateSequence.findPattern());
         }
     }
 
