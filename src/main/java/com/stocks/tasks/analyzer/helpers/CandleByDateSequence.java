@@ -8,6 +8,7 @@ import com.stocks.tasks.utils.filters.CandlesFilter;
 
 import java.util.List;
 
+import static com.stocks.tasks.utils.CandleUtils.sort;
 import static java.util.Arrays.asList;
 
 public class CandleByDateSequence {
@@ -15,7 +16,7 @@ public class CandleByDateSequence {
     private List<Candle> candles;
 
     public CandleByDateSequence(List<Candle> candles) {
-        this.candles = CandleUtils.sort(candles, new CandlesFilter.OldDateFirstComparator());
+        this.candles = sort(candles, new CandlesFilter.OldDateFirstComparator());
         for (int i = 0; i < candles.size() - 1; i++) {
             if (candles.get(i).getDate().compareTo(candles.get(i + 1).getDate()) > 0) {
                 throw new IllegalStateException();

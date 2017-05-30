@@ -45,7 +45,7 @@ public class CandleUtils {
                 .divide(getFirst(candles).getClose(), RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal calculateGapProfit(List<Candle> candles) {
+    private static BigDecimal calculateGapProfit(List<Candle> candles) {
         candles.sort(new OldDateFirstComparator());
         final Candle firstCandle = getFirst(candles);
         final Candle lastCandle = getLast(candles);
@@ -82,7 +82,7 @@ public class CandleUtils {
         return candles.get(candles.size() - 1);
     }
 
-    public static List<Candle> getCandlesForMonthAndYear(List<Candle> candles, int month, int year) {
+    static List<Candle> getCandlesForMonthAndYear(List<Candle> candles, int month, int year) {
         candles = sort(candles, new OldDateFirstComparator());
 
         List<Candle> filtered = new ArrayList<>();
@@ -98,7 +98,7 @@ public class CandleUtils {
         if (filtered.isEmpty()) {
             throw new IllegalStateException("No first candle was found in month: " + month + " and year " + year);
         }
-        Collections.sort(filtered, new OldDateFirstComparator());
+        filtered.sort(new OldDateFirstComparator());
         return filtered;
     }
 }
