@@ -1,10 +1,6 @@
 package com.stocks.core.api.quandl.gererator;
 
-import com.stocks.core.api.yahoo.helpers.Period;
-
-import java.util.Calendar;
-
-import static com.stocks.core.api.yahoo.helpers.Period.Date.forDate;
+import com.stocks.core.api.helpers.Period;
 
 public class RequestGenerator {
     private static final String BASE_URL = "https://www.quandl.com/api/v3/datasets/WIKI/";

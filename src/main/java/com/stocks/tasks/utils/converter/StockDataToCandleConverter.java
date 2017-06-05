@@ -1,6 +1,6 @@
 package com.stocks.tasks.utils.converter;
 
-import com.stocks.core.api.yahoo.dto.StockData;
+import com.stocks.core.api.dto.StockData;
 import com.stocks.core.db.entity.Candle;
 
 import java.math.BigDecimal;

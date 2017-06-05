@@ -1,6 +1,6 @@
 package com.stocks.tasks.utils.filters;
 
-import com.stocks.core.api.yahoo.helpers.Constants;
+import com.stocks.core.api.helpers.Constants;
 import com.stocks.core.db.entity.Candle;
 import com.stocks.tasks.utils.TimeUtils;
 

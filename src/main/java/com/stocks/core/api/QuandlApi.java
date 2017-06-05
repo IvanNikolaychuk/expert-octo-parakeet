@@ -4,8 +4,8 @@ import com.stocks.core.api.quandl.java.InvalidTokenException;
 import com.stocks.core.api.quandl.java.QDataset;
 import com.stocks.core.api.quandl.java.QEntry;
 import com.stocks.core.api.quandl.java.QuandlConnection;
-import com.stocks.core.api.yahoo.dto.StockData;
-import com.stocks.core.api.yahoo.helpers.Period;
+import com.stocks.core.api.dto.StockData;
+import com.stocks.core.api.helpers.Period;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

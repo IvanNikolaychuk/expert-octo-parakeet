@@ -12,6 +12,9 @@ public class AfterStrongBullStatistic {
     @ManyToOne
     private Candle candle;
 
+    @Column(name = "company_name")
+    private String companyName;
+
     @Column(name = "after_1_day")
     private BigDecimal profitAfterOneDay;
 

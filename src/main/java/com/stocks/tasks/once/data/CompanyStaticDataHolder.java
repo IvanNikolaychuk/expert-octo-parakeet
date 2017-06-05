@@ -17,7 +17,7 @@ public class CompanyStaticDataHolder {
     public static List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<Company>();
 
-        for(String ticker : getTikers()) {
+        for (String ticker : getTikers()) {
             companies.add(new Company(ticker, OTHER, DOLLAR));
         }
 
@@ -211,23 +211,21 @@ public class CompanyStaticDataHolder {
 
     public static List<String> getTikers() {
         return Arrays.asList(
-                "MOMO", "VIPS", "MLCO", "AA", "JD", "EXC", "ARNC", "CRM", "AMZN", "NFLX", "AAPL", "RACE", "PH", "LUV",
-                "TWTR", "QCOM", "ABBV", "NVDA", "SKM", "TTM", "ALXN", "NEM", "CTL", "MCD", "CMS", "AMG", "GM", "BBBY",
-                "APA", "ADP", "KEP", "V", "ES", "CXO", "DTE", "C", "BLK", "EQIX", "ESS", "TIF", "TSLA", "MA", "CF", "PCAR",
-                "MDT", "HSY", "MDLZ", "ATVI", "EA", "PM", "PTR", "HD", "BLL", "EOG", "DD", "ETR", "FDX", "ADBE", "GWW",
-                "KSU", "JNJ", "UNP", "PSX", "APH", "GD", "EW", "DOW", "MON", "EIX", "BIIB", "ALL", "MO", "ADI", "ABT",
-                "CTSH", "PXD", "XYL", "NSC", "FB", "WMB", "APC", "CAH", "GOOG", "CMG", "EQT", "BABA", "T", "APD", "ACN",
-                "BIDU", "VLO", "AVB", "DRI", "DIS", "AMGN", "DHR", "AIV", "DFS", "EL", "BRK.B", "PG", "CHL", "UPS", "ADSK",
-                "BBT", "NOC", "BCR", "EXPE", "AON", "AGN", "CAG", "NKE", "YY", "YHOO", "XOM", "PFE", "AMAT", "MMM", "MSFT",
-                "PEP", "A", "EXR", "EBAY", "AMT", "BDX", "ADM", "ORCL", "CELG", "KO", "ECL", "IBM", "BMY", "CTAS", "DLPH", "DVN",
-                "COST", "VRSK", "JBHT", "FLS", "CVX", "DLTR", "BXP", "BAC", "JPM", "BAX", "CAT", "WB", "AVY", "FE", "LMT", "MS",
+                //                "KO", "ECL", "IBM", "BMY", "CTAS", "DLPH", "DVN", "COST", "VRSK", "JBHT","MOMO", "VIPS", "MLCO", "JD", "RACE","SKM", "TTM", "KEP", "PTR", "BABA", "BRK.B","BF.B",
+                "WB", "YY", "CHL", "IBN", "LPL", "RDY", "SOHU", "AA", "EXC", "ARNC", "CRM", "AMZN", "NFLX", "AAPL", "PH", "LUV", "TWTR", "QCOM", "ABBV", "NVDA", "ALXN", "NEM",
+                "CTL", "MCD", "CMS", "AMG", "GM", "BBBY", "APA", "ADP", "V", "ES", "CXO", "DTE", "C", "BLK", "EQIX", "ESS", "TIF", "TSLA", "MA", "CF", "PCAR",
+                "MDT", "HSY", "MDLZ", "ATVI", "EA", "PM", "HD", "BLL", "EOG", "DD", "ETR", "FDX", "ADBE", "GWW", "KSU", "JNJ", "UNP", "PSX", "APH", "GD", "EW",
+                "DOW", "MON", "EIX", "BIIB", "ALL", "MO", "ADI", "ABT", "CTSH", "PXD", "XYL", "NSC", "FB", "WMB", "APC", "CAH", "GOOG", "CMG",
+                "EQT", "T", "APD", "ACN", "BIDU", "VLO", "AVB", "DRI", "DIS", "AMGN", "DHR", "AIV", "DFS", "EL", "PG", "UPS", "ADSK", "BBT", "NOC",
+                "BCR", "EXPE", "AON", "AGN", "CAG", "YHOO", "XOM", "PFE", "AMAT", "MMM", "MSFT", "PEP", "A", "EXR", "EBAY", "AMT", "BDX", "ADM", "ORCL", "CELG",
+                "FLS", "CVX", "DLTR", "BXP", "BAC", "JPM", "BAX", "CAT", "AVY", "FE", "LMT", "MS",
                 "HON", "DE", "MU", "OXY", "BEN", "CLX", "BK", "DVA", "DOV", "EXPD", "UTX", "VZ", "BA", "CCI", "BWA", "INTC", "EMN",
-                "EFX", "CNP", "ETN", "ITW", "RDY", "TGT", "CINF", "MAS", "BSX", "CL", "CSCO", "DHI", "FAST", "RHI", "WMT", "AXP",
-                "SBUX", "HES", "AIZ", "ROP", "CERN", "SRCL", "DPS", "CBG", "CHRW", "NLSN", "AME", "FSLR", "AAP", "IBN", "PYPL", "DG",
-                "CMCSA", "AFL", "CPB", "F", "ROK", "CMA", "SNA", "SWK", "WM", "BF.B", "DNB", "AKAM", "CBS", "UNH", "DGX", "CHD", "COP",
+                "EFX", "CNP", "ETN", "ITW", "TGT", "CINF", "MAS", "BSX", "CL", "CSCO", "DHI", "FAST", "RHI", "WMT", "AXP",
+                "SBUX", "HES", "AIZ", "ROP", "CERN", "SRCL", "DPS", "CBG", "CHRW", "NLSN", "AME", "FSLR", "AAP", "PYPL", "DG",
+                "CMCSA", "AFL", "CPB", "F", "ROK", "CMA", "SNA", "SWK", "WM", "DNB", "AKAM", "CBS", "UNH", "DGX", "CHD", "COP",
                 "DISCK", "COF", "KMI", "DISCA", "GILD", "MRO", "COH", "TXT", "COL", "SCHW", "HAL", "AET", "RSG", "SLB", "CI", "ENDP",
-                "AMP", "CMI", "UAL", "EMR", "NRG", "CCL", "AIG", "CA", "MET", "MRK", "WFC", "CTXS", "FCX", "DAL", "SOHU", "CHK", "AN",
-                "BBY", "ESRX", "BHI", "R", "COG", "AZO", "URI", "GE", "LPL", "FLR", "CVS", "ADS", "JEC", "PWR", "AES"
+                "AMP", "CMI", "UAL", "EMR", "NRG", "CCL", "AIG", "CA", "MET", "MRK", "WFC", "CTXS", "FCX", "DAL", "CHK", "AN",
+                "BBY", "ESRX", "BHI", "R", "COG", "AZO", "URI", "GE", "FLR", "CVS", "ADS", "JEC", "PWR", "AES"
         );
     }
 }

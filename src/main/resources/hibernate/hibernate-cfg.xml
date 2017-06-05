@@ -6,7 +6,7 @@
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/stocks</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/stocks_2</property>
         <property name="show_sql">true</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">root</property>
@@ -17,7 +17,6 @@
         <mapping class="com.stocks.core.db.entity.statistic.VolumeStatisticData"/>
         <mapping class="com.stocks.core.db.entity.statistic.CompanyGrowthStatisticData"/>
         <mapping class="com.stocks.core.db.entity.statistic.AfterStrongBullStatistic"/>
-        <mapping class="com.stocks.core.db.entity.strategy.ProfitData"/>
 
     </session-factory>
 </hibernate-configuration>

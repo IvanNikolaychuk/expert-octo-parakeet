@@ -1,4 +1,4 @@
-package com.stocks.core.api.yahoo.dto;
+package com.stocks.core.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -11,23 +11,23 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class StockData {
     @JsonProperty("Symbol")
-    private String symbol;
+    public String symbol;
 
     @JsonProperty("Date")
-    private Date date;
+    public Date date;
 
     @JsonProperty("Open")
-    private BigDecimal open;
+    public BigDecimal open;
 
     @JsonProperty("High")
-    private BigDecimal high;
+    public BigDecimal high;
 
     @JsonProperty("Low")
-    private BigDecimal low;
+    public BigDecimal low;
 
     @JsonProperty("Close")
-    private BigDecimal close;
+    public BigDecimal close;
 
     @JsonProperty("Volume")
-    private BigDecimal volume;
+    public BigDecimal volume;
 }

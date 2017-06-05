@@ -1,6 +1,8 @@
 package com.stocks.tasks.analyzer;
 
 import com.stocks.core.db.dao.CompanyGrowthStatisticDao;
+import com.stocks.core.db.entity.statistic.AfterStrongBullStatistic;
+import com.stocks.tasks.analyzer.patterns.AfterStrongBullDataAnalyser;
 import com.stocks.tasks.analyzer.patterns.CandlesPatternAnalyser;
 import com.stocks.tasks.analyzer.volume.StockVolumeAnalyser;
 import com.stocks.tasks.daily.RecentDataObtainTask;
@@ -14,9 +16,8 @@ public class Analysers {
         obtainRecentData();
         analyseAvgVolume();
         analyseCandlePatterns();
+        new AfterStrongBullDataAnalyser().execute();
     }
-
-
 
     private void analyseCandlePatterns() {
         new CandlesPatternAnalyser().execute();

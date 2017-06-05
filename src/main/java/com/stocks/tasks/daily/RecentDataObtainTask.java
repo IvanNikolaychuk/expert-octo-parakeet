@@ -1,7 +1,7 @@
 package com.stocks.tasks.daily;
 
-import com.stocks.core.api.yahoo.dto.StockData;
-import com.stocks.core.api.yahoo.helpers.Period;
+import com.stocks.core.api.dto.StockData;
+import com.stocks.core.api.helpers.Period;
 import com.stocks.core.db.dao.CompanyDao;
 import com.stocks.core.db.entity.Candle;
 import com.stocks.core.db.entity.company.Company;
@@ -13,8 +13,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.stocks.core.api.QuandlApi.query;
-import static com.stocks.core.api.yahoo.helpers.Period.Date.forDate;
-import static com.stocks.core.api.yahoo.helpers.Period.Date.january;
+import static com.stocks.core.api.helpers.Period.Date.forDate;
+import static com.stocks.core.api.helpers.Period.Date.january;
 
 public class RecentDataObtainTask {
 

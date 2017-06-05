@@ -1,4 +1,4 @@
-package com.stocks.core.api.yahoo.helpers;
+package com.stocks.core.api.helpers;
 
 import java.math.BigDecimal;
 

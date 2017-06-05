@@ -1,10 +1,10 @@
-package com.stocks.core.api.yahoo.helpers;
+package com.stocks.core.api.helpers;
 
 import lombok.Data;
 
 import java.util.Calendar;
 
-import static com.stocks.core.api.yahoo.helpers.Constants.CURRENT_YEAR;
+import static com.stocks.core.api.helpers.Constants.CURRENT_YEAR;
 
 @Data
 public class Period {
@@ -133,6 +133,13 @@ public class Period {
             String formattedDay = (day + "").length() == 1 ? "0" + day : day + "";
 
             return new Date(year + "-" + formattedMonth + "-" + formattedDay);
+        }
+
+        public static Date buildDateMonthYear(int month, int day, int year) {
+            String formattedMonth = (month + "").length() == 1 ? "0" + month : month + "";
+            String formattedDay = (day + "").length() == 1 ? "0" + day : day + "";
+
+            return new Date(formattedMonth + "/" + formattedDay + "/" + year);
         }
 
         public static Period.Date forDate(Calendar calendar) {

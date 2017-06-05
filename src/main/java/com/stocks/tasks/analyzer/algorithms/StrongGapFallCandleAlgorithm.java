@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.stocks.core.api.yahoo.helpers.Constants.MIN_ACCEPTED_FALL_PERCENTAGE_FOR_STRONG_FALL_CANDLE;
+import static com.stocks.core.api.helpers.Constants.MIN_ACCEPTED_FALL_PERCENTAGE_FOR_STRONG_FALL_CANDLE;
 import static com.stocks.tasks.utils.CandleUtils.calculatePercentageProfit;
 import static com.stocks.tasks.utils.CandleUtils.calculateGapPercentageProfit;
 import static java.util.Arrays.asList;

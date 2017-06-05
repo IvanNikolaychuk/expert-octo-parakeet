@@ -1,54 +1,34 @@
 package com.stocks.core.api;
 
-import com.stocks.core.api.yahoo.dto.StockData;
-import com.stocks.core.api.yahoo.dto.YahooResponse;
-import com.stocks.core.api.yahoo.dto.YahooSingleStockResponse;
-import org.springframework.http.ResponseEntity;
+import com.stocks.core.api.dto.StockData;
+import com.stocks.core.api.yahoo.convertor.YahooJsonConverter;
+import javafx.util.Pair;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
 import java.util.List;
 
+import static com.stocks.core.api.yahoo.convertor.YahooJsonConverter.convert;
+import static com.stocks.core.api.yahoo.generator.RequestGenerator.generateFor;
+
 public class YahooApi {
-    public static List<StockData> query(String url) {
-        RestTemplate restTemplate = new RestTemplate();
+    public static List<StockData> query(String companyName, Pair<Date, Date> period) {
+        String url = generateFor(companyName, period);
         System.out.println("Queering url: " + url);
 
-        ResponseEntity<YahooResponse> responseEntity;
+        RestTemplate restTemplate = new RestTemplate();
         try {
-            responseEntity = restTemplate
-                    .getForEntity(url, YahooResponse.class);
+            String json = restTemplate.getForEntity(url, String.class).getBody();
+            return convert(json);
         } catch (HttpClientErrorException exception) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
             }
-            return query(url);
+            return query(companyName, period);
         }
-
-        return responseEntity
-                .getBody()
-                .getStockData();
     }
 
 
-    public static StockData querySingle(String url) {
-        RestTemplate restTemplate = new RestTemplate();
-        System.out.println("Queering url: " + url);
-
-        ResponseEntity<YahooSingleStockResponse> responseEntity;
-        try {
-            responseEntity = restTemplate.getForEntity(url, YahooSingleStockResponse.class);
-        } catch (HttpClientErrorException exception) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-            }
-            responseEntity = restTemplate.getForEntity(url, YahooSingleStockResponse.class);
-        }
-
-        return responseEntity
-                .getBody()
-                .getStockData();
-    }
 }

@@ -23,19 +23,19 @@ public class AfterStrongBullDataAnalyser {
         List<Company> companies = new CompanyDao().getAll();
         AfterStrongBullStatisticDao strongBullStatisticDataDao = new AfterStrongBullStatisticDao();
         for (Company company : companies) {
-            List<Candle> allCandles = company.getCandles();
-            List<Candle> strongBulls = filterByPattern(allCandles, STRONG_BULL);
-
-            strongBullStatisticDataDao.save(analyse(allCandles, strongBulls));
+            strongBullStatisticDataDao.save(analyse(company));
         }
     }
 
-    private List<AfterStrongBullStatistic> analyse(List<Candle> allCandles, List<Candle> strongBulls) {
-        List<AfterStrongBullStatistic> afterStrongBullStatistics = new ArrayList<>();
+    private List<AfterStrongBullStatistic> analyse(Company company) {
+        List<Candle> allCandles = company.getCandles();
+        List<Candle> strongBulls = filterByPattern(allCandles, STRONG_BULL);
 
-        CandleByDateSequence candleByDateSequence = new CandleByDateSequence(allCandles);
+        List<AfterStrongBullStatistic> afterStrongBullStatistics = new ArrayList<>();
         for (Candle strongBull : strongBulls) {
-            afterStrongBullStatistics.add(analyse(strongBull, candleByDateSequence));
+            AfterStrongBullStatistic afterStrongBullStatistic = analyse(strongBull, new CandleByDateSequence(allCandles));
+            afterStrongBullStatistic.setCompanyName(company.getName());
+            afterStrongBullStatistics.add(afterStrongBullStatistic);
         }
 
         return afterStrongBullStatistics;

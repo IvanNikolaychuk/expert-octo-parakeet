@@ -1,8 +1,7 @@
 package com.stocks.tasks.once;
 
-import com.stocks.core.api.yahoo.dto.StockData;
+import com.stocks.core.api.dto.StockData;
 import com.stocks.core.db.dao.CompanyDao;
-import com.stocks.core.db.dao.VolumeStatisticDataDao;
 import com.stocks.core.db.entity.company.Company;
 import com.stocks.core.db.entity.statistic.VolumeStatisticData;
 import com.stocks.core.service.StockService;
@@ -21,7 +20,7 @@ public class CreateCompaniesTask {
 //        clearPrevious();
 
         for (Company company : getAllCompanies()) {
-            List<StockData> stockDataList = new StockService().queryStocksSince2015(company);
+            List<StockData> stockDataList = new StockService().queryStocksSince2015Yahoo(company);
 
             company.addCandles(StockDataToCandleConverter.convert(stockDataList));
             company.setCommonStatisticData(new VolumeStatisticData(company));
@@ -30,10 +29,6 @@ public class CreateCompaniesTask {
         }
     }
 
-    private void clearPrevious() {
-        new CompanyDao().clearAll();
-        new VolumeStatisticDataDao().clearAll();
-    }
 
 
     public static void main(String[] args) {
