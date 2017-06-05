@@ -18,6 +18,7 @@
         <mapping class="com.stocks.core.db.entity.statistic.CompanyGrowthStatisticData"/>
         <mapping class="com.stocks.core.db.entity.statistic.stongbull.AfterStrongBullStatistic"/>
         <mapping class="com.stocks.core.db.entity.statistic.stongbull.ExpAverageCandle"/>
+        <mapping class="com.stocks.core.db.entity.ProfitData"/>
 
     </session-factory>
 </hibernate-configuration>
