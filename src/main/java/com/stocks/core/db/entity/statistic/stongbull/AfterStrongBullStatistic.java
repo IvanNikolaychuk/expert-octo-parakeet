@@ -1,4 +1,4 @@
-package com.stocks.core.db.entity.statistic;
+package com.stocks.core.db.entity.statistic.stongbull;
 
 import com.stocks.core.db.entity.Candle;
 import lombok.Data;

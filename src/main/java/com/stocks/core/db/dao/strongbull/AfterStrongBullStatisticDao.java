@@ -1,6 +1,7 @@
-package com.stocks.core.db.dao;
+package com.stocks.core.db.dao.strongbull;
 
-import com.stocks.core.db.entity.statistic.AfterStrongBullStatistic;
+import com.stocks.core.db.dao.AbstractDao;
+import com.stocks.core.db.entity.statistic.stongbull.AfterStrongBullStatistic;
 
 import java.util.ArrayList;
 import java.util.List;

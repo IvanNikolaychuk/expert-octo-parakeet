@@ -71,6 +71,15 @@ public class AbstractDao<T> {
         }
     }
 
+    public void save(T obj) {
+        try (SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
+             Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            session.save(obj);
+            transaction.commit();
+        }
+    }
+
     public void save(List<T> objects) {
         save(new HashSet<T>(objects));
     }

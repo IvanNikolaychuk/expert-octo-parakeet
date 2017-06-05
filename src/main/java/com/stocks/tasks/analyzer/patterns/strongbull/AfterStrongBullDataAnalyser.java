@@ -1,10 +1,10 @@
-package com.stocks.tasks.analyzer.patterns;
+package com.stocks.tasks.analyzer.patterns.strongbull;
 
-import com.stocks.core.db.dao.AfterStrongBullStatisticDao;
+import com.stocks.core.db.dao.strongbull.AfterStrongBullStatisticDao;
 import com.stocks.core.db.dao.CompanyDao;
 import com.stocks.core.db.entity.Candle;
 import com.stocks.core.db.entity.company.Company;
-import com.stocks.core.db.entity.statistic.AfterStrongBullStatistic;
+import com.stocks.core.db.entity.statistic.stongbull.AfterStrongBullStatistic;
 import com.stocks.tasks.analyzer.helpers.CandleByDateSequence;
 
 import java.math.BigDecimal;
