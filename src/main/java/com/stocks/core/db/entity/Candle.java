@@ -57,6 +57,7 @@ public class Candle {
         STRONG_BEAR,
         STRONG_GAP_FALL,
         STRONG_GAP_RISE,
-        DOJI
+        DOJI,
+        DARK_CLOUD
     }
 }

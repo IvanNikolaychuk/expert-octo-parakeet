@@ -18,8 +18,7 @@ public class ExpAverageStrongBullAnalyser {
 
     public void analyze() {
         for (Company company : companyDao.getAll()) {
-            List<ExpAverageCandle> expAverageCandles = analyze(company);
-            expAverageCandleDao.save(expAverageCandles);
+            expAverageCandleDao.save(analyze(company));
         }
     }
 
