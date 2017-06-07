@@ -17,7 +17,7 @@ public class DarkCloudAlgorithm {
         if (!candleBeforePasses) return false;
 
         final BigDecimal candleBeforeLength = candleBefore.getHigh().subtract(candleBefore.getLow());
-        final BigDecimal middle = candleBefore.getODarkCloudAlgorithmpen().add(candleBeforeLength.divide(valueOf(2)));
+        final BigDecimal middle = candleBefore.getOpen().add(candleBeforeLength.divide(valueOf(2)));
 
         final boolean nextCandleClosesLowerThanMiddleOfLastCandle = target.getClose().compareTo(middle) < 0;
         final boolean nextCandleOpenedHigherThanLastClose = target.getOpen().compareTo(candleBefore.getClose()) > 0;
