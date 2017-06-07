@@ -12,9 +12,9 @@ public class Analysers {
 
     public void execute() {
         obtainRecentData();
-        analyseAvgVolume();
+//        analyseAvgVolume();
         analyseCandlePatterns();
-        new AfterStrongBullDataAnalyser().execute();
+//        new AfterStrongBullDataAnalyser().execute();
     }
 
     private void analyseCandlePatterns() {

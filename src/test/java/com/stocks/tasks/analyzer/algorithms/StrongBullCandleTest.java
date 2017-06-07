@@ -20,7 +20,7 @@ public class StrongBullCandleTest {
         Candle target = createTodaysCandle();
         target.setTrend(DOWN);
 
-        assertFalse(StrongBullCandleAlgorithm.isStrongBullCandle(createYesterdaysCandle(), target));
+        assertFalse(StrongBullCandleAlgorithm.isStrongBullCandle(target));
     }
 
     @Test
@@ -30,7 +30,7 @@ public class StrongBullCandleTest {
         target.setLowerShadow(BigDecimal.valueOf(1));
         target.setUpperShadow(BigDecimal.valueOf(1));
 
-        assertTrue(StrongBullCandleAlgorithm.isStrongBullCandle(candleBefore, target));
+        assertTrue(StrongBullCandleAlgorithm.isStrongBullCandle(target));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class StrongBullCandleTest {
 
     @Test(expected = IllegalStateException.class)
     public void exceptionThrown_WhenCandlesArePassedInWrongDateOrder() {
-        StrongBullCandleAlgorithm.isStrongBullCandle(createTodaysCandle(), createYesterdaysCandle());
+        StrongBullCandleAlgorithm.isStrongBullCandle(createYesterdaysCandle());
     }
 
 }

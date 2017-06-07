@@ -14,12 +14,15 @@ import java.util.List;
  */
 public class CandlesFilter {
 
-    public static List<Candle> filterByPattern(List<Candle> candles, Candle.Pattern pattern) {
+    public static List<Candle> filterByPattern(List<Candle> candles, Candle.Pattern... patterns) {
         List<Candle> filtered = new ArrayList<>();
 
         for (Candle candle : candles) {
-            if (candle.getPattern() == pattern) {
-                filtered.add(candle);
+            for (Candle.Pattern pattern : patterns) {
+                if (candle.getPattern() == pattern) {
+                    filtered.add(candle);
+                    break;
+                }
             }
         }
 

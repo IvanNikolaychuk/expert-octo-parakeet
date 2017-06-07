@@ -9,11 +9,7 @@ import java.math.BigDecimal;
 import static com.stocks.core.db.entity.Candle.*;
 
 public class StrongBullCandleAlgorithm {
-    public static boolean isStrongBullCandle(Candle candleBefore, Candle target) {
-        if (candleBefore.getDate().compareTo(target.getDate()) > 0) {
-            throw new IllegalStateException("candle before is younger than target");
-        }
-
+    public static boolean isStrongBullCandle(Candle target) {
         return target.getTrend() == Trend.UP
                 && percentageProfitIsBig(target)
                 && shadowsAreLow(target);

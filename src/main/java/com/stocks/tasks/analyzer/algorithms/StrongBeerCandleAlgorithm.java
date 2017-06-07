@@ -16,7 +16,7 @@ public class StrongBeerCandleAlgorithm {
 
         return target.getTrend() == Candle.Trend.DOWN
                 && percentageLossIsBig(target)
-                && bodyIsBig(candleBefore, target);
+                && shadowsAreLow(target);
     }
 
     static boolean shadowsAreLow(Candle candle) {

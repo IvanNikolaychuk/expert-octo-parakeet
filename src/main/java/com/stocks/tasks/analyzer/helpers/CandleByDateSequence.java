@@ -52,6 +52,14 @@ public class CandleByDateSequence {
         return candles.get(++currentIndex);
     }
 
+    public boolean hasPrev() {
+        return (currentIndex - 1) < candles.size();
+    }
+
+    public Candle prev() {
+        return candles.get(--currentIndex);
+    }
+
     public Candle.Pattern findPattern() {
         boolean hasPrev = currentIndex - 1 > 0;
         if (!hasPrev) return Candle.Pattern.NONE;
@@ -59,6 +67,11 @@ public class CandleByDateSequence {
         Candle current = candles.get(currentIndex);
         Candle prev = candles.get(currentIndex - 1);
 
-        return PatternFactory.findPattern(prev, current);
+        return PatternFactory.findPattern(prev, current, candles);
+    }
+
+    public Candle back(int value) {
+        if (currentIndex - value < 0) return candles.get(0);
+        return candles.get(currentIndex - value);
     }
 }

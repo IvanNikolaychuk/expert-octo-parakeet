@@ -7,10 +7,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
-@Entity(name = "after_strong_bull_statistic")
-public class AfterStrongBullStatistic {
+@Entity(name = "after_pattern_statistic")
+public class AfterPatternStatistic {
     @ManyToOne
     private Candle candle;
+
+    @Column(name = "pattern")
+    @Enumerated(EnumType.STRING)
+    private Candle.Pattern pattern;
 
     @Column(name = "company_name")
     private String companyName;
@@ -34,12 +38,6 @@ public class AfterStrongBullStatistic {
     @Column(name = "after_30_day")
     private BigDecimal profitAfterThirtyDays;
 
-    @Column(name = "after_40_day")
-    private BigDecimal profitAfterFourtyDays;
-
-    @Column(name = "after_50_day")
-    private BigDecimal profitAfterFiftyDays;
-
     @Column(name = "half_support_is_broken")
     public boolean halfSupportIsBroken;
 
@@ -49,12 +47,13 @@ public class AfterStrongBullStatistic {
     @Column(name = "price_always_closed_higher_than_first_close")
     public boolean priceAlwaysWasHigherThanFirstClose;
 
-    public AfterStrongBullStatistic(Candle candle) {
+    public AfterPatternStatistic(Candle candle) {
         priceAlwaysWasHigherThanFirstClose = true;
         this.candle = candle;
+        this.pattern = candle.getPattern();
     }
 
-    public AfterStrongBullStatistic() {
+    public AfterPatternStatistic() {
     }
 
     public void setProfit(BigDecimal profit, int daysPassed) {
@@ -64,8 +63,6 @@ public class AfterStrongBullStatistic {
         if (daysPassed == 10) profitAfterTenDays = profit;
         if (daysPassed == 20) profitAfterTwentyDays = profit;
         if (daysPassed == 30)  profitAfterThirtyDays = profit;
-        if (daysPassed == 40)  profitAfterFourtyDays = profit;
-        if (daysPassed == 50)  profitAfterFiftyDays = profit;
     }
 
     @Id

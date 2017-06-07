@@ -16,7 +16,7 @@
         <mapping class="com.stocks.core.db.entity.company.Company"/>
         <mapping class="com.stocks.core.db.entity.statistic.VolumeStatisticData"/>
         <mapping class="com.stocks.core.db.entity.statistic.CompanyGrowthStatisticData"/>
-        <mapping class="com.stocks.core.db.entity.statistic.stongbull.AfterStrongBullStatistic"/>
+        <mapping class="com.stocks.core.db.entity.statistic.stongbull.AfterPatternStatistic"/>
         <mapping class="com.stocks.core.db.entity.statistic.stongbull.ExpAverageCandle"/>
 
     </session-factory>
