@@ -13,26 +13,27 @@ import static javax.persistence.EnumType.STRING;
  * @author Ivan Nikolaichuk
  */
 @Data
-@Entity(name = "indicator")
-public class Indicator {
+@Entity(name = "stock_index")
+public class Index {
     @Id
     @GeneratedValue
     private int id;
 
     @Enumerated(STRING)
     private Type type;
+
     private Date date;
     private double value;
 
-    public Indicator() {}
+    public Index() {}
 
-    public Indicator(Type type, Date date, double value) {
+    public Index(Type type, Date date, double value) {
         this.type = type;
         this.date = date;
         this.value = value;
     }
 
     public enum Type {
-        PMI,
+        PMI, CCI, S_AND_P
     }
 }
