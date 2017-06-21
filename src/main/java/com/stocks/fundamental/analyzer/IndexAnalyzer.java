@@ -1,8 +1,10 @@
 package com.stocks.fundamental.analyzer;
 
+import com.stocks.fundamental.dao.IndexChangeAnalyzeDao;
 import com.stocks.fundamental.dao.IndexDao;
 import com.stocks.fundamental.entity.Index;
 import com.stocks.fundamental.entity.Index.Type;
+import com.stocks.fundamental.entity.IndexChangeAnalyze;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,7 +19,9 @@ public class IndexAnalyzer {
 
     public static void main(String[] args) {
         Map<Date, Map<Type, Double>> dateToIndexChangeMap = sortByDate(computeIndexChanges(obtainDateToIndexValueMap()));
-        System.out.println("!");
+
+        IndexChangeAnalyze indexChangeAnalyze = new IndexChangeAnalyze(dateToIndexChangeMap);
+        new IndexChangeAnalyzeDao().save();
     }
 
     private static Map<Date, Map<Type, Double>> computeIndexChanges(Map<Date, Map<Type, Double>> dateToIndexValueMap) {
