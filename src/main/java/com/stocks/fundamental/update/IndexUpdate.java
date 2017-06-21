@@ -1,28 +1,27 @@
-package com.stocks.fundamental.task;
+package com.stocks.fundamental.update;
 
 import com.stocks.fundamental.api.QuandlApi;
-import com.stocks.fundamental.dao.IndicatorDao;
+import com.stocks.fundamental.dao.IndexDao;
 import com.stocks.fundamental.entity.Index;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.stocks.fundamental.entity.Index.*;
 import static com.stocks.fundamental.entity.Index.Type.PMI;
-import static com.stocks.fundamental.entity.Index.Type.S_AND_P;
 import static java.util.Calendar.YEAR;
 
 /**
  * @author Ivan Nikolaichuk
  */
-public class IndexTask {
-    private final IndicatorDao indicatorDao = new IndicatorDao();
+public class IndexUpdate {
+    private final IndexDao indicatorDao = new IndexDao();
 
     public static void main(String[] args) {
-        new IndexTask().execute(PMI, "/ISM/MAN_PMI");
-        new IndexTask().execute(S_AND_P, "/MULTPL/SP500_REAL_PRICE_MONTH");
+        new IndexUpdate().execute(PMI, "/ISM/MAN_PMI");
     }
 
-    private void execute(Index.Type indexType, String extraUrl) {
+    private void execute(Type indexType, String extraUrl) {
         List<Index> filtered = filterByYear(QuandlApi.query(extraUrl, indexType), 1998);
 
         Index recentIndex = findRecentIndicator(indexType);
@@ -46,7 +45,7 @@ public class IndexTask {
         return newIndices;
     }
 
-    private Index findRecentIndicator(Index.Type indexType) {
+    private Index findRecentIndicator(Type indexType) {
         List<Index> indices = indicatorDao.getAll()
                 .stream()
                 .filter((index) -> index.getType() == indexType)
