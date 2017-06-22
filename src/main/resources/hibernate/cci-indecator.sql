@@ -1,5 +1,3 @@
-delete from stock_index where type='CCI';
-
 
 insert into stock_index(date,type,value) values ('1999-01-25', 'CCI', 128.9);
 insert into stock_index(date,type,value) values ('1999-02-25', 'CCI', 133.1);

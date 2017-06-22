@@ -1,10 +1,10 @@
 package com.stocks.fundamental.dao;
 
-import com.stocks.fundamental.entity.Index;
+import com.stocks.fundamental.entity.IndexChangeAnalyzeRecord;
 import com.stocks.technical.core.db.dao.AbstractDao;
 
 /**
  * @author Ivan Nikolaichuk
  */
-public class IndexChangeAnalyzeDao extends AbstractDao<Index> {
+public class IndexChangeAnalyzeDao extends AbstractDao<IndexChangeAnalyzeRecord> {
 }

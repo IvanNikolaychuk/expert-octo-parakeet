@@ -4,12 +4,12 @@ import com.stocks.fundamental.dao.IndexChangeAnalyzeDao;
 import com.stocks.fundamental.dao.IndexDao;
 import com.stocks.fundamental.entity.Index;
 import com.stocks.fundamental.entity.Index.Type;
-import com.stocks.fundamental.entity.IndexChangeAnalyze;
+import com.stocks.fundamental.entity.IndexChangeAnalyzeRecord;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.stocks.fundamental.entity.Index.*;
+import static java.util.Collections.singletonList;
 
 /**
  * @author Ivan Nikolaichuk
@@ -18,10 +18,17 @@ public class IndexAnalyzer {
     private static final IndexDao indexDao = new IndexDao();
 
     public static void main(String[] args) {
-        Map<Date, Map<Type, Double>> dateToIndexChangeMap = sortByDate(computeIndexChanges(obtainDateToIndexValueMap()));
+        List<IndexChangeAnalyzeRecord> indexChangeAnalyzeRecords = new ArrayList<>();
 
-        IndexChangeAnalyze indexChangeAnalyze = new IndexChangeAnalyze(dateToIndexChangeMap);
-        new IndexChangeAnalyzeDao().save();
+        Map<Date, Map<Type, Double>> dateToIndexChangeMap = sortByDate(computeIndexChanges(obtainDateToIndexValueMap()));
+        for (Map.Entry<Date, Map<Type, Double>> dateToIndexChange : dateToIndexChangeMap.entrySet()) {
+            final Date date = dateToIndexChange.getKey();
+            for (Map.Entry<Type, Double> indexTypeToPercChange : dateToIndexChange.getValue().entrySet()) {
+                indexChangeAnalyzeRecords.add(new IndexChangeAnalyzeRecord(date, indexTypeToPercChange.getKey(), indexTypeToPercChange.getValue()));
+            }
+        }
+
+        new IndexChangeAnalyzeDao().save(indexChangeAnalyzeRecords);
     }
 
     private static Map<Date, Map<Type, Double>> computeIndexChanges(Map<Date, Map<Type, Double>> dateToIndexValueMap) {
