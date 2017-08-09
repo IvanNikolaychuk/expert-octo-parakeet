@@ -4,11 +4,10 @@ import com.stocks.livermor.entity.Record;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import static com.stocks.livermor.utils.RecordHelper.getYestredays;
+import static com.stocks.livermor.utils.RecordFactory.getYestredays;
 import static org.junit.Assert.assertEquals;
 
 public class RecordContextTest {

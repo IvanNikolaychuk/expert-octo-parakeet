@@ -18,6 +18,10 @@ public class RecordUtils {
         return current.getPrice() < prev.getPrice();
     }
 
+    public static boolean priceIsLower(Record prev, Record current) {
+        return current.getPrice() <= prev.getPrice();
+    }
+
     public static boolean strongReaction(Record prev, Record current) {
         double percChange = 100 - (current.getPrice() * 100 / prev.getPrice());
         double pointsChange = prev.getPrice() - current.getPrice();

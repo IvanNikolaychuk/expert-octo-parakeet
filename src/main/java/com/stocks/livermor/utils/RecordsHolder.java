@@ -6,7 +6,6 @@ import lombok.Getter;
 import java.util.Comparator;
 import java.util.List;
 
-import static com.stocks.livermor.entity.PivotPointType.NONE;
 import static java.util.stream.Collectors.toList;
 
 @Getter
@@ -24,7 +23,7 @@ public class RecordsHolder {
 
     public PivotPointsHolder getPivotPoints() {
         List<Record> pivotPoints = records.stream()
-                .filter(record -> record.getPivotPointType() != NONE)
+                .filter(Record::isPivotPoint)
                 .collect(toList());
         return new PivotPointsHolder(pivotPoints);
     }

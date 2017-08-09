@@ -1,13 +1,12 @@
 package com.stocks.livermor.utils;
 
-import com.stocks.livermor.entity.PivotPointType;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 
 import java.util.Calendar;
 import java.util.Date;
 
-public class RecordHelper {
+public class RecordFactory {
     public static Record getYestredays() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -1);
@@ -15,37 +14,40 @@ public class RecordHelper {
         return new Record(calendar.getTime(), 1);
     }
 
-    public static Record getYestredays(PivotPointType pivotPointType) {
+    public static Record getYestredays(boolean isPivotPoint) {
         Record record = getYestredays();
-        record.setPivotPointType(pivotPointType);
+        record.setPivotPoint(isPivotPoint);
         return record;
     }
 
-    public static Record getYestredays(PivotPointType pivotPointType, double price) {
-        Record record = getYestredays(pivotPointType);
+    public static Record getYestredays(State state, boolean isPivotPoint, double price) {
+        Record record = getYestredays(isPivotPoint);
+        record.setState(state);
         record.setPrice(price);
         return record;
     }
 
-    public static Record get2DaysAgo(PivotPointType pivotPointType, double price) {
+    public static Record get2DaysAgo(boolean isPivotPoint, double price) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, -2);
 
         Record record = new Record(calendar.getTime(), price);
-        record.setPivotPointType(pivotPointType);
+        record.setPivotPoint(isPivotPoint);
         record.setPrice(price);
         return record;
     }
 
 
-    public static Record getTodays(PivotPointType pivotPointType) {
+    public static Record getTodays(State state) {
         Record record = new Record(new Date(), 1);
-        record.setPivotPointType(pivotPointType);
+        record.setState(state);
         return record;
     }
 
-    public static Record getTodays(State state) {
-        return getTodays(state, 1);
+    public static Record getTodays(State state, boolean isPivotPoint) {
+        Record record = getTodays(state, 1);
+        record.setPivotPoint(isPivotPoint);
+        return record;
     }
 
     public static Record getTodays(State state, double price) {

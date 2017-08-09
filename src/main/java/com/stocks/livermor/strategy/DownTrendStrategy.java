@@ -4,20 +4,18 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.PivotPointsHolder;
 import com.stocks.livermor.utils.RecordsHolder;
-import org.springframework.util.Assert;
 
 import static com.stocks.livermor.entity.State.NATURAL_REACTION;
 import static com.stocks.livermor.entity.State.SECONDARY_REACTION;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
-import static com.stocks.livermor.utils.RecordUtils.*;
+import static com.stocks.livermor.utils.RecordUtils.priceIsGrater;
+import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 
-public class UpperTrendStrategy implements ExecutionStrategy {
+public class DownTrendStrategy implements ExecutionStrategy {
 
     @Override
     public void execute(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.last();
-        Assert.isTrue(last.getState() == UPPER_TREND);
-
         if (priceIsGrater(last, newRecord)) {
             newRecord.setState(UPPER_TREND);
             return;

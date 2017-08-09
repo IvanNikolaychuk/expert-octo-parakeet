@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-import static com.stocks.livermor.entity.PivotPointType.NONE;
 
 @Data
 public class Record {
