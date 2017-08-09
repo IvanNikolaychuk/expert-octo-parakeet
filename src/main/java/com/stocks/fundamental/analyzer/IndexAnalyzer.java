@@ -22,9 +22,10 @@ public class IndexAnalyzer {
 
         Map<Date, Map<Type, Double>> dateToIndexChangeMap = sortByDate(computeIndexChanges(obtainDateToIndexValueMap()));
         for (Map.Entry<Date, Map<Type, Double>> dateToIndexChange : dateToIndexChangeMap.entrySet()) {
-            final Date date = dateToIndexChange.getKey();
+            IndexChangeAnalyzeRecord indexChangeAnalyzeRecord = new IndexChangeAnalyzeRecord(dateToIndexChange.getKey());
+            indexChangeAnalyzeRecords.add(indexChangeAnalyzeRecord);
             for (Map.Entry<Type, Double> indexTypeToPercChange : dateToIndexChange.getValue().entrySet()) {
-                indexChangeAnalyzeRecords.add(new IndexChangeAnalyzeRecord(date, indexTypeToPercChange.getKey(), indexTypeToPercChange.getValue()));
+                indexChangeAnalyzeRecord.setPercChange(indexTypeToPercChange.getKey(), indexTypeToPercChange.getValue());
             }
         }
 
@@ -52,7 +53,7 @@ public class IndexAnalyzer {
         for (Map.Entry<Type, Double> indexToValue : current.entrySet()) {
             double currentValue = indexToValue.getValue();
             double prevValue = previous.get(indexToValue.getKey());
-            final double percChange = 100 - (100 * currentValue / prevValue);
+            final double percChange =  (100 * currentValue / prevValue) - 100;
 
             indexToPercChangeMap.put(indexToValue.getKey(), percChange);
         }

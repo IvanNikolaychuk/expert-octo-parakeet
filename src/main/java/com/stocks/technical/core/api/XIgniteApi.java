@@ -9,6 +9,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+import static com.stocks.technical.core.api.helpers.Period.Date.build;
+
 public class XIgniteApi {
     public static List<StockData> query(String companyName, Period period) {
         String url = UrlGenerator.generate(companyName, period);
@@ -17,5 +19,9 @@ public class XIgniteApi {
         ResponseEntity<String> jsonResponse = restTemplate.getForEntity(url, String.class);
 
         return XigniteJsonConverter.convert(jsonResponse.getBody());
+    }
+
+    public static void main(String[] args) {
+        query("AAPL", Period.of(build(2016, 1, 1), build(2016, 1, 2)));
     }
 }
