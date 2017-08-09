@@ -7,4 +7,5 @@ public enum State {
     DOWN_TREND,
     NATURAL_REACTION,
     SECONDARY_REACTION,
+    NONE
 }

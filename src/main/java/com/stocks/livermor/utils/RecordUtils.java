@@ -1,6 +1,5 @@
 package com.stocks.livermor.utils;
 
-import com.stocks.livermor.constants.Constants;
 import com.stocks.livermor.entity.Record;
 
 import static com.stocks.livermor.constants.Constants.BASIC_CHANGE_PERCENTAGE;
@@ -15,7 +14,7 @@ public class RecordUtils {
     }
 
     public static boolean priceIsGrater(Record prev, Record current) {
-        return current.getPrice() < prev.getPrice();
+        return current.getPrice() > prev.getPrice();
     }
 
     public static boolean priceIsLower(Record prev, Record current) {
