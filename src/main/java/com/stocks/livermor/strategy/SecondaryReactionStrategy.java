@@ -6,15 +6,17 @@ import com.stocks.livermor.utils.RecordUtils.MovementType;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
+import static com.stocks.livermor.constants.Constants.Rule._5b;
+import static com.stocks.livermor.constants.Constants.Rule._6h;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.REACTION;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.STRONG_REACTION;
 import static com.stocks.livermor.utils.RecordUtils.getMovementType;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 
-public class SecondaryReactionStrategy implements ExecutionStrategy {
+public class SecondaryReactionStrategy implements StateProcessor {
     @Override
-    public void execute(RecordsHolder recordsHolder, Record newRecord) {
+    public void process(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.last();
         Assert.isTrue(last.getState() == SECONDARY_REACTION);
 
@@ -28,7 +30,7 @@ public class SecondaryReactionStrategy implements ExecutionStrategy {
         if (lastPivotPoint != NULL_OBJECT) {
             MovementType movementType = getMovementType(lastPivotPoint, newRecord);
             if (movementType == REACTION || movementType == STRONG_REACTION) {
-                newRecord.setState(DOWN_TREND);
+                newRecord.setStateAndRule(DOWN_TREND, _5b);
             }
         }
     }
@@ -37,7 +39,7 @@ public class SecondaryReactionStrategy implements ExecutionStrategy {
         Record lastReaction = recordsHolder.last(NATURAL_REACTION);
         if (lastReaction != NULL_OBJECT) {
             if (newRecord.getPrice() < lastReaction.getPrice()) {
-                newRecord.setState(NATURAL_REACTION);
+                newRecord.setStateAndRule(NATURAL_REACTION, _6h);
             }
         }
     }

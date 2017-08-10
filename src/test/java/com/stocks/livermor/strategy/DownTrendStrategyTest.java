@@ -19,7 +19,7 @@ public class DownTrendStrategyTest {
         RecordsHolder recordsHolder = new RecordsHolder(getYestredays(DOWN_TREND, false, 100));
         Record newRecord = getTodays(NONE, 80);
 
-        new DownTrendStrategy().execute(recordsHolder, newRecord);
+        new DownTrendStrategy().process(recordsHolder, newRecord);
         Assert.assertEquals(newRecord.getState(), DOWN_TREND);
     }
 
@@ -29,7 +29,7 @@ public class DownTrendStrategyTest {
         Record newRecord = getTodays(NONE, 150);
         RecordsHolder recordsHolder = new RecordsHolder(prevRecord);
 
-        new DownTrendStrategy().execute(recordsHolder, newRecord);
+        new DownTrendStrategy().process(recordsHolder, newRecord);
         assertTrue(prevRecord.isPivotPoint());
         assertNotEquals(newRecord.getState(), NONE);
     }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class StrategyPicker {
-    public ExecutionStrategy pick(Record previousRecord) {
+    public StateProcessor pick(Record previousRecord) {
         switch (previousRecord.getState()) {
             case UPPER_TREND:
                 return new UpperTrendStrategy();

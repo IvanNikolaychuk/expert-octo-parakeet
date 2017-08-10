@@ -19,7 +19,7 @@ public class SecondaryReactionStrategyTest {
         Record yesterdays = getYestredays(SECONDARY_REACTION, false, 101);
 
         RecordsHolder recordsHolder = new RecordsHolder(twoDaysAgo, yesterdays);
-        new SecondaryReactionStrategy().execute(recordsHolder, todays);
+        new SecondaryReactionStrategy().process(recordsHolder, todays);
 
         assertEquals(todays.getState(), NATURAL_REACTION);
     }
@@ -32,7 +32,7 @@ public class SecondaryReactionStrategyTest {
         Record yesterdays = getYestredays(SECONDARY_REACTION);
 
         RecordsHolder recordsHolder = new RecordsHolder(twoDaysAgo, yesterdays);
-        new SecondaryReactionStrategy().execute(recordsHolder, todays);
+        new SecondaryReactionStrategy().process(recordsHolder, todays);
 
         assertEquals(todays.getState(), DOWN_TREND);
     }

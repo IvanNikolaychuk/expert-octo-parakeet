@@ -19,7 +19,7 @@ public class UpperTrendStrategyTest {
         RecordsHolder recordsHolder = new RecordsHolder(getYestredays(UPPER_TREND, false, 100));
         Record newRecord = getTodays(NONE, 104);
 
-        new UpperTrendStrategy().execute(recordsHolder, newRecord);
+        new UpperTrendStrategy().process(recordsHolder, newRecord);
         Assert.assertEquals(newRecord.getState(), UPPER_TREND);
     }
 
@@ -29,7 +29,7 @@ public class UpperTrendStrategyTest {
         Record newRecord = getTodays(NONE, 50);
         RecordsHolder recordsHolder = new RecordsHolder(prevRecord);
 
-        new UpperTrendStrategy().execute(recordsHolder, newRecord);
+        new UpperTrendStrategy().process(recordsHolder, newRecord);
         assertTrue(prevRecord.isPivotPoint());
         assertNotEquals(newRecord.getState(), NONE);
     }

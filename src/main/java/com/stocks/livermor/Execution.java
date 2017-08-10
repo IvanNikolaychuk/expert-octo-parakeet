@@ -14,6 +14,6 @@ public class Execution {
     }
 
     public void process(RecordsHolder recordsHolder, Record current) {
-        strategyPicker.pick(recordsHolder.last()).execute(recordsHolder, current);
+        strategyPicker.pick(recordsHolder.last()).process(recordsHolder, current);
     }
 }

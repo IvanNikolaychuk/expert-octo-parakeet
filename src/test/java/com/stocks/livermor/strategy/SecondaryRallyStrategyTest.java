@@ -19,7 +19,7 @@ public class SecondaryRallyStrategyTest {
         Record yesterdays = getYestredays(SECONDARY_RALLY);
 
         RecordsHolder recordsHolder = new RecordsHolder(twoDaysAgo, yesterdays);
-        new SecondaryRallyStrategy().execute(recordsHolder, todays);
+        new SecondaryRallyStrategy().process(recordsHolder, todays);
 
         assertEquals(todays.getState(), NATURAL_RALLY);
     }
@@ -31,7 +31,7 @@ public class SecondaryRallyStrategyTest {
         Record yesterdays = getYestredays(SECONDARY_RALLY);
 
         RecordsHolder recordsHolder = new RecordsHolder(twoDaysAgo, yesterdays);
-        new SecondaryRallyStrategy().execute(recordsHolder, todays);
+        new SecondaryRallyStrategy().process(recordsHolder, todays);
 
         assertEquals(todays.getState(), UPPER_TREND);
     }

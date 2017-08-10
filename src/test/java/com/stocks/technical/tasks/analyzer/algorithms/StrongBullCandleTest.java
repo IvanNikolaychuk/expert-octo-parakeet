@@ -57,9 +57,4 @@ public class StrongBullCandleTest {
         assertFalse(StrongBullCandleAlgorithm.percentageProfitIsBig(target));
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void exceptionThrown_WhenCandlesArePassedInWrongDateOrder() {
-        StrongBullCandleAlgorithm.isStrongBullCandle(createYesterdaysCandle());
-    }
-
 }

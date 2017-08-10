@@ -25,7 +25,7 @@ public interface Query {
      * provided to the factory methods in Queries, are stored as dedicated
      * members of the implementing classes.  For instance, SimpleQuery has
      * a .getQCode() method to return the Quandl Code for that query, as
-     * the Quandl Code is necessary to execute a simple API request.
+     * the Quandl Code is necessary to process a simple API request.
      */
     public Map<String,String> getParameterMap();
 }

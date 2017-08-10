@@ -11,6 +11,7 @@ public class Record {
     private double price;
     private State state;
     private boolean pivotPoint;
+    private Enum rule;
 
     public Record(Date date, double price) {
         this.date = date;
@@ -19,5 +20,10 @@ public class Record {
 
     public void markAsPivotPoint() {
         pivotPoint = true;
+    }
+
+    public void setStateAndRule(State state, Enum rule) {
+        setState(state);
+        setRule(rule);
     }
 }
