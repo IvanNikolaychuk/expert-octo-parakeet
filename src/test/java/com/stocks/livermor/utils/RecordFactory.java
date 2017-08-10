@@ -41,6 +41,13 @@ public class RecordFactory {
         record.setPivotPoint(isPivotPoint);
         record.setPrice(price);
         return record;
+
+    }
+
+    public static Record get2DaysAgo(State state, boolean isPivotPoint, double price) {
+        Record record = get2DaysAgo(isPivotPoint, price);
+        record.setState(state);
+        return record;
     }
 
 
