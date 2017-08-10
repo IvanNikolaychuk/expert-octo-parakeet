@@ -29,8 +29,20 @@ public class RecordUtils {
         return current.getPrice() <= prev.getPrice();
     }
 
+    public static boolean reaction(Record prev, Record current) {
+        return getMovementType(prev, current) == REACTION;
+    }
+
+    public static boolean anyReaction(Record prev, Record current) {
+        return reaction(prev, current) || strongReaction(prev, current);
+    }
+
     public static boolean strongReaction(Record prev, Record current) {
         return getMovementType(prev, current) == STRONG_REACTION;
+    }
+
+    public static boolean rally(Record prev, Record current) {
+        return getMovementType(prev, current) == RALLY;
     }
 
     public static boolean strongRally(Record prev, Record current) {

@@ -16,8 +16,12 @@ public class StrategyPicker {
                 return new SecondaryRallyStrategy();
             case SECONDARY_REACTION:
                 return new SecondaryReactionStrategy();
+            case NATURAL_RALLY:
+                return new NaturalRallyStrategy();
+            case NATURAL_REACTION:
+                return new NaturalReactionStrategy();
             default:
-                return null;
+                throw new IllegalArgumentException("Record has unknown state: " + previousRecord.getState());
         }
     }
 }

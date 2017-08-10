@@ -27,10 +27,10 @@ public class NaturalRallyStrategyTest {
     @Test
     public void record_in_upper_trend_when_price_is_higher_than_last_natural_rally_pivot_point() {
         Record newRecord = getTodays(NONE, 100d);
-        Record lastReactionPivotPoint = get2DaysAgo(NATURAL_RALLY, true, 90d);
+        Record lastRallyPivotPoint = get2DaysAgo(NATURAL_RALLY, true, 90d);
         Record lastRecord = getYestredays(NATURAL_RALLY);
 
-        new NaturalRallyStrategy().process(new RecordsHolder(lastReactionPivotPoint, lastRecord), newRecord);
+        new NaturalRallyStrategy().process(new RecordsHolder(lastRallyPivotPoint, lastRecord), newRecord);
 
         assertEquals(newRecord.getState(), UPPER_TREND);
         assertEquals(newRecord.getRule(), _5a);
@@ -50,7 +50,7 @@ public class NaturalRallyStrategyTest {
     }
 
     @Test
-    public void record_in_down_trend_when_strong_reaction() {
+    public void record_in_natural_reaction_when_strong_reaction() {
         Record newRecord = getTodays(NONE, 100d);
         Record lastRecord = getYestredays(NATURAL_RALLY, 110d);
 

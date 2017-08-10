@@ -5,6 +5,8 @@ import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.constants.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
+import static com.stocks.livermor.utils.RecordUtils.rally;
+import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 import static org.springframework.util.Assert.isTrue;
@@ -25,10 +27,10 @@ public class NaturalRallyStrategy implements StateProcessor {
     private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
         if (strongReaction(recordsHolder.last(), newRecord)) {
             Record lastReaction = recordsHolder.last(NATURAL_REACTION);
-            if (lastReaction != NULL_OBJECT && newRecord.getPrice() > lastReaction.getPrice())
+            if (lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice())
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
             else {
-                newRecord.setPivotPoint(true);
+                newRecord.markAsPivotPoint();
                 newRecord.setStateAndRule(NATURAL_REACTION, _6b);
             }
         }
@@ -38,7 +40,7 @@ public class NaturalRallyStrategy implements StateProcessor {
         Record lastRallyPivotPoint = recordsHolder.getPivotPoints().lastPivotPointRecord(NATURAL_RALLY);
         if (lastRallyPivotPoint == NULL_OBJECT) return;
 
-        if (newRecord.getPrice() > lastRallyPivotPoint.getPrice())
+        if (rally(lastRallyPivotPoint, newRecord) || strongRally(lastRallyPivotPoint, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _5a);
     }
 
@@ -55,7 +57,7 @@ public class NaturalRallyStrategy implements StateProcessor {
         if (lastDownTrend == NULL_OBJECT) return;
 
         if (newRecord.getPrice() < lastDownTrend.getPrice()) {
-            newRecord.setPivotPoint(true);
+            newRecord.markAsPivotPoint();
             newRecord.setStateAndRule(DOWN_TREND, _11b);
         }
     }

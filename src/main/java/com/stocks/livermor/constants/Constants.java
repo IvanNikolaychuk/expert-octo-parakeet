@@ -19,7 +19,8 @@ public class Constants {
 
         _6d,
         _11b,
-        _6b
+        _6b,
+        _11a
 
     }
 }
