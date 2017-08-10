@@ -1,6 +1,5 @@
 package com.stocks.livermor.entity;
 
-import com.stocks.technical.core.db.entity.Candle;
 import lombok.Data;
 
 import java.util.Date;

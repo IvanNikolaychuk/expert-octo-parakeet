@@ -3,6 +3,7 @@ package com.stocks.livermor.strategy.factory;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.strategy.DownTrendStrategy;
 import com.stocks.livermor.strategy.ExecutionStrategy;
+import com.stocks.livermor.strategy.SecondaryRallyStrategy;
 import com.stocks.livermor.strategy.UpperTrendStrategy;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ public class StrategyPicker {
                 return new UpperTrendStrategy();
             case DOWN_TREND:
                 return new DownTrendStrategy();
+            case SECONDARY_RALLY:
+                return new SecondaryRallyStrategy();
             default:
                 return null;
         }

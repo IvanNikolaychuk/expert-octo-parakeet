@@ -20,6 +20,12 @@ public class RecordFactory {
         return record;
     }
 
+    public static Record getYestredays(State state) {
+        Record record = getYestredays();
+        record.setState(state);
+        return record;
+    }
+
     public static Record getYestredays(State state, boolean isPivotPoint, double price) {
         Record record = getYestredays(isPivotPoint);
         record.setState(state);

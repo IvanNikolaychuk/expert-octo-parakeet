@@ -5,11 +5,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.stocks.livermor.entity.State.DOWN_TREND;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
 import static com.stocks.livermor.utils.RecordFactory.*;
+import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
@@ -18,21 +18,22 @@ public class PivotPointsHolderTest {
 
     @Test
     public void when_no_pp_exist_list_is_empty() {
-        List<Record> record = new PivotPointsHolder(singletonList(getTodays(DOWN_TREND, false)))
-                .lastPivotPointsRecords(DOWN_TREND);
+        Record record = new PivotPointsHolder(singletonList(getTodays(DOWN_TREND, false)))
+                .lastPivotPointRecord(DOWN_TREND);
 
-        Assert.assertTrue(record.isEmpty());
+        Assert.assertEquals(record, NULL_OBJECT);
     }
 
     @Test
     public void whe_pp_exist_list_is_not_empty() {
         Record lastRecord = getTodays(DOWN_TREND, true);
         Record yesterdays = getYestredays(true);
+        yesterdays.setState(DOWN_TREND);
 
-        List<Record> lastDownTrendRecords = new PivotPointsHolder(asList(lastRecord, yesterdays))
-                .lastPivotPointsRecords(DOWN_TREND);
+        Record lastDownTrendRecords = new PivotPointsHolder(asList(lastRecord, yesterdays))
+                .lastPivotPointRecord(DOWN_TREND);
 
-        assertEquals(lastDownTrendRecords.get(0), lastRecord);
+        assertEquals(lastDownTrendRecords, lastRecord);
     }
 
     @Test
