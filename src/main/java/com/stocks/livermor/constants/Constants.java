@@ -15,7 +15,11 @@ public class Constants {
         _6h,
 
         _5a,
-        _6g
+        _6g,
+
+        _6d,
+        _11b,
+        _6b
 
     }
 }
