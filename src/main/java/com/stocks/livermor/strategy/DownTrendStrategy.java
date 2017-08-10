@@ -4,28 +4,29 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.PivotPointsHolder;
 import com.stocks.livermor.utils.RecordsHolder;
+import org.springframework.util.Assert;
 
-import static com.stocks.livermor.entity.State.NATURAL_REACTION;
-import static com.stocks.livermor.entity.State.SECONDARY_REACTION;
-import static com.stocks.livermor.entity.State.UPPER_TREND;
-import static com.stocks.livermor.utils.RecordUtils.priceIsGrater;
-import static com.stocks.livermor.utils.RecordUtils.strongReaction;
+import static com.stocks.livermor.entity.State.*;
+import static com.stocks.livermor.utils.RecordUtils.priceIsLower;
+import static com.stocks.livermor.utils.RecordUtils.strongRally;
 
 public class DownTrendStrategy implements ExecutionStrategy {
 
     @Override
     public void execute(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.last();
-        if (priceIsGrater(last, newRecord)) {
-            newRecord.setState(UPPER_TREND);
+        Assert.isTrue(last.getState() == DOWN_TREND);
+
+        if (priceIsLower(last, newRecord)) {
+            newRecord.setState(DOWN_TREND);
             return;
         }
 
-        if (strongReaction(last, newRecord)) {
+        if (strongRally(last, newRecord)) {
             last.markAsPivotPoint();
 
             PivotPointsHolder pivotPointsHolder = recordsHolder.getPivotPoints();
-            State newRecordState = pivotPointsHolder.check6aaRuleWhenReactionOccurred(last) ? SECONDARY_REACTION : NATURAL_REACTION;
+            State newRecordState = pivotPointsHolder.check6aaRuleWhenReactionOccurred(last) ? SECONDARY_RALLY : NATURAL_RALLY;
             newRecord.setState(newRecordState);
         }
     }

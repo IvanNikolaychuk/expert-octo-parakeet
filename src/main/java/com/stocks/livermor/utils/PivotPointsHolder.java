@@ -9,7 +9,7 @@ import java.util.List;
 
 import static com.stocks.livermor.entity.State.DOWN_TREND;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
-import static com.stocks.livermor.utils.RecordUtils.check6aaRule;
+import static com.stocks.livermor.utils.RecordUtils.check6aaccRule;
 import static java.util.stream.Collectors.toList;
 
 public class PivotPointsHolder {
@@ -28,20 +28,29 @@ public class PivotPointsHolder {
     }
 
     public boolean check6aaRuleWhenReactionOccurred(Record last) {
-        if (last.getState() != UPPER_TREND) return false;
+        return check6RuleWhenReactionOccurred(last);
+    }
 
-        List<Record> upperTrendRecords = lastPivotPointsRecords(UPPER_TREND);
-        if (upperTrendRecords.isEmpty()) return false;
+    public boolean check6ccRuleWhenReactionOccurred(Record last) {
+        return check6RuleWhenReactionOccurred(last);
+    }
 
-        final Record lastUpperTrend = upperTrendRecords.get(0);
-        if (!check6aaRule(lastUpperTrend, last)) return false;
+    private boolean check6RuleWhenReactionOccurred(Record last) {
+        State recordState = last.getState();
+        if (recordState != UPPER_TREND && recordState != DOWN_TREND) return false;
 
-        List<Record> downTrendRecords = lastPivotPointsRecords(DOWN_TREND);
-        if (downTrendRecords.isEmpty()) return true;
+        List<Record> prevTrendRecords = lastPivotPointsRecords(last.getState());
+        if (prevTrendRecords.isEmpty()) return false;
+        final Record lastTrendRecord = prevTrendRecords.get(0);
 
-        final Date lastDownTrendDate = downTrendRecords.get(0).getDate();
+        if (!check6aaccRule(lastTrendRecord, last)) return false;
 
-        boolean wasDownTrendBetween = lastDownTrendDate.compareTo(lastUpperTrend.getDate()) > 0;
-        return !wasDownTrendBetween;
+        List<Record> seperateTrendRecords = lastPivotPointsRecords(recordState == UPPER_TREND ? DOWN_TREND : UPPER_TREND);
+        if (seperateTrendRecords.isEmpty()) return true;
+
+        final Date lastSeparateTrendDate = seperateTrendRecords.get(0).getDate();
+
+        boolean wasUperTrendBetween = lastSeparateTrendDate.compareTo(lastTrendRecord.getDate()) > 0;
+        return !wasUperTrendBetween;
     }
 }
