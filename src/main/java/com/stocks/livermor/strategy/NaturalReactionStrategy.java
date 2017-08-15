@@ -56,6 +56,7 @@ public class NaturalReactionStrategy implements StateProcessor {
     private void checkPriceIsLowerThanLastLastPivotPointInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
         Record lastReactionPivotPoint = recordsHolder.getPivotPoints().lastPivotPointRecord(NATURAL_REACTION);
         if (lastReactionPivotPoint == NULL_OBJECT) return;
+        if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint)) return;
 
         if (anyReaction(lastReactionPivotPoint, newRecord))
             newRecord.setStateAndRule(DOWN_TREND, _5b);
