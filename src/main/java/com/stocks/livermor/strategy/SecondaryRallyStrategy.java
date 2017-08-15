@@ -1,16 +1,12 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.utils.PivotPointsHolder;
-import com.stocks.livermor.utils.RecordUtils.MovementType;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
 import static com.stocks.livermor.constants.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.RecordUtils.MovementType.RALLY;
-import static com.stocks.livermor.utils.RecordUtils.MovementType.STRONG_RALLY;
-import static com.stocks.livermor.utils.RecordUtils.getMovementType;
+import static com.stocks.livermor.utils.RecordUtils.anyRally;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 
@@ -39,14 +35,12 @@ public class SecondaryRallyStrategy implements StateProcessor {
     }
 
     private void checkPriceIsHigherThanLastPivotPointInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
-        PivotPointsHolder pivotPointsHolder = recordsHolder.getPivotPoints();
-        Record lastPivotPoint = pivotPointsHolder.lastPivotPointRecord(NATURAL_RALLY);
-        if (lastPivotPoint != NULL_OBJECT) {
-            MovementType movementType = getMovementType(lastPivotPoint, newRecord);
-            if (movementType == RALLY || movementType == STRONG_RALLY) {
-                newRecord.setStateAndRule(UPPER_TREND, _5a);
-            }
-        }
+        Record lastRallyPivotPoint = recordsHolder.getPivotPoints().lastPivotPointRecord(NATURAL_RALLY);
+        if (lastRallyPivotPoint == NULL_OBJECT) return;
+        if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)) return;
+
+        if (anyRally(lastRallyPivotPoint, newRecord))
+            newRecord.setStateAndRule(UPPER_TREND, _5a);
     }
 
     private void checkPriceIsHigherThanLastInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {

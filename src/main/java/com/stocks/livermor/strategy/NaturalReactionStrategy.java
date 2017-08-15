@@ -77,7 +77,7 @@ public class NaturalReactionStrategy implements StateProcessor {
         if (lastDownTrend == NULL_OBJECT) return;
 
         if (newRecord.getPrice() < lastDownTrend.getPrice())
-            newRecord.setStateAndRule(DOWN_TREND, _6b);
+            newRecord.setStateAndRule(DOWN_TREND, _6b3);
     }
 
     private void markAsPicotPointIfNeeded(RecordsHolder recordsHolder) {
