@@ -11,6 +11,7 @@ import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.RALLY;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.STRONG_RALLY;
 import static com.stocks.livermor.utils.RecordUtils.getMovementType;
+import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 
 public class SecondaryRallyStrategy implements StateProcessor {
@@ -22,8 +23,19 @@ public class SecondaryRallyStrategy implements StateProcessor {
 
         checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
         checkPriceIsHigherThanLastPivotPointInNaturalRally(recordsHolder, newRecord);
+        checkStrongReaction(recordsHolder, newRecord);
 
         setStateIfNotYet(newRecord, last);
+    }
+
+    private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
+        if (strongReaction(recordsHolder.lastWithState(), newRecord)) {
+            Record lastReaction = recordsHolder.last(NATURAL_REACTION);
+            if (lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice())
+                newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
+            else
+                newRecord.setStateAndRule(NATURAL_REACTION, _6b);
+        }
     }
 
     private void checkPriceIsHigherThanLastPivotPointInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
