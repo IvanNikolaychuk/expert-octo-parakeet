@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static com.stocks.livermor.entity.State.DOWN_TREND;
+import static com.stocks.livermor.entity.State.NONE;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
 import static com.stocks.livermor.utils.RecordFactory.getTodays;
 import static com.stocks.livermor.utils.RecordFactory.getYestredays;
@@ -35,5 +36,15 @@ public class RecordsHolderTest {
         Trend trend = new RecordsHolder(records).currentTrend();
 
         assertEquals(trend, Trend.UP);
+    }
+
+    @Test
+    public void only_record_with_not_none_state_is_returned() {
+        Record mostRecent = getTodays(NONE);
+        Record old = getYestredays(DOWN_TREND);
+
+        Record last = new RecordsHolder(asList(old, mostRecent)).lastWithState();
+
+        assertEquals(last, old);
     }
 }

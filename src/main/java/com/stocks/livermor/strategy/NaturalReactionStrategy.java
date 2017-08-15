@@ -15,17 +15,31 @@ import static org.springframework.util.Assert.isTrue;
 public class NaturalReactionStrategy implements StateProcessor {
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
-        isTrue(recordsHolder.last().getState() == NATURAL_REACTION);
+        isTrue(recordsHolder.lastWithState().getState() == NATURAL_REACTION);
 
         checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
         checkPriceIsLowerThanLastLastPivotPointInNaturalReaction(recordsHolder, newRecord);
 
         checkPriceIsHigherThanLastInUpperTrend(recordsHolder, newRecord);
         checkStrongRally(recordsHolder, newRecord);
+
+        setStateIfNotYet(newRecord, recordsHolder.lastWithState());
+    }
+
+    /**
+     * Выставляется только в том случае, если у записи еще нет stat'а.
+     */
+    private void setStateIfNotYet(Record newRecord, Record lastRecord) {
+        if (newRecord.getState() == null) {
+            if (newRecord.getPrice() < lastRecord.getPrice())
+                newRecord.setStateAndRule(NATURAL_REACTION, _12_reaction);
+            else
+                newRecord.setState(NONE);
+        }
     }
 
     private void checkStrongRally(RecordsHolder recordsHolder, Record newRecord) {
-        if (strongRally(recordsHolder.last(), newRecord)) {
+        if (strongRally(recordsHolder.lastWithState(), newRecord)) {
             Record lastRally = recordsHolder.last(NATURAL_RALLY);
             if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice())
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);

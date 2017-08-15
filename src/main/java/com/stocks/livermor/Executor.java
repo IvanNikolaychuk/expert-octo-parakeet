@@ -13,7 +13,7 @@ public class Executor {
     }
 
     public void process(RecordsHolder recordsHolder, Record current) {
-        final StateProcessor stateProcessor = strategyPicker.pick(recordsHolder.last());
+        final StateProcessor stateProcessor = strategyPicker.pick(recordsHolder.lastWithState());
         stateProcessor.process(recordsHolder, current);
         recordsHolder.add(current);
     }

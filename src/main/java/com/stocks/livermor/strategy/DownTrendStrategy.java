@@ -13,7 +13,7 @@ public class DownTrendStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
-        final Record last = recordsHolder.last();
+        final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == DOWN_TREND);
 
         if (priceIsLower(last, newRecord)) {

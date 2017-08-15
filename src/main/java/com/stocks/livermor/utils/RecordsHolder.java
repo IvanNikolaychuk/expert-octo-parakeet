@@ -50,8 +50,13 @@ public class RecordsHolder {
         return lastDown.getDate().compareTo(lastUp.getDate()) > 0 ? DOWN : UP;
     }
 
-    public Record last() {
-        return records.get(records.size() - 1);
+    public Record lastWithState() {
+        for (int i = 0; i < records.size(); i++) {
+            Record record = records.get(records.size() - 1 - i);
+            if (record.getState() != State.NONE)
+                return record;
+        }
+        return NULL_OBJECT;
     }
 
     public PivotPointsHolder getPivotPoints() {

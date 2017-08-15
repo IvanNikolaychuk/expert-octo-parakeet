@@ -14,7 +14,7 @@ public class UpperTrendStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
-        final Record last = recordsHolder.last();
+        final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == UPPER_TREND);
 
         if (priceIsGrater(last, newRecord)) {

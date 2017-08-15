@@ -17,7 +17,7 @@ import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 public class SecondaryReactionStrategy implements StateProcessor {
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
-        final Record last = recordsHolder.last();
+        final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_REACTION);
 
         checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);

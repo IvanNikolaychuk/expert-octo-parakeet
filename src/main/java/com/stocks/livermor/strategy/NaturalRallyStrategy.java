@@ -15,17 +15,31 @@ public class NaturalRallyStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
-        isTrue(recordsHolder.last().getState() == NATURAL_RALLY);
+        isTrue(recordsHolder.lastWithState().getState() == NATURAL_RALLY);
 
         checkPriceIsHigherThanLastInUpperTrend(recordsHolder, newRecord);
         checkPriceIsHigherThanLastLastPivotPointInNaturalRally(recordsHolder, newRecord);
 
         checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
         checkStrongReaction(recordsHolder, newRecord);
+
+        setStateIfNotYet(newRecord, recordsHolder.lastWithState());
+    }
+
+    /**
+     * Выставляется только в том случае, если у записи еще нет stat'а.
+     */
+    private void setStateIfNotYet(Record newRecord, Record lastRecord) {
+        if (newRecord.getState() == null) {
+            if (newRecord.getPrice() > lastRecord.getPrice())
+                newRecord.setStateAndRule(NATURAL_RALLY, _12_rally);
+            else
+                newRecord.setState(NONE);
+        }
     }
 
     private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
-        if (strongReaction(recordsHolder.last(), newRecord)) {
+        if (strongReaction(recordsHolder.lastWithState(), newRecord)) {
             Record lastReaction = recordsHolder.last(NATURAL_REACTION);
             if (lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice())
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
