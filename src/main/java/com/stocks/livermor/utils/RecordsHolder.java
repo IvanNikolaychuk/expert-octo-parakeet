@@ -42,9 +42,9 @@ public class RecordsHolder {
 
         if (lastDown == NULL_OBJECT && lastUp == NULL_OBJECT)
             return NONE;
-        if (lastDown == NULL_OBJECT && lastUp != NULL_OBJECT)
+        if (lastDown == NULL_OBJECT)
             return UP;
-        if (lastUp == NULL_OBJECT && lastDown != NULL_OBJECT)
+        if (lastUp == NULL_OBJECT)
             return DOWN;
 
         return lastDown.getDate().compareTo(lastUp.getDate()) > 0 ? DOWN : UP;

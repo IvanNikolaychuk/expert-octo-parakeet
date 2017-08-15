@@ -37,6 +37,10 @@ public class RecordUtils {
         return reaction(prev, current) || strongReaction(prev, current);
     }
 
+    public static boolean anyRally(Record prev, Record current) {
+        return rally(prev, current) || strongRally(prev, current);
+    }
+
     public static boolean strongReaction(Record prev, Record current) {
         return getMovementType(prev, current) == STRONG_REACTION;
     }

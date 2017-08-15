@@ -26,4 +26,8 @@ public class Record {
         setState(state);
         setRule(rule);
     }
+
+    public boolean hasState() {
+        return state != null;
+    }
 }
