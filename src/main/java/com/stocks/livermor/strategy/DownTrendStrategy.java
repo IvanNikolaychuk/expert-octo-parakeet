@@ -17,7 +17,7 @@ public class DownTrendStrategy implements StateProcessor {
         Assert.isTrue(last.getState() == DOWN_TREND);
 
         if (priceIsLower(last, newRecord)) {
-            newRecord.setStateAndRule(DOWN_TREND, _12);
+            newRecord.setStateAndRule(DOWN_TREND, _12_down);
             return;
         }
 

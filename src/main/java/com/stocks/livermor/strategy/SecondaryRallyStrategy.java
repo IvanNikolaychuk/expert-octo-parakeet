@@ -6,8 +6,7 @@ import com.stocks.livermor.utils.RecordUtils.MovementType;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
-import static com.stocks.livermor.constants.Constants.Rule._5a;
-import static com.stocks.livermor.constants.Constants.Rule._6g3;
+import static com.stocks.livermor.constants.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.RALLY;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.STRONG_RALLY;
@@ -23,6 +22,8 @@ public class SecondaryRallyStrategy implements StateProcessor {
 
         checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
         checkPriceIsHigherThanLastPivotPointInNaturalRally(recordsHolder, newRecord);
+
+        setStateIfNotYet(newRecord, last);
     }
 
     private void checkPriceIsHigherThanLastPivotPointInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
@@ -43,5 +44,15 @@ public class SecondaryRallyStrategy implements StateProcessor {
                 newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
             }
         }
+    }
+
+
+    private void setStateIfNotYet(Record newRecord, Record lastRecord) {
+        if (newRecord.getState() != null) return;
+
+        if (newRecord.getPrice() > lastRecord.getPrice())
+            newRecord.setStateAndRule(SECONDARY_RALLY, _12_secondary_rally);
+        else
+            newRecord.setState(NONE);
     }
 }

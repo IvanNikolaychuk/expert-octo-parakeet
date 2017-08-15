@@ -6,8 +6,7 @@ import com.stocks.livermor.utils.RecordUtils.MovementType;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
-import static com.stocks.livermor.constants.Constants.Rule._5b;
-import static com.stocks.livermor.constants.Constants.Rule._6h;
+import static com.stocks.livermor.constants.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.REACTION;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.STRONG_REACTION;
@@ -22,6 +21,8 @@ public class SecondaryReactionStrategy implements StateProcessor {
 
         checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);
         checkPriceIsLowerThanLastPivotPointInNaturalReaction(recordsHolder, newRecord);
+
+        setStateIfNotYet(newRecord, last);
     }
 
     private void checkPriceIsLowerThanLastPivotPointInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
@@ -42,5 +43,14 @@ public class SecondaryReactionStrategy implements StateProcessor {
                 newRecord.setStateAndRule(NATURAL_REACTION, _6h);
             }
         }
+    }
+
+    private void setStateIfNotYet(Record newRecord, Record lastRecord) {
+        if (newRecord.getState() != null) return;
+
+        if (newRecord.getPrice() < lastRecord.getPrice())
+            newRecord.setStateAndRule(SECONDARY_REACTION, _12_secondary_reaction);
+        else
+            newRecord.setState(NONE);
     }
 }

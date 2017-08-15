@@ -56,6 +56,17 @@ public class RecordFactory {
         return record;
     }
 
+    public static Record get3DaysAgo(State state, boolean isPivotPoint, double price) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, -3);
+
+        Record record = new Record(calendar.getTime(), price);
+        record.setPivotPoint(isPivotPoint);
+        record.setPrice(price);
+        record.setState(state);
+        return record;
+    }
+
 
     public static Record getTodays(State state) {
         Record record = new Record(new Date(), 1);

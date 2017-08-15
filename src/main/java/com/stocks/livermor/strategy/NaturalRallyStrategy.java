@@ -57,6 +57,7 @@ public class NaturalRallyStrategy implements StateProcessor {
     private void checkPriceIsHigherThanLastLastPivotPointInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
         Record lastRallyPivotPoint = recordsHolder.getPivotPoints().lastPivotPointRecord(NATURAL_RALLY);
         if (lastRallyPivotPoint == NULL_OBJECT) return;
+        if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)) return;
 
         if (anyRally(lastRallyPivotPoint, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _5a);

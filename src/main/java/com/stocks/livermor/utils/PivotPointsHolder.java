@@ -4,6 +4,8 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.RecordsHolder.ByDateComparator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +30,17 @@ public class PivotPointsHolder {
                 .collect(toList());
 
         return pivotPoints.isEmpty() ? NULL_OBJECT : pivotPoints.get(0);
+    }
+
+    public List<Record> getSupportAndResistance() {
+        List<Record> pivotPoints = records.stream()
+                .filter(Record::isPivotPoint)
+                .sorted(new ByDateComparator())
+                .collect(toList());
+        if (pivotPoints.size() < 2) return new ArrayList<>();
+
+        // last 2
+        return Arrays.asList(pivotPoints.get(pivotPoints.size() - 1), pivotPoints.get(pivotPoints.size() - 2));
     }
 
     public boolean check6aaRuleWhenReactionOccurred(Record last) {
