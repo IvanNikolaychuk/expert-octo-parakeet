@@ -23,11 +23,11 @@ public class UpperTrendStrategy implements StateProcessor {
         }
 
         if (strongReaction(last, newRecord)) {
-            last.markAsPivotPoint();
-
             boolean rule6aa = recordsHolder.getPivotPoints().check6aaRuleWhenReactionOccurred(last);
             newRecord.setState(rule6aa ? SECONDARY_REACTION : NATURAL_REACTION);
             newRecord.setRule(rule6aa ? _6aa : _6a);
+
+            last.markAsPivotPoint();
         }
     }
 }

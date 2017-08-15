@@ -2,13 +2,19 @@ package com.stocks.livermor.utils;
 
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
+import com.stocks.livermor.entity.Trend;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import static java.util.Arrays.asList;
+import static com.google.common.collect.Lists.newArrayList;
+import static com.stocks.livermor.entity.State.DOWN_TREND;
+import static com.stocks.livermor.entity.State.UPPER_TREND;
+import static com.stocks.livermor.entity.Trend.DOWN;
+import static com.stocks.livermor.entity.Trend.NONE;
+import static com.stocks.livermor.entity.Trend.UP;
 import static java.util.stream.Collectors.toList;
 
 @Getter
@@ -18,12 +24,30 @@ public class RecordsHolder {
 
     public RecordsHolder(List<Record> records) {
         this.records = records;
-        this.records.sort(new ByDateComparator());
+        sortByDate();
     }
 
-    public RecordsHolder(Record ...records) {
-        this.records = asList(records);
-        this.records.sort(new ByDateComparator());
+    public RecordsHolder(Record... records) {
+        this(newArrayList(records));
+    }
+
+    public void add(Record record) {
+        records.add(record);
+        sortByDate();
+    }
+
+    public Trend currentTrend() {
+        Record lastUp = last(UPPER_TREND);
+        Record lastDown = last(DOWN_TREND);
+
+        if (lastDown == NULL_OBJECT && lastUp == NULL_OBJECT)
+            return NONE;
+        if (lastDown == NULL_OBJECT && lastUp != NULL_OBJECT)
+            return UP;
+        if (lastUp == NULL_OBJECT && lastDown != NULL_OBJECT)
+            return DOWN;
+
+        return lastDown.getDate().compareTo(lastUp.getDate()) > 0 ? DOWN : UP;
     }
 
     public Record last() {
@@ -41,13 +65,17 @@ public class RecordsHolder {
         List<Record> recordsCopy = new ArrayList<>(this.records);
         recordsCopy.sort(new ByDateComparator().reversed());
 
-        for(Record record : recordsCopy) {
+        for (Record record : recordsCopy) {
             if (record.getState() == state) {
                 return record;
             }
         }
 
         return NULL_OBJECT;
+    }
+
+    private void sortByDate() {
+        records.sort(new ByDateComparator());
     }
 
     /**

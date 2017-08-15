@@ -17,16 +17,16 @@ public class DownTrendStrategy implements StateProcessor {
         Assert.isTrue(last.getState() == DOWN_TREND);
 
         if (priceIsLower(last, newRecord)) {
-            newRecord.setState(DOWN_TREND);
+            newRecord.setStateAndRule(DOWN_TREND, _12);
             return;
         }
 
         if (strongRally(last, newRecord)) {
-            last.markAsPivotPoint();
-
-            boolean rule6cc = recordsHolder.getPivotPoints().check6aaRuleWhenReactionOccurred(last);
+            boolean rule6cc = recordsHolder.getPivotPoints().check6ccRuleWhenReactionOccurred(last);
             newRecord.setState(rule6cc ? SECONDARY_RALLY : NATURAL_RALLY);
             newRecord.setRule(rule6cc ? _6cc : _6c);
+
+            last.markAsPivotPoint();
         }
     }
 }

@@ -31,10 +31,6 @@ public class RecordUtilsTest {
         assertEquals(STRONG_REACTION, getMovementType(record(200), record(150)));
     }
 
-    @Test
-    public void reaction() {
-        assertEquals(REACTION, getMovementType(record(100), record(99)));
-    }
 
     private Record record(double price) {
         return new Record(new Date(), price);

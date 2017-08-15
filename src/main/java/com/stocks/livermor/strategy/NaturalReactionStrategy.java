@@ -1,10 +1,12 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.Trend;
 import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.constants.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
+import static com.stocks.livermor.entity.Trend.DOWN;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
@@ -28,7 +30,7 @@ public class NaturalReactionStrategy implements StateProcessor {
             if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice())
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
             else {
-                newRecord.markAsPivotPoint();
+                markAsPicotPointIfNeeded(recordsHolder.currentTrend(), newRecord);
                 newRecord.setStateAndRule(NATURAL_RALLY, _6d);
             }
         }
@@ -47,7 +49,7 @@ public class NaturalReactionStrategy implements StateProcessor {
         if (lastUpperTrend == NULL_OBJECT) return;
 
         if (newRecord.getPrice() > lastUpperTrend.getPrice()) {
-            newRecord.markAsPivotPoint();
+            markAsPicotPointIfNeeded(recordsHolder.currentTrend(), newRecord);
             newRecord.setStateAndRule(UPPER_TREND, _11a);
         }
     }
@@ -58,5 +60,10 @@ public class NaturalReactionStrategy implements StateProcessor {
 
         if (newRecord.getPrice() < lastDownTrend.getPrice())
             newRecord.setStateAndRule(DOWN_TREND, _6b);
+    }
+
+    private void markAsPicotPointIfNeeded(Trend trend, Record newRecord) {
+        if (trend == DOWN)
+            newRecord.markAsPivotPoint();
     }
 }

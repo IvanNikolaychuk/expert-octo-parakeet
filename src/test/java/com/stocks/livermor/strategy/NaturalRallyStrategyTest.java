@@ -8,6 +8,7 @@ import static com.stocks.livermor.constants.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordFactory.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class NaturalRallyStrategyTest {
@@ -58,7 +59,7 @@ public class NaturalRallyStrategyTest {
 
         assertEquals(newRecord.getState(), NATURAL_REACTION);
         assertEquals(newRecord.getRule(), _6b);
-        assertTrue(newRecord.isPivotPoint());
+        assertFalse(newRecord.isPivotPoint());
     }
 
     @Test
