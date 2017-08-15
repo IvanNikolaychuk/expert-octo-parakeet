@@ -4,6 +4,7 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
+import static com.stocks.livermor.constants.Constants.Rule._12_upper;
 import static com.stocks.livermor.constants.Constants.Rule._6a;
 import static com.stocks.livermor.constants.Constants.Rule._6aa;
 import static com.stocks.livermor.entity.State.*;
@@ -18,7 +19,7 @@ public class UpperTrendStrategy implements StateProcessor {
         Assert.isTrue(last.getState() == UPPER_TREND);
 
         if (priceIsGrater(last, newRecord)) {
-            newRecord.setState(UPPER_TREND);
+            newRecord.setStateAndRule(UPPER_TREND, _12_upper);
             return;
         }
 
@@ -28,6 +29,10 @@ public class UpperTrendStrategy implements StateProcessor {
             newRecord.setRule(rule6aa ? _6aa : _6a);
 
             last.markAsPivotPoint();
+        }
+
+        if (!newRecord.hasState()) {
+            newRecord.setState(NONE);
         }
     }
 }

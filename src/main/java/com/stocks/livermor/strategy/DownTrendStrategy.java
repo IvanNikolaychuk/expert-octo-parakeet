@@ -28,5 +28,9 @@ public class DownTrendStrategy implements StateProcessor {
 
             last.markAsPivotPoint();
         }
+
+        if (!newRecord.hasState()) {
+            newRecord.setState(NONE);
+        }
     }
 }
