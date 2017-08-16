@@ -3,6 +3,7 @@ package com.stocks.livermor.strategy.book;
 import com.stocks.livermor.Executor;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
+import com.stocks.livermor.excel.ExcelWriter;
 import com.stocks.livermor.strategy.book.utils.DateGenerator;
 import com.stocks.livermor.strategy.factory.StrategyPicker;
 import com.stocks.livermor.utils.RecordsHolder;
@@ -12,6 +13,7 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.stocks.livermor.constants.Constants.NULL_DATE;
 import static com.stocks.livermor.constants.Constants.Rule;
 import static com.stocks.livermor.constants.Constants.Rule.*;
 import static com.stocks.livermor.constants.Constants.Rule._12_secondary_reaction;
@@ -34,18 +36,23 @@ public class GazpTest {
     @Before
     public void init() {
         CHANGE_MEASURE = PERCENTAGE;
-        recordsHolder.add(newRecord(130.29, DOWN_TREND, true));
-        recordsHolder.add(newRecord(138.7, NATURAL_RALLY, true));
+        Record firstNoDate = newRecord(130.29, DOWN_TREND, true);
+        firstNoDate.setDate(NULL_DATE);
+        Record secondNoDate = newRecord(138.7, NATURAL_RALLY, true);
+        secondNoDate.setDate(NULL_DATE);
+        recordsHolder.add(firstNoDate);
+        recordsHolder.add(secondNoDate);
         recordToPpChecksCounterMap = new HashMap<>();
         recordToNotPpChecksCounterMap = new HashMap<>();
     }
 
     @Test
-    public void test() {
+    public void test() throws Exception {
         firstQuarter();
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
+        new ExcelWriter().createTable(recordsHolder);
     }
 
     private void fourthQuarter() {

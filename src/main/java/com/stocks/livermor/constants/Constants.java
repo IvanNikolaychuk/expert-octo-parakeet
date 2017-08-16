@@ -1,8 +1,18 @@
 package com.stocks.livermor.constants;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Constants {
     public static final int BASIC_CHANGE_PERCENTAGE = 1;
     public static final int BASIC_CHANGE_POINT = 3;
+    public static final Date NULL_DATE = getNullDate();
+
+    public static Date getNullDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 1995);
+        return calendar.getTime();
+    }
 
     public enum Rule {
         // Восходящий тренд
