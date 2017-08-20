@@ -1,38 +1,18 @@
 package com.stocks.livermor.strategy.book;
 
-import com.stocks.livermor.Executor;
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.entity.State;
 import com.stocks.livermor.excel.ExcelWriter;
-import com.stocks.livermor.strategy.book.utils.DateGenerator;
-import com.stocks.livermor.strategy.factory.StrategyPicker;
-import com.stocks.livermor.utils.RecordsHolder;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static com.stocks.livermor.constants.Constants.NULL_DATE;
-import static com.stocks.livermor.constants.Constants.Rule;
 import static com.stocks.livermor.constants.Constants.Rule.*;
-import static com.stocks.livermor.constants.Constants.Rule._12_secondary_reaction;
-import static com.stocks.livermor.constants.Constants.Rule._6h;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.entity.State.NONE;
-import static com.stocks.livermor.entity.State.SECONDARY_REACTION;
+import static com.stocks.livermor.strategy.book.CheckingMechanism.*;
 import static com.stocks.livermor.utils.RecordUtils.CHANGE_MEASURE;
 import static com.stocks.livermor.utils.RecordUtils.ChangeMeasure.PERCENTAGE;
-import static org.junit.Assert.*;
 
 public class GazpTest {
-    private static final int PP_CHECKS_COUNTER = 5;
-    private Map<Record, Integer> recordToPpChecksCounterMap;
-    private Map<Record, Integer> recordToNotPpChecksCounterMap;
-
-    private Executor executor = new Executor(new StrategyPicker());
-    private RecordsHolder recordsHolder = new RecordsHolder();
-
     @Before
     public void init() {
         CHANGE_MEASURE = PERCENTAGE;
@@ -40,11 +20,10 @@ public class GazpTest {
         firstNoDate.setDate(NULL_DATE);
         Record secondNoDate = newRecord(138.7, NATURAL_RALLY, true);
         secondNoDate.setDate(NULL_DATE);
-        recordsHolder.add(firstNoDate);
-        recordsHolder.add(secondNoDate);
-        recordToPpChecksCounterMap = new HashMap<>();
-        recordToNotPpChecksCounterMap = new HashMap<>();
+        addToRecordHolder(firstNoDate);
+        addToRecordHolder(secondNoDate);
     }
+
 
     @Test
     public void test() throws Exception {
@@ -52,7 +31,7 @@ public class GazpTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
-        new ExcelWriter().createTable(recordsHolder);
+        new ExcelWriter().createTable(getRecordsHolder());
     }
 
     private void fourthQuarter() {
@@ -329,47 +308,4 @@ public class GazpTest {
         processAndCheckNext(137.0, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(138.9, NATURAL_RALLY, _12_rally, false);
     }
-
-    public void processAndCheckNext(double price, State expectedState, Rule expectedRule, boolean shouldBePivotPoint) {
-        Record newRecord = newRecord(price);
-        executor.process(recordsHolder, newRecord);
-
-        assertEquals(newRecord.getState(), expectedState);
-        assertEquals(newRecord.getRule(), expectedRule);
-        checkPivotPoints();
-        if (shouldBePivotPoint)
-            recordToPpChecksCounterMap.put(newRecord, 0);
-        else
-            recordToNotPpChecksCounterMap.put(newRecord, 0);
-    }
-
-    private void checkPivotPoints() {
-        for (Map.Entry<Record, Integer> recordToPPchecksCounter : recordToPpChecksCounterMap.entrySet()) {
-            recordToPPchecksCounter.setValue(recordToPPchecksCounter.getValue() + 1);
-            if (recordToPPchecksCounter.getValue() == PP_CHECKS_COUNTER) {
-                assertTrue(recordToPPchecksCounter.getKey().isPivotPoint());
-            }
-        }
-
-        for (Map.Entry<Record, Integer> recordToPPchecksCounter : recordToNotPpChecksCounterMap.entrySet()) {
-            recordToPPchecksCounter.setValue(recordToPPchecksCounter.getValue() + 1);
-            if (recordToPPchecksCounter.getValue() == PP_CHECKS_COUNTER) {
-                assertFalse(recordToPPchecksCounter.getKey().isPivotPoint());
-            }
-        }
-    }
-
-
-    public Record newRecord(double price) {
-        return new Record(DateGenerator.next(), price);
-    }
-
-
-    public Record newRecord(double price, State state, boolean isPivotPoint) {
-        Record record = newRecord(price);
-        record.setState(state);
-        record.setPivotPoint(isPivotPoint);
-        return record;
-    }
-
 }
