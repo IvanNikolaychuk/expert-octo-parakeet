@@ -21,6 +21,7 @@ import static java.util.stream.Collectors.toList;
 public class RecordsHolder {
     public static final Record NULL_OBJECT = new Record(null, 0d);
     private List<Record> records;
+    private String ticker;
 
     public RecordsHolder(List<Record> records) {
         this.records = records;
@@ -95,5 +96,9 @@ public class RecordsHolder {
             }
             return o1.getDate().compareTo(o2.getDate());
         }
+    }
+
+    public void setTicker(String ticker) {
+        this.ticker = ticker;
     }
 }

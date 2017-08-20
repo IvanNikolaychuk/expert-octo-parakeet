@@ -112,12 +112,12 @@ public class GazpTest {
         processAndCheckNext(133.8, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(131.59, DOWN_TREND, _5b, true);
         processAndCheckNext(134.4, NATURAL_RALLY, _6c, false);
-        processAndCheckNext(134.5, NATURAL_RALLY, _12_rally, false);
+        processAndCheckNext(134.5, NATURAL_RALLY, _12_rally,  false);
         processAndCheckNext(137.9, NATURAL_RALLY, _12_rally, true);
         processAndCheckNext(132.25, NATURAL_REACTION, _6b, false);
         processAndCheckNext(131.5, DOWN_TREND, _6b3, true);
         processAndCheckNext(133.2, NONE, null, false);
-        // TODO: по записям не так, хотя вроде все логично
+        // по записям не так, Денис сказал что у него ошибка.
         processAndCheckNext(135.3, SECONDARY_RALLY, _6cc, false);
         processAndCheckNext(136.0, SECONDARY_RALLY, _12_secondary_rally, false);
         processAndCheckNext(134.48, NONE, null, false);
