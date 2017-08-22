@@ -9,7 +9,7 @@ import static com.stocks.livermor.utils.RecordUtils.MovementType.*;
 import static com.stocks.livermor.utils.RecordUtils.getMovementType;
 import static org.junit.Assert.assertEquals;
 
-public class RecordUtilsTest {
+public class RecordMovementTest {
 
     @Test
     public void strong_rally() {

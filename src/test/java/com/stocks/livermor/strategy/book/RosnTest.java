@@ -16,6 +16,7 @@ public class RosnTest {
 
     @Before
     public void init() {
+        clear();
         CHANGE_MEASURE = PERCENTAGE;
         Record firstNoDate = newRecord(201.8, UPPER_TREND, true);
         firstNoDate.setDate(NULL_DATE);
@@ -92,7 +93,7 @@ public class RosnTest {
         processAndCheckNext(242.7, NONE, null, false);
         processAndCheckNext(237.1, SECONDARY_REACTION, _6h, false);
         processAndCheckNext(237.25, NONE, null, false);
-        // TODO: в записях идет в восходящий тренд видимо по правилу 5а (03.30)
+        // TODO QES2
         processAndCheckNext(247.5, NATURAL_RALLY, _6d, false);
         processAndCheckNext(252.15, UPPER_TREND, _5a, false);
     }
@@ -224,19 +225,19 @@ public class RosnTest {
         processAndCheckNext(237.0, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(237.25, NONE, null, false);
         processAndCheckNext(238.4, NONE, null, false);
-        processAndCheckNext(236.65, NATURAL_REACTION, _12_reaction, false);
+        processAndCheckNext(236.65, NATURAL_REACTION, _12_reaction, true);
         processAndCheckNext(239.7, NONE, null, false);
-        // TODO: В записях натуральное ралли, хотя должно быть вторичное по правилу 6g
-        processAndCheckNext(242.95, SECONDARY_RALLY, _6g, false);
+        processAndCheckNext(242.95, NATURAL_RALLY, _6d, false);
     }
 
     private void fourthQuarter() {
         processAndCheckNext(237.9, SECONDARY_REACTION, _6h, false);
-        processAndCheckNext(234.6, NATURAL_REACTION, _6h3, false);
-        // TODO:  Это из-за измененияй в последних TODO
-        processAndCheckNext(244.0, SECONDARY_RALLY, _6g, false);
-        processAndCheckNext(248.5, NATURAL_RALLY, _6g3, false);
-        processAndCheckNext(245.15, NONE, null, false);
+        // TODO: вроде должна быть пивотной
+        processAndCheckNext(234.6, NATURAL_REACTION, _6h3, true);
+        processAndCheckNext(244.0, NATURAL_RALLY, _6d, false);
+        processAndCheckNext(248.5, NATURAL_RALLY, _12_rally, false);
+        processAndCheckNext(251.15, NATURAL_RALLY, _12_rally, false);
+        processAndCheckNext(253.0, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(267.0, UPPER_TREND, _6d3, true);
         processAndCheckNext(263.0, NONE, null, false);
         processAndCheckNext(262.5, NONE, null, false);

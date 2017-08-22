@@ -23,18 +23,4 @@ public class SecondaryReactionStrategyTest {
 
         assertEquals(todays.getState(), NATURAL_REACTION);
     }
-
-
-    @Test
-    public void price_is_lower_than_last_pivot_point_in_natural_reaction() {
-        Record todays = getTodays(NONE, 105);
-        Record twoDaysAgo = get2DaysAgo(NATURAL_REACTION, true, 110);
-        Record yesterdays = getYestredays(SECONDARY_REACTION);
-
-        RecordsHolder recordsHolder = new RecordsHolder(twoDaysAgo, yesterdays);
-        new SecondaryReactionStrategy().process(recordsHolder, todays);
-
-        assertEquals(todays.getState(), DOWN_TREND);
-    }
-
 }

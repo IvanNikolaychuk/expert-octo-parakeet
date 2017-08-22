@@ -36,14 +36,16 @@ public class YahooApi {
         }
     }
 
+
     public static void main(String[] args) {
-//        Calendar from = Calendar.getInstance();
-//        from.setTime(new Date());
-//        from.set(Calendar.YEAR, 1999);
-//        from.set(Calendar.MONTH, Calendar.JANUARY);
-//        from.set(Calendar.DAY_OF_MONTH, 1);
-//
-//        List<Index> indexes = new ArrayList<>();
+        Calendar from = Calendar.getInstance();
+        from.set(Calendar.YEAR, 2017);
+        from.set(Calendar.MONTH, Calendar.JULY);
+        from.set(Calendar.DAY_OF_MONTH, 1);
+
+        Calendar to = Calendar.getInstance();
+        query("GAZP.ME", new Pair<>(from.getTime(), to.getTime()));
+        List<Index> indexes = new ArrayList<>();
 //        for (StockData stockData : query("^GSPC", new Pair<>(from.getTime(), new Date()))) {
 //            Calendar calendar = Calendar.getInstance();
 //            calendar.setTime(stockData.date);

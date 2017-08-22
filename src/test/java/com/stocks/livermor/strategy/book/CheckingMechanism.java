@@ -40,6 +40,12 @@ public class CheckingMechanism {
         recordsHolder.add(record);
     }
 
+    public static void clear() {
+        recordsHolder = new RecordsHolder();
+        recordToPpChecksCounterMap = new HashMap<>();
+        recordToNotPpChecksCounterMap = new HashMap<>();
+    }
+
     public static RecordsHolder getRecordsHolder() {
         return recordsHolder;
     }

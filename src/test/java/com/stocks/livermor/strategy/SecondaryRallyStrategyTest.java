@@ -24,15 +24,4 @@ public class SecondaryRallyStrategyTest {
         assertEquals(todays.getState(), NATURAL_RALLY);
     }
 
-    @Test
-    public void price_is_higher_than_last_pivot_point_in_natural_rally() {
-        Record todays = getTodays(NONE, 120);
-        Record twoDaysAgo = get2DaysAgo(NATURAL_RALLY, true, 110);
-        Record yesterdays = getYestredays(SECONDARY_RALLY);
-
-        RecordsHolder recordsHolder = new RecordsHolder(twoDaysAgo, yesterdays);
-        new SecondaryRallyStrategy().process(recordsHolder, todays);
-
-        assertEquals(todays.getState(), UPPER_TREND);
-    }
 }

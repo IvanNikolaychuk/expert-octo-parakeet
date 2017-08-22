@@ -43,6 +43,17 @@ public class PivotPointsHolder {
         return Arrays.asList(pivotPoints.get(pivotPoints.size() - 1), pivotPoints.get(pivotPoints.size() - 2));
     }
 
+    public boolean isAfterSupportOrResistence(Record record) {
+        List<Record> supportAndResistance = getSupportAndResistance();
+        if (supportAndResistance.isEmpty()) return false;
+        final Date oldest = supportAndResistance.get(0).getDate();
+        final Date currentRecordDate = record.getDate();
+
+        return currentRecordDate.compareTo(oldest) >= 0;
+    }
+
+
+
     public boolean check6aaRuleWhenReactionOccurred(Record last) {
         return check6RuleWhenReactionOccurred(last);
     }
