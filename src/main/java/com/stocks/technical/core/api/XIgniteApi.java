@@ -22,6 +22,6 @@ public class XIgniteApi {
     }
 
     public static void main(String[] args) {
-        query("AAPL", Period.of(build(2016, 1, 1), build(2016, 1, 2)));
+        query("GAZP", Period.of(build(2016, 1, 1), build(2016, 1, 2)));
     }
 }

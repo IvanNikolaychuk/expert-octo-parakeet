@@ -28,7 +28,7 @@ public class StockService {
 
     public List<StockData> queryStocksSince2015Yahoo(Company company) {
         Calendar from = Calendar.getInstance();
-        from.set(2015, Calendar.MAY, 30);
+        from.set(2016, Calendar.JANUARY, 1);
         Calendar to = Calendar.getInstance();
         to.set(now.get(YEAR), now.get(MONTH), now.get(DAY_OF_MONTH));
 

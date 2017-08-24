@@ -93,7 +93,6 @@ public class RosnTest {
         processAndCheckNext(242.7, NONE, null, false);
         processAndCheckNext(237.1, SECONDARY_REACTION, _6h, false);
         processAndCheckNext(237.25, NONE, null, false);
-        // TODO QES2
         processAndCheckNext(247.5, NATURAL_RALLY, _6d, false);
         processAndCheckNext(252.15, UPPER_TREND, _5a, false);
     }
@@ -232,7 +231,7 @@ public class RosnTest {
 
     private void fourthQuarter() {
         processAndCheckNext(237.9, SECONDARY_REACTION, _6h, false);
-        // TODO: вроде должна быть пивотной
+        // TODO: pivot?
         processAndCheckNext(234.6, NATURAL_REACTION, _6h3, true);
         processAndCheckNext(244.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(248.5, NATURAL_RALLY, _12_rally, false);

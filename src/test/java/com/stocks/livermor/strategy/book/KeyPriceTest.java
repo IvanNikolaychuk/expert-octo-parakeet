@@ -52,7 +52,6 @@ public class KeyPriceTest {
 
     private void firstQuarter() {
         processAndCheckNext(330.7, NONE, null, false);
-        // TODO QES1
         processAndCheckNext(339.22, NATURAL_RALLY, _6d, false);
         processAndCheckNext(361.41, UPPER_TREND, _5a, true);
         processAndCheckNext(348.3, NATURAL_REACTION, _6a, false);
@@ -237,7 +236,7 @@ public class KeyPriceTest {
     }
 
     private void fourthQuarter() {
-        // TODO: вроде pivot point
+        // TODO: pivot?
         processAndCheckNext(366.1, NATURAL_REACTION, _6b, true);
         processAndCheckNext(380.8, NATURAL_RALLY, _6d, false);
         processAndCheckNext(386.37, NATURAL_RALLY, _12_rally, false);
@@ -264,7 +263,6 @@ public class KeyPriceTest {
         processAndCheckNext(402.5, SECONDARY_REACTION, _6aa, false);
         processAndCheckNext(398.9, SECONDARY_REACTION, _12_secondary_reaction, false);
         processAndCheckNext(393.13, SECONDARY_REACTION, _12_secondary_reaction, false);
-        // TODO QES1
         processAndCheckNext(401.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(399.65, NONE, null, false);
         processAndCheckNext(396.7, NONE, null, false);
@@ -283,11 +281,23 @@ public class KeyPriceTest {
         processAndCheckNext(395.35, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(397.6, NONE, null, false);
         processAndCheckNext(389.15, NATURAL_REACTION, _12_reaction, false);
-        // TODO: Здесь в записях почему-то переход в down-trend (12.07)
-        processAndCheckNext(378.5, NATURAL_REACTION, _12_reaction, false);
+        processAndCheckNext(378.5, DOWN_TREND, _5b, false);
         processAndCheckNext(379.3, NONE, null, false);
-        // some more nones
-        processAndCheckNext(379.65, NONE, null, false);
-        processAndCheckNext(376.49, NATURAL_REACTION, _12_reaction, true);
+        processAndCheckNext(383.5, NONE, null, false);
+        processAndCheckNext(384.6, NONE, null, false);
+        processAndCheckNext(378.65, NONE, null, false);
+        processAndCheckNext(376.49, DOWN_TREND, _12_down, true);
+        processAndCheckNext(384.1, NATURAL_RALLY, _6c, false);
+        processAndCheckNext(384.6, NATURAL_RALLY, _12_rally, false);
+        processAndCheckNext(396.6, NATURAL_RALLY, _12_rally, true);
+        processAndCheckNext(383.0, NATURAL_REACTION, _6b, false);
+        processAndCheckNext(377.1, NATURAL_REACTION, _12_reaction, false);
+        processAndCheckNext(381.4, NONE, null, false);
+        processAndCheckNext(388.95, SECONDARY_RALLY, _6g, false);
+        processAndCheckNext(387.6, NONE, null, false);
+        processAndCheckNext(380.28, SECONDARY_REACTION, _6h, false);
+        processAndCheckNext(392.49, SECONDARY_RALLY, _6g, false);
+        processAndCheckNext(389.34, NONE, null, false);
+
     }
 }

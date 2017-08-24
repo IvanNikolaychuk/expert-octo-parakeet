@@ -35,12 +35,22 @@ public class PivotPointsHolder {
     public List<Record> getSupportAndResistance() {
         List<Record> pivotPoints = records.stream()
                 .filter(Record::isPivotPoint)
-                .sorted(new ByDateComparator())
+                .sorted(new ByDateComparator().reversed())
                 .collect(toList());
-        if (pivotPoints.size() < 2) return new ArrayList<>();
+        if (pivotPoints.size() < 1) return new ArrayList<>();
 
-        // last 2
-        return Arrays.asList(pivotPoints.get(pivotPoints.size() - 1), pivotPoints.get(pivotPoints.size() - 2));
+        final Record lastPivotPoint = pivotPoints.get(0);
+        Record oneBeforeLast = null;
+        for (Record nextPivotPoint : pivotPoints) {
+            if (nextPivotPoint.getState() != lastPivotPoint.getState()) {
+                oneBeforeLast = nextPivotPoint;
+                break;
+            }
+        }
+
+        if (oneBeforeLast == null) return new ArrayList<>();
+
+        return Arrays.asList(lastPivotPoint, oneBeforeLast);
     }
 
     public boolean isAfterSupportOrResistence(Record record) {
@@ -51,7 +61,6 @@ public class PivotPointsHolder {
 
         return currentRecordDate.compareTo(oldest) >= 0;
     }
-
 
 
     public boolean check6aaRuleWhenReactionOccurred(Record last) {

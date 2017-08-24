@@ -123,10 +123,7 @@ public class GazpTest {
         processAndCheckNext(156.33, UPPER_TREND, _6d3, true);
         processAndCheckNext(155.25, NONE, null, false);
         processAndCheckNext(152.1, SECONDARY_REACTION, _6aa, false);
-
-        //TODO QES1
         processAndCheckNext(155.52, NATURAL_RALLY, _6d, false);
-
         processAndCheckNext(155.25, NONE, null, false);
         processAndCheckNext(151.74, SECONDARY_REACTION, _6h, false);
         processAndCheckNext(151.8, NONE, null, false);
@@ -191,7 +188,6 @@ public class GazpTest {
         processAndCheckNext(141.45, NONE, null, false);
         processAndCheckNext(141.89, NONE, null, false);
         processAndCheckNext(143.78, NATURAL_RALLY, _12_rally, true);
-
         // вообще по записям тут 140.88
         processAndCheckNext(140.79, NATURAL_REACTION, _6b, false);
         processAndCheckNext(141.34, NONE, null, false);
@@ -199,7 +195,7 @@ public class GazpTest {
         processAndCheckNext(141.97, NONE, null, false);
         processAndCheckNext(142.99, NONE, null, false);
         processAndCheckNext(143.7, SECONDARY_RALLY, _6g, false);
-        // TODO: спросить, должна быть пивотной точкой (по записям нет). Рассмотреть кейс, когда в тренде пробивается точка без "отката" в противоположную сторону.
+        // TODO: pivot?
         processAndCheckNext(144.8, NATURAL_RALLY, _6g3, true);
         processAndCheckNext(144.25, NONE, null, false);
         processAndCheckNext(142.65, NONE, null, false);
@@ -238,10 +234,7 @@ public class GazpTest {
     private void fourthQuarter() {
         processAndCheckNext(132.9, NONE, null, false);
         processAndCheckNext(131.5, NATURAL_REACTION, _6b, false);
-
-        // TODO QES2
         processAndCheckNext(136.8, NATURAL_RALLY, _6d, false);
-
         processAndCheckNext(137.87, UPPER_TREND, _5a, false);
         processAndCheckNext(140.0, UPPER_TREND, _12_upper, false);
         processAndCheckNext(139.8, NONE, null, false);
@@ -265,7 +258,7 @@ public class GazpTest {
         processAndCheckNext(140.97, NONE, null, false);
         processAndCheckNext(137.75, SECONDARY_REACTION, _6h, false);
         processAndCheckNext(135.58, NATURAL_REACTION, _6h3, false);
-        // TODO: спросить, должна быть пивотной точкой (по записям нет). Рассмотреть кейс, когда в тренде пробивается точка без "отката" в противоположную сторону. Это 11.11
+        // TODO: pivot?
         processAndCheckNext(135.0, NATURAL_REACTION, _12_reaction, true);
         processAndCheckNext(136.6, NONE, null, false);
         processAndCheckNext(136.0, NONE, null, false);
@@ -282,7 +275,6 @@ public class GazpTest {
         processAndCheckNext(138.0, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(137.42, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(136.85, NATURAL_REACTION, _12_reaction, true);
-        // TODO QES3
         processAndCheckNext(140.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(137.7, NONE, null, false);
         processAndCheckNext(134.5, NATURAL_REACTION, _6b, false);

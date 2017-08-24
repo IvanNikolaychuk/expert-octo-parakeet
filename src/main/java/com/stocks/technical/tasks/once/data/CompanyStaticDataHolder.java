@@ -8,6 +8,7 @@ import java.util.List;
 
 import static com.stocks.technical.core.db.entity.company.BusinessType.*;
 import static com.stocks.technical.core.db.entity.company.StockCurrency.DOLLAR;
+import static com.stocks.technical.core.db.entity.company.StockCurrency.RUBLE;
 
 /**
  * Created by ivnikolaychuk on 03.02.2017
@@ -17,9 +18,10 @@ public class CompanyStaticDataHolder {
     public static List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<Company>();
 
-        for (String ticker : getTikers()) {
-            companies.add(new Company(ticker, OTHER, DOLLAR));
-        }
+//        for (String ticker : getTikers()) {
+            companies.add(new Company("GAZP.ME", OTHER, RUBLE));
+            companies.add(new Company("ROSN.ME", OTHER, RUBLE));
+//        }
 
         return companies;
     }

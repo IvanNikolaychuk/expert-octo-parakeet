@@ -21,9 +21,6 @@ public class Company {
     @Column(name = "stock_currency")
     private StockCurrency stockCurrency;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "company")
-    private VolumeStatisticData commonStatisticData;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "business_type")
     private BusinessType businessType;
