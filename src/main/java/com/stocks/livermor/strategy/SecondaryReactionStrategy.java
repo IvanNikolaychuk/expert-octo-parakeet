@@ -35,7 +35,7 @@ public class SecondaryReactionStrategy implements StateProcessor {
     }
 
     private void checkPriceIsLowerThanLastPivotPointInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastReactionPivotPoint = recordsHolder.getPivotPoints().lastPivotPointRecord(NATURAL_REACTION);
+        Record lastReactionPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_REACTION);
         if (lastReactionPivotPoint == NULL_OBJECT) return;
         if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint)) return;
 

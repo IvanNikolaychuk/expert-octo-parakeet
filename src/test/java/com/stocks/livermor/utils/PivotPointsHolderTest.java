@@ -19,7 +19,7 @@ public class PivotPointsHolderTest {
     @Test
     public void when_no_pp_exist_list_is_empty() {
         Record record = new PivotPointsHolder(singletonList(getTodays(DOWN_TREND, false)))
-                .lastPivotPointRecord(DOWN_TREND);
+                .last(DOWN_TREND);
 
         Assert.assertEquals(record, NULL_OBJECT);
     }
@@ -31,7 +31,7 @@ public class PivotPointsHolderTest {
         yesterdays.setState(DOWN_TREND);
 
         Record lastDownTrendRecords = new PivotPointsHolder(asList(lastRecord, yesterdays))
-                .lastPivotPointRecord(DOWN_TREND);
+                .last(DOWN_TREND);
 
         assertEquals(lastDownTrendRecords, lastRecord);
     }

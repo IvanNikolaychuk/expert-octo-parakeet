@@ -231,8 +231,7 @@ public class RosnTest {
 
     private void fourthQuarter() {
         processAndCheckNext(237.9, SECONDARY_REACTION, _6h, false);
-        // TODO: pivot?
-        processAndCheckNext(234.6, NATURAL_REACTION, _6h3, true);
+        processAndCheckNext(234.6, NATURAL_REACTION, _6h3, false);
         processAndCheckNext(244.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(248.5, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(251.15, NATURAL_RALLY, _12_rally, false);

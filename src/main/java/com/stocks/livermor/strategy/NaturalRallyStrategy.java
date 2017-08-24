@@ -55,7 +55,7 @@ public class NaturalRallyStrategy implements StateProcessor {
     }
 
     private void checkPriceIsHigherThanLastLastPivotPointInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastRallyPivotPoint = recordsHolder.getPivotPoints().lastPivotPointRecord(NATURAL_RALLY);
+        Record lastRallyPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_RALLY);
         if (lastRallyPivotPoint == NULL_OBJECT) return;
         if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)) return;
 
@@ -82,7 +82,7 @@ public class NaturalRallyStrategy implements StateProcessor {
     }
 
     private void markAsPicotPointIfNeeded(RecordsHolder recordsHolder) {
-        if (recordsHolder.currentTrend() == DOWN)
+        if (recordsHolder.currentTrend() == DOWN && recordsHolder.getPivotPoints().last().getState() != NATURAL_RALLY)
             recordsHolder.lastWithState().markAsPivotPoint();
     }
 }

@@ -236,8 +236,7 @@ public class KeyPriceTest {
     }
 
     private void fourthQuarter() {
-        // TODO: pivot?
-        processAndCheckNext(366.1, NATURAL_REACTION, _6b, true);
+        processAndCheckNext(366.1, NATURAL_REACTION, _6b, false);
         processAndCheckNext(380.8, NATURAL_RALLY, _6d, false);
         processAndCheckNext(386.37, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(391.15, NATURAL_RALLY, _12_rally, false);

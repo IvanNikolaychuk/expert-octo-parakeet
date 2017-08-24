@@ -55,7 +55,7 @@ public class NaturalReactionStrategy implements StateProcessor {
     }
 
     private void checkPriceIsLowerThanLastLastPivotPointInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastReactionPivotPoint = recordsHolder.getPivotPoints().lastPivotPointRecord(NATURAL_REACTION);
+        Record lastReactionPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_REACTION);
         if (lastReactionPivotPoint == NULL_OBJECT) return;
         if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint)) return;
 
@@ -82,7 +82,7 @@ public class NaturalReactionStrategy implements StateProcessor {
     }
 
     private void markAsPicotPointIfNeeded(RecordsHolder recordsHolder) {
-        if (recordsHolder.currentTrend() == UP)
+        if (recordsHolder.currentTrend() == UP && recordsHolder.getPivotPoints().last().getState() != NATURAL_REACTION)
             recordsHolder.lastWithState().markAsPivotPoint();
     }
 }

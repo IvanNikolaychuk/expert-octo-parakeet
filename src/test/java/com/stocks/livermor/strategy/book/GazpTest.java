@@ -195,8 +195,7 @@ public class GazpTest {
         processAndCheckNext(141.97, NONE, null, false);
         processAndCheckNext(142.99, NONE, null, false);
         processAndCheckNext(143.7, SECONDARY_RALLY, _6g, false);
-        // TODO: pivot?
-        processAndCheckNext(144.8, NATURAL_RALLY, _6g3, true);
+        processAndCheckNext(144.8, NATURAL_RALLY, _6g3, false);
         processAndCheckNext(144.25, NONE, null, false);
         processAndCheckNext(142.65, NONE, null, false);
         // вообще по записям тут 140.8 (но это ошибка)
@@ -258,8 +257,7 @@ public class GazpTest {
         processAndCheckNext(140.97, NONE, null, false);
         processAndCheckNext(137.75, SECONDARY_REACTION, _6h, false);
         processAndCheckNext(135.58, NATURAL_REACTION, _6h3, false);
-        // TODO: pivot?
-        processAndCheckNext(135.0, NATURAL_REACTION, _12_reaction, true);
+        processAndCheckNext(135.0, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(136.6, NONE, null, false);
         processAndCheckNext(136.0, NONE, null, false);
         processAndCheckNext(137.21, NONE, null, false);

@@ -23,9 +23,18 @@ public class PivotPointsHolder {
         this.records.sort(new ByDateComparator());
     }
 
-    public Record lastPivotPointRecord(State state) {
+    public Record last(State state) {
         List<Record> pivotPoints = records.stream()
                 .filter(record -> record.getState() == state && record.isPivotPoint())
+                .sorted(new ByDateComparator().reversed())
+                .collect(toList());
+
+        return pivotPoints.isEmpty() ? NULL_OBJECT : pivotPoints.get(0);
+    }
+
+    public Record last() {
+        List<Record> pivotPoints = records.stream()
+                .filter(Record::isPivotPoint)
                 .sorted(new ByDateComparator().reversed())
                 .collect(toList());
 
@@ -75,12 +84,12 @@ public class PivotPointsHolder {
         State recordState = last.getState();
         if (recordState != UPPER_TREND && recordState != DOWN_TREND) return false;
 
-        Record lastTrendRecord = lastPivotPointRecord(last.getState());
+        Record lastTrendRecord = last(last.getState());
         if (lastTrendRecord == NULL_OBJECT) return false;
 
         if (!check6aaccRule(lastTrendRecord, last)) return false;
 
-        Record seperateTrendRecords = lastPivotPointRecord(recordState == UPPER_TREND ? DOWN_TREND : UPPER_TREND);
+        Record seperateTrendRecords = last(recordState == UPPER_TREND ? DOWN_TREND : UPPER_TREND);
         if (seperateTrendRecords == NULL_OBJECT) return true;
 
         final Date lastSeparateTrendDate = seperateTrendRecords.getDate();
