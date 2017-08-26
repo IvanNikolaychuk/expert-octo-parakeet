@@ -6,7 +6,12 @@ import java.util.Date;
 import static java.util.Calendar.DAY_OF_MONTH;
 
 public class DateGenerator {
-    private static Calendar date = Calendar.getInstance();
+    private static Calendar date;
+
+    static {
+        date = Calendar.getInstance();
+        date.add(Calendar.YEAR, -7);
+    }
 
     public static Date next() {
         date.add(DAY_OF_MONTH, 1);

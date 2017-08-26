@@ -1,6 +1,9 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.excel.ExcelWriter;
+import com.stocks.technical.core.db.dao.CompanyDao;
+import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +35,15 @@ public class GazpTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
+
+        for (Candle candle : filterFirstQuarter(new CompanyDao().getByName("GAZP.ME").getCandles())) {
+            Record record = new Record(candle.getDate().getTime(), candle.getClose().doubleValue());
+            processWithNoCheck(record);
+        }
+
+        new ExcelWriter().createTable(getRecordsHolder());
     }
+
 
     private void firstQuarter() {
         processAndCheckNext(130.31, NATURAL_REACTION, _6b, false);
@@ -41,11 +52,9 @@ public class GazpTest {
         processAndCheckNext(146.46, UPPER_TREND, _5a, true);
         processAndCheckNext(141.7, NATURAL_REACTION, _6a, false);
         processAndCheckNext(140.22, NATURAL_REACTION, _12_reaction, true);
-        processAndCheckNext(142.64, NONE, null, false);
         processAndCheckNext(146.3, NATURAL_RALLY, _6d, false);
         processAndCheckNext(147.0, UPPER_TREND, _6d3, false);
         processAndCheckNext(149.6, UPPER_TREND, _12_upper, true);
-        processAndCheckNext(148.11, NONE, null, false);
         processAndCheckNext(145.75, NATURAL_REACTION, _6a, true);
         processAndCheckNext(148.8, NATURAL_RALLY, _6d, false);
         processAndCheckNext(151.5, UPPER_TREND, _6d3, false);
@@ -61,23 +70,15 @@ public class GazpTest {
         processAndCheckNext(147.6, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(151.6, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(149.3, NONE, null, false);
-        processAndCheckNext(149.31, NONE, null, false);
-        processAndCheckNext(150.55, NONE, null, false);
         processAndCheckNext(157.7, UPPER_TREND, _6d3, false);
         processAndCheckNext(162.4, UPPER_TREND, _12_upper, false);
-        processAndCheckNext(160.19, NONE, null, false);
-        processAndCheckNext(159.2, NONE, null, false);
         processAndCheckNext(163.0, UPPER_TREND, _12_upper, true);
-        processAndCheckNext(160.9, NONE, null, false);
         processAndCheckNext(158.0, NATURAL_REACTION, _6a, false);
         processAndCheckNext(154.99, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(150.7, NATURAL_REACTION, _12_reaction, true);
-        processAndCheckNext(151.65, NONE, null, false);
-        processAndCheckNext(152.95, NONE, null, false);
         processAndCheckNext(155.55, NATURAL_RALLY, _6d, false);
         processAndCheckNext(159.0, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(154.0, SECONDARY_REACTION, _6h, false);
-        processAndCheckNext(154.8, NONE, null, false);
         processAndCheckNext(152.12, SECONDARY_REACTION, _12_secondary_reaction, false);
         processAndCheckNext(148.05, DOWN_TREND, _5b, false);
         processAndCheckNext(145.99, DOWN_TREND, _12_down, false);
@@ -89,8 +90,6 @@ public class GazpTest {
         processAndCheckNext(136.81, DOWN_TREND, _12_down, false);
         processAndCheckNext(136.0, DOWN_TREND, _12_down, false);
         processAndCheckNext(134.61, DOWN_TREND, _12_down, false);
-        processAndCheckNext(137.15, NONE, null, false);
-        processAndCheckNext(134.9, NONE, null, false);
         processAndCheckNext(132.2, DOWN_TREND, _12_down, true);
         processAndCheckNext(134.88, NATURAL_RALLY, _6c, false);
         processAndCheckNext(137.0, NATURAL_RALLY, _12_rally, false);
@@ -282,7 +281,7 @@ public class GazpTest {
         processAndCheckNext(133.8, DOWN_TREND, _12_down, false);
         processAndCheckNext(131.59, DOWN_TREND, _12_down, true);
         processAndCheckNext(134.4, NATURAL_RALLY, _6c, false);
-        processAndCheckNext(134.5, NATURAL_RALLY, _12_rally,  false);
+        processAndCheckNext(134.5, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(137.9, NATURAL_RALLY, _12_rally, true);
         processAndCheckNext(132.25, NATURAL_REACTION, _6b, false);
         processAndCheckNext(131.5, DOWN_TREND, _6b3, true);

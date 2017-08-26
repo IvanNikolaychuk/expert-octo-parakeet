@@ -7,9 +7,9 @@ import com.stocks.livermor.entity.State;
 import com.stocks.livermor.strategy.book.utils.DateGenerator;
 import com.stocks.livermor.strategy.factory.StrategyPicker;
 import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.technical.core.db.entity.Candle;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -23,6 +23,10 @@ public class CheckingMechanism {
     private static Map<Record, Integer> recordToPpChecksCounterMap = new HashMap<>();
     private static Map<Record, Integer> recordToNotPpChecksCounterMap = new HashMap<>();
 
+    public static void processWithNoCheck(Record record) {
+        executor.process(recordsHolder, record);
+    }
+
     public static void processAndCheckNext(double price, State expectedState, Constants.Rule expectedRule, boolean shouldBePivotPoint) {
         Record newRecord = newRecord(price);
         executor.process(recordsHolder, newRecord);
@@ -34,6 +38,21 @@ public class CheckingMechanism {
             recordToPpChecksCounterMap.put(newRecord, 0);
         else
             recordToNotPpChecksCounterMap.put(newRecord, 0);
+    }
+
+    static List<Candle> filterFirstQuarter(List<Candle> candles) {
+        List<Candle> filtered = new ArrayList<>();
+
+        for (Candle candle : candles) {
+            final Calendar date = candle.getDate();
+            if (date.get(Calendar.YEAR) == 2016) {
+                final int month = date.get(Calendar.MONTH);
+                if (month == Calendar.JANUARY || month == Calendar.FEBRUARY || month == Calendar.MARCH) {
+                    filtered.add(candle);
+                }
+            }
+        }
+        return filtered;
     }
 
     public static void addToRecordHolder(Record record) {

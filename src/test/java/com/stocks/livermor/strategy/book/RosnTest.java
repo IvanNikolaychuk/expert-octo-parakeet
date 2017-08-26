@@ -36,12 +36,10 @@ public class RosnTest {
     }
 
     private void firstQuarter() {
-        processAndCheckNext(196.75, NONE, null, false);
         processAndCheckNext(200.3, NATURAL_RALLY, _6d, false);
         processAndCheckNext(214.95, UPPER_TREND, _6d3, true);
         processAndCheckNext(206.6, NATURAL_REACTION, _6a, false);
         processAndCheckNext(204.0, NATURAL_REACTION, _12_reaction, true);
-        processAndCheckNext(204.9, NONE, null, false);
         processAndCheckNext(209.5, NATURAL_RALLY, _6d, false);
         processAndCheckNext(219.9, UPPER_TREND, _6d3, false);
         processAndCheckNext(226.0, UPPER_TREND, _12_upper, false);
@@ -54,14 +52,10 @@ public class RosnTest {
         processAndCheckNext(239.0, NONE, null, false);
         processAndCheckNext(231.5, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(226.55, NATURAL_REACTION, _12_reaction, true);
-        processAndCheckNext(229.35, NONE, null, false);
-        processAndCheckNext(230.55, NONE, null, false);
         processAndCheckNext(238.35, NATURAL_RALLY, _6d, false);
         processAndCheckNext(239.0, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(251.0, UPPER_TREND, _6d3, false);
         processAndCheckNext(261.0, UPPER_TREND, _12_upper, false);
-        processAndCheckNext(257.0, NONE, null, false);
-        processAndCheckNext(257.05, NONE, null, false);
         processAndCheckNext(265.35, UPPER_TREND, _12_upper, false);
         processAndCheckNext(274.05, UPPER_TREND, _12_upper, false);
         processAndCheckNext(290.2, UPPER_TREND, _12_upper, true);
@@ -72,12 +66,9 @@ public class RosnTest {
         processAndCheckNext(274.0, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(268.65, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(263.45, NATURAL_REACTION, _12_reaction, true);
-        processAndCheckNext(263.85, NONE, null, false);
-        processAndCheckNext(263.85, NONE, null, false);
         processAndCheckNext(269.7, NATURAL_RALLY, _6d, false);
         processAndCheckNext(277.0, NATURAL_RALLY, _12_rally, false);
         processAndCheckNext(264.95, SECONDARY_REACTION, _6h, false);
-        processAndCheckNext(269.5, NONE, null, false);
         processAndCheckNext(263.5, SECONDARY_REACTION, _12_secondary_reaction, false);
         processAndCheckNext(253.0, DOWN_TREND, _5b, false);
         processAndCheckNext(251.45, DOWN_TREND, _12_down, false);
@@ -87,12 +78,9 @@ public class RosnTest {
         processAndCheckNext(237.0, NONE, null, false);
         processAndCheckNext(243.4, NATURAL_RALLY, _6c, true);
         processAndCheckNext(237.05, NATURAL_REACTION, _6b, false);
-        processAndCheckNext(239.3, NONE, null, false);
-        processAndCheckNext(239.95, NONE, null, false);
         processAndCheckNext(244.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(242.7, NONE, null, false);
         processAndCheckNext(237.1, SECONDARY_REACTION, _6h, false);
-        processAndCheckNext(237.25, NONE, null, false);
         processAndCheckNext(247.5, NATURAL_RALLY, _6d, false);
         processAndCheckNext(252.15, UPPER_TREND, _5a, false);
     }
@@ -102,8 +90,6 @@ public class RosnTest {
         processAndCheckNext(262.55, UPPER_TREND, _12_upper, false);
         processAndCheckNext(263.7, UPPER_TREND, _12_upper, false);
         processAndCheckNext(266.15, UPPER_TREND, _12_upper, true);
-        processAndCheckNext(264.1, NONE, null, false);
-        processAndCheckNext(263.7, NONE, null, false);
         processAndCheckNext(258.55, NATURAL_REACTION, _6a, false);
         processAndCheckNext(256.95, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(255.5, NATURAL_REACTION, _12_reaction, false);
@@ -116,9 +102,6 @@ public class RosnTest {
         processAndCheckNext(252.4, SECONDARY_REACTION, _6h, false);
         processAndCheckNext(249.1, NATURAL_REACTION, _6h3, false);
         processAndCheckNext(258.2, SECONDARY_RALLY, _6g, false);
-        processAndCheckNext(256.0, NONE, null, false);
-        processAndCheckNext(256.55, NONE, null, false);
-        processAndCheckNext(255.0, NONE, null, false);
         processAndCheckNext(256.5, NONE, null, false);
         processAndCheckNext(261.5, NATURAL_RALLY, _6g3, false);
         processAndCheckNext(259.9, NONE, null, false);
