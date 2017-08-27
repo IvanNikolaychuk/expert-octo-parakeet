@@ -2,7 +2,7 @@ package com.stocks.livermor.excel;
 
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.excel.writers.*;
-import com.stocks.livermor.entity.RecordsHolder;
+import com.stocks.livermor.utils.RecordsHolder;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;

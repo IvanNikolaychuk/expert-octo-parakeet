@@ -1,6 +1,8 @@
-package com.stocks.livermor.entity;
+package com.stocks.livermor.utils;
 
-import com.stocks.livermor.utils.PivotPointsHolder;
+import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.State;
+import com.stocks.livermor.entity.Trend;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import static java.util.stream.Collectors.toList;
 public class RecordsHolder {
     public static final Record NULL_OBJECT = new Record(null, 0d);
     private List<Record> records;
-    private String ticker;
 
     public RecordsHolder(List<Record> records) {
         this.records = records;
@@ -102,7 +103,4 @@ public class RecordsHolder {
         }
     }
 
-    public void setTicker(String ticker) {
-        this.ticker = ticker;
-    }
 }

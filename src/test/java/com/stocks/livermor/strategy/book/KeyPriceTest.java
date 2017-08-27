@@ -1,8 +1,13 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.excel.ExcelWriter;
+import com.stocks.technical.core.db.dao.CompanyDao;
+import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.List;
 
 import static com.stocks.livermor.constants.Constants.NULL_DATE;
 import static com.stocks.livermor.constants.Constants.Rule.*;
@@ -47,7 +52,21 @@ public class KeyPriceTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
-//        new ExcelWriter().createTable(getRecordsHolder());
+
+        List<Candle> rosnCandles = filterFirstQuarter(new CompanyDao().getByName("ROSN.ME").getCandles());
+        List<Candle> gazpCandles = filterFirstQuarter(new CompanyDao().getByName("GAZP.ME").getCandles());
+
+        for (int i = 0; i < rosnCandles.size(); i++) {
+            final Candle rosnCandle = rosnCandles.get(i);
+            final Candle gazpCandle = gazpCandles.get(i);
+
+            Record record = new Record(gazpCandle.getDate().getTime(), (rosnCandle.getClose().add(gazpCandle.getClose())).doubleValue());
+            processWithNoCheck(record);
+        }
+
+        new ExcelWriter().createTable(getRecordsHolder());
+
+
     }
 
     private void firstQuarter() {

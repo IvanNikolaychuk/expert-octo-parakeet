@@ -6,7 +6,7 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.strategy.book.utils.DateGenerator;
 import com.stocks.livermor.strategy.factory.StrategyPicker;
-import com.stocks.livermor.entity.RecordsHolder;
+import com.stocks.livermor.utils.RecordsHolder;
 import com.stocks.technical.core.db.entity.Candle;
 
 import java.util.*;

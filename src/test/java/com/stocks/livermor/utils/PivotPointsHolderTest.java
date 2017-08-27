@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static com.stocks.livermor.entity.State.DOWN_TREND;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
 import static com.stocks.livermor.utils.RecordFactory.*;
-import static com.stocks.livermor.entity.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.*;
