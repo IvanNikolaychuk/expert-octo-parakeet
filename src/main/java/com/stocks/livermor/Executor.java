@@ -3,7 +3,7 @@ package com.stocks.livermor;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.strategy.StateProcessor;
 import com.stocks.livermor.strategy.factory.StrategyPicker;
-import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.livermor.entity.RecordsHolder;
 
 public class Executor {
     private final StrategyPicker strategyPicker;

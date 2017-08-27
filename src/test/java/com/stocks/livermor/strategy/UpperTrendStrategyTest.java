@@ -1,7 +1,7 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.livermor.entity.RecordsHolder;
 import org.junit.Assert;
 import org.junit.Test;
 

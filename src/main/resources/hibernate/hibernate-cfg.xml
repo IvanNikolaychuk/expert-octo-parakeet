@@ -14,6 +14,7 @@
 
         <mapping class="com.stocks.technical.core.db.entity.Candle"/>
         <mapping class="com.stocks.technical.core.db.entity.company.Company"/>
+        <mapping class="com.stocks.livermor.entity.Record"/>
         <!--<mapping class="com.stocks.technical.core.db.entity.statistic.VolumeStatisticData"/>-->
         <!--<mapping class="com.stocks.technical.core.db.entity.statistic.CompanyGrowthStatisticData"/>-->
         <!--<mapping class="com.stocks.technical.core.db.entity.statistic.stongbull.AfterPatternStatistic"/>-->

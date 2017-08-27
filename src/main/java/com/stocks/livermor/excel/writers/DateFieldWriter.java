@@ -21,6 +21,6 @@ public class DateFieldWriter {
     }
 
     private static String date(Date date) {
-        return new SimpleDateFormat("dd.MM").format(date);
+        return new SimpleDateFormat("dd.MM.yyyy").format(date);
     }
 }

@@ -1,6 +1,7 @@
 package com.stocks.livermor.utils;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.RecordsHolder;
 import org.junit.Test;
 
 import java.util.Arrays;

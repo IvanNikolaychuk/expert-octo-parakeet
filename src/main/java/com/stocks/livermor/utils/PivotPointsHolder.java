@@ -2,7 +2,7 @@ package com.stocks.livermor.utils;
 
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
-import com.stocks.livermor.utils.RecordsHolder.ByDateComparator;
+import com.stocks.livermor.entity.RecordsHolder.ByDateComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.List;
 import static com.stocks.livermor.entity.State.DOWN_TREND;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
 import static com.stocks.livermor.utils.RecordUtils.check6aaccRule;
-import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.entity.RecordsHolder.NULL_OBJECT;
 import static java.util.stream.Collectors.toList;
 
 public class PivotPointsHolder {

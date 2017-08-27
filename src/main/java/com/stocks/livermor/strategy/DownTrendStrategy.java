@@ -1,7 +1,7 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.livermor.entity.RecordsHolder;
 import org.springframework.util.Assert;
 
 import static com.stocks.livermor.constants.Constants.Rule.*;
@@ -24,7 +24,7 @@ public class DownTrendStrategy implements StateProcessor {
         if (strongRally(last, newRecord)) {
             boolean rule6cc = recordsHolder.getPivotPoints().check6ccRuleWhenReactionOccurred(last);
             newRecord.setState(rule6cc ? SECONDARY_RALLY : NATURAL_RALLY);
-            newRecord.setRule(rule6cc ? _6cc : _6c);
+            newRecord.setExplanation(rule6cc ? _6cc.getExplanation() : _6c.getExplanation());
 
             last.markAsPivotPoint();
         }

@@ -1,7 +1,7 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.livermor.entity.RecordsHolder;
 import org.junit.Test;
 
 import static com.stocks.livermor.constants.Constants.Rule.*;
@@ -21,7 +21,7 @@ public class NaturalRallyStrategyTest {
         new NaturalRallyStrategy().process(new RecordsHolder(lastUpperTrend, lastRecorded), newRecord);
 
         assertEquals(newRecord.getState(), UPPER_TREND);
-        assertEquals(newRecord.getRule(), _6d3);
+        assertEquals(newRecord.getExplanation(), _6d3.getExplanation());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class NaturalRallyStrategyTest {
         new NaturalRallyStrategy().process(new RecordsHolder(lastRallyPivotPoint, lastRecord, oldestPivotPoint), newRecord);
 
         assertEquals(newRecord.getState(), UPPER_TREND);
-        assertEquals(newRecord.getRule(), _6d3);
+        assertEquals(newRecord.getExplanation(), _6d3.getExplanation());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class NaturalRallyStrategyTest {
         new NaturalRallyStrategy().process(new RecordsHolder(lastDownTrend, lastRecord), newRecord);
 
         assertEquals(newRecord.getState(), DOWN_TREND);
-        assertEquals(newRecord.getRule(), _11b);
+        assertEquals(newRecord.getExplanation(), _11b.getExplanation());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class NaturalRallyStrategyTest {
         new NaturalRallyStrategy().process(new RecordsHolder(lastRecord), newRecord);
 
         assertEquals(newRecord.getState(), NATURAL_REACTION);
-        assertEquals(newRecord.getRule(), _6b);
+        assertEquals(newRecord.getExplanation(), _6b.getExplanation());
         assertFalse(newRecord.isPivotPoint());
     }
 
@@ -70,6 +70,6 @@ public class NaturalRallyStrategyTest {
         new NaturalRallyStrategy().process(new RecordsHolder(lastNaturalReaction, lastRecord), newRecord);
 
         assertEquals(newRecord.getState(), SECONDARY_REACTION);
-        assertEquals(newRecord.getRule(), _6h);
+        assertEquals(newRecord.getExplanation(), _6h.getExplanation());
     }
 }

@@ -16,51 +16,48 @@ public class Constants {
 
     public enum Rule {
         // Восходящий тренд
-        _6aa("Во время восходящего тренда происходит реакция в 6+ пунктов, но последняя цена - 3п. " +
-                "меньше последней пивтоной точки и между ними не было нисходящего тренда"),
-        _6a("Во время восходящего тренда происходит реакция в 6+ пунктов"),
+        _6aa("During up trend reaction 6+ points, but (last_up_trend - 3 points < last_up_trend_pivot_point) and no down trend between them"),
+        _6a("During up trend reaction 6+ points"),
 
         // Нисходящий тренд
-        _6cc,
-        _6c("Во время нисходящего тренда просиходит ралли в 6+ пунктов"),
+        _6cc("During down trend rally 6+ points, but (last_down_trend + 3 points > last_down_trend_pivot_point) and no up trend between them"),
+        _6c("During down trend rally 6+ points"),
 
         // Естественная реакция
-        _5b("Во время естественной/вторичной реакции прооисходит реакция 3+ пункта от последней пивотной точки"),
-        _6d("Во время ествественной реакции происходит ралли 6+ пунктов"),
-        _6g("Во время естественной/вторичной реакции происходит ралли 6+ пунктов, но цена ниже последней в естественном ралли"),
-        _11a("Во время естественной реакции появляется цена выше последей в восходящем тренде"),
-        _6b3("Во время естественной реакции поялвяется цена ниже последей в нисходящем тренде"),
+        _5b("During natural/secondary reaction there is 3+ points reaction from last pivot point in natural reaction"),
+        _6d("During natural reaction there is 6+ points rally"),
+        _6g("During natural/secondary reaction there is 6+ points rally, but price is lower than last in natural rally"),
+        _11a("During natural reaction there is a price higher than last in upper trend"),
+        _6b3("During natural reaction there is a price lower than last in down trend"),
 
         // Естественное ралли
-        _5a("Во время естественного/вторичного ралли происходит ралли 3+ пункта от последней пивотной точки"),
-        _6b("Во время ествественного ралли происходит реакция 6+ пунктов"),
-        _6h("Во время естественного/вторичного ралли происходит реакция 6+ пунктов, но цена выше последней в естественной реакции"),
-        _6d3("Во время ествественного ралли цена превышает последнюю в восходящем тренде"),
-
+        _5a("During natural/secondary rally there is 3+ points rally from last pivot point in natural rally"),
+        _6b("During natural rally there is 6+ points reaction"),
+        _6h("During natural/secondary reaction there is 6+ points reaction, but price is higher than last in natural reaction"),
+        _6d3("During natural rally there is a price higher than last in upper trend"),
+        _11b("During natural rally there is a price lower than last in down trend"),
 
         // Вторичное ралли
-        _6g3("Во время вторичного ралли цена превысила последнюю в естественном ралли"),
+        _6g3("During secondary rally price is higher than last in natural rally"),
 
         // Вторичная реакция
-        _6h3("Во время вторичной реакции цена пробила последнюю цену в естественном ралли"),
+        _6h3("During secondary reaction price is lower than last in natural reaction"),
 
-        _11b,
+        _12_rally("Continue natural rally. Last price is higher than previous."),
+        _12_reaction("Continue natural reaction. Last price is lower than previous."),
+        _12_secondary_reaction("Continue secondary reaction. Last price is lower than previous (but not lower than last in natural reaction)"),
+        _12_secondary_rally("Continue secondary rally. Last price is higher than previous (but not higher than last in natural rally)"),
+        _12_upper("Continue up trend. Last price is higher than previous."),
+        _12_down("Continue down trend. Last price is lower than previous.");
 
-
-        _12_rally("Продолжение естественного ралли. Новая цена выше предыдущей (но нет ни одной пробитой точки)"),
-        _12_reaction("Продолжение естественного реакции. Новая цена ниже предыдущей (но нет ни одной пробитой точки)"),
-        _12_secondary_reaction("Продолжение вторичной реакции. Новая цена ниже предыдущей (но не ниже последней в естественной реакции)"),
-        _12_secondary_rally("Продолжение вторичного ралли. Новая цена выше предыдущей (но не выше последней в естественном ралли)"),
-        _12_upper("Продолжение восходящего тренда. Новая цена выше предыдущей"),
-        _12_down("Продолжение нисходящего тренда. Новая цена ниже предыдущей");
+        String explanation;
 
         Rule(String explanation) {
-
+            this.explanation = explanation;
         }
 
-        Rule() {
+        public String getExplanation() {
+            return explanation;
         }
-
-
     }
 }

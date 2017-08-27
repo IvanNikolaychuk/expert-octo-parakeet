@@ -2,7 +2,7 @@ package com.stocks.livermor.excel;
 
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.excel.writers.*;
-import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.livermor.entity.RecordsHolder;
 import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -29,10 +29,17 @@ public class ExcelWriter {
     private static final int SECONDARY_REACTION_COLUMN = 7;
 
     private int currentRow;
+    private int offset;
     private final Workbook workbook;
 
     public ExcelWriter() throws Exception {
+        this(0);
+        offset = 0;
+    }
+
+    public ExcelWriter(int offset) throws Exception{
         currentRow = 3;
+        this.offset = offset;
         workbook = new XSSFWorkbook(OPCPackage.open(PATH_TO_TEMPLATE));
     }
 
@@ -79,7 +86,15 @@ public class ExcelWriter {
 
     private Cell getCell(int columnIndex) {
         if (columnIndex != DATE_ROW_COLUMN) prevColumnIndex = columnIndex;
-        return workbook.getSheetAt(0).getRow(currentRow).getCell(columnIndex, CREATE_NULL_AS_BLANK);
+        final int cellIndex = columnIndex == DATE_ROW_COLUMN ? columnIndex : offset + columnIndex;
+
+        return workbook.getSheetAt(0)
+                .getRow(currentRow)
+                .getCell(cellIndex, CREATE_NULL_AS_BLANK);
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
     private static String date() {

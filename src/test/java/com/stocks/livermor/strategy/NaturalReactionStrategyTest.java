@@ -1,7 +1,7 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.livermor.entity.RecordsHolder;
 import org.junit.Test;
 
 import static com.stocks.livermor.constants.Constants.Rule.*;
@@ -21,7 +21,7 @@ public class NaturalReactionStrategyTest {
         new NaturalReactionStrategy().process(new RecordsHolder(lastUpperTrend, lastRecorded), newRecord);
 
         assertEquals(newRecord.getState(), UPPER_TREND);
-        assertEquals(newRecord.getRule(), _11a);
+        assertEquals(newRecord.getExplanation(), _11a.getExplanation());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class NaturalReactionStrategyTest {
         new NaturalReactionStrategy().process(new RecordsHolder(lastRecord), newRecord);
 
         assertEquals(newRecord.getState(), NATURAL_RALLY);
-        assertEquals(newRecord.getRule(), _6d);
+        assertEquals(newRecord.getExplanation(), _6d.getExplanation());
         assertFalse(newRecord.isPivotPoint());
     }
 
@@ -45,6 +45,6 @@ public class NaturalReactionStrategyTest {
         new NaturalReactionStrategy().process(new RecordsHolder(lastNaturalReaction, lastRecord), newRecord);
 
         assertEquals(newRecord.getState(), SECONDARY_RALLY);
-        assertEquals(newRecord.getRule(), _6g);
+        assertEquals(newRecord.getExplanation(), _6g.getExplanation());
     }
 }

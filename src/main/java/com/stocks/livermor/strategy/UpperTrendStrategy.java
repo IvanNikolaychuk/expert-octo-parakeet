@@ -1,7 +1,7 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.utils.RecordsHolder;
+import com.stocks.livermor.entity.RecordsHolder;
 import org.springframework.util.Assert;
 
 import static com.stocks.livermor.constants.Constants.Rule._12_upper;
@@ -26,7 +26,7 @@ public class UpperTrendStrategy implements StateProcessor {
         if (strongReaction(last, newRecord)) {
             boolean rule6aa = recordsHolder.getPivotPoints().check6aaRuleWhenReactionOccurred(last);
             newRecord.setState(rule6aa ? SECONDARY_REACTION : NATURAL_REACTION);
-            newRecord.setRule(rule6aa ? _6aa : _6a);
+            newRecord.setExplanation(rule6aa ? _6aa.getExplanation() : _6a.getExplanation());
 
             last.markAsPivotPoint();
         }

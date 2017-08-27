@@ -1,10 +1,8 @@
-package com.stocks.livermor.utils;
+package com.stocks.livermor.entity;
 
-import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.entity.State;
-import com.stocks.livermor.entity.Trend;
-import lombok.Getter;
+import com.stocks.livermor.utils.PivotPointsHolder;
 
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -12,12 +10,10 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.stocks.livermor.entity.State.DOWN_TREND;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
-import static com.stocks.livermor.entity.Trend.DOWN;
-import static com.stocks.livermor.entity.Trend.NONE;
-import static com.stocks.livermor.entity.Trend.UP;
+import static com.stocks.livermor.entity.Trend.*;
 import static java.util.stream.Collectors.toList;
 
-@Getter
+@Entity
 public class RecordsHolder {
     public static final Record NULL_OBJECT = new Record(null, 0d);
     private List<Record> records;
@@ -82,6 +78,14 @@ public class RecordsHolder {
 
     private void sortByDate() {
         records.sort(new ByDateComparator());
+    }
+
+    public List<Record> getRecords() {
+        return records;
+    }
+
+    public void setRecords(List<Record> records) {
+        this.records = records;
     }
 
     /**
