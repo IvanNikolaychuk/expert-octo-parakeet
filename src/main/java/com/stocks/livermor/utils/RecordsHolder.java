@@ -2,7 +2,6 @@ package com.stocks.livermor.utils;
 
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
-import com.stocks.livermor.entity.Trend;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.stocks.livermor.entity.State.DOWN_TREND;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
-import static com.stocks.livermor.entity.Trend.*;
+import static com.stocks.livermor.utils.Trend.*;
 import static java.util.stream.Collectors.toList;
 
 @Entity

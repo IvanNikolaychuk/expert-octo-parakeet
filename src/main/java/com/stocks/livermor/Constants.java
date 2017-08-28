@@ -1,4 +1,4 @@
-package com.stocks.livermor.constants;
+package com.stocks.livermor;
 
 import java.util.Calendar;
 import java.util.Date;

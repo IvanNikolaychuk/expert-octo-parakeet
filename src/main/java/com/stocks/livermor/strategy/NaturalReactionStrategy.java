@@ -3,9 +3,9 @@ package com.stocks.livermor.strategy;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.utils.RecordsHolder;
 
-import static com.stocks.livermor.constants.Constants.Rule.*;
+import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.entity.Trend.UP;
+import static com.stocks.livermor.utils.Trend.UP;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;

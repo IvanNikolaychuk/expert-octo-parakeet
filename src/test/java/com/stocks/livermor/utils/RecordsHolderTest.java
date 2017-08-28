@@ -1,7 +1,6 @@
 package com.stocks.livermor.utils;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.entity.Trend;
 import org.junit.Test;
 
 import java.util.List;

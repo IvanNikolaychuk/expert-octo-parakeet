@@ -17,4 +17,8 @@ public class Executor {
         stateProcessor.process(recordsHolder, current);
         recordsHolder.add(current);
     }
+
+    public static void main(String[] args) {
+
+    }
 }

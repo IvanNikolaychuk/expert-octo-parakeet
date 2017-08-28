@@ -4,7 +4,7 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
-import static com.stocks.livermor.constants.Constants.Rule.*;
+import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.anyRally;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
@@ -17,11 +17,28 @@ public class SecondaryRallyStrategy implements StateProcessor {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_RALLY);
 
+        checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
+
         checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
+
         checkPriceIsHigherThanLastPivotPointInNaturalRally(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
+
         checkStrongReaction(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, last);
+    }
+
+    private void checkPriceIsLowerThanLastInDownTrend(RecordsHolder recordsHolder, Record newRecord) {
+        Record lastDownTrend = recordsHolder.last(DOWN_TREND);
+        if (lastDownTrend == NULL_OBJECT) return;
+
+        if (newRecord.getPrice() < lastDownTrend.getPrice()) {
+            newRecord.setStateAndRule(DOWN_TREND, _11b);
+        }
     }
 
     private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {

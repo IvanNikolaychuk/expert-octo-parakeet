@@ -12,7 +12,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.stocks.livermor.constants.Constants.NULL_DATE;
+import static com.stocks.livermor.Constants.NULL_DATE;
 import static org.apache.poi.ss.usermodel.Row.MissingCellPolicy.CREATE_NULL_AS_BLANK;
 
 public class ExcelWriter {

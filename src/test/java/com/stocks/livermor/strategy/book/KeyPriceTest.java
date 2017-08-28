@@ -9,8 +9,8 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static com.stocks.livermor.constants.Constants.NULL_DATE;
-import static com.stocks.livermor.constants.Constants.Rule.*;
+import static com.stocks.livermor.Constants.NULL_DATE;
+import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.strategy.book.CheckingMechanism.*;
 import static com.stocks.livermor.utils.RecordUtils.CHANGE_MEASURE;

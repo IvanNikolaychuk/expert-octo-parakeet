@@ -1,16 +1,11 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.utils.RecordsHolder;
-import com.stocks.livermor.excel.ExcelWriter;
-import com.stocks.technical.core.db.dao.CompanyDao;
-import com.stocks.technical.core.db.dao.RecordDao;
-import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.stocks.livermor.constants.Constants.NULL_DATE;
-import static com.stocks.livermor.constants.Constants.Rule.*;
+import static com.stocks.livermor.Constants.NULL_DATE;
+import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.strategy.book.CheckingMechanism.*;
 import static com.stocks.livermor.utils.RecordUtils.CHANGE_MEASURE;
@@ -37,19 +32,6 @@ public class GazpTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
-
-        for (Candle candle : new CompanyDao().getByName("GAZP.ME").getCandles()) {
-            Record record = new Record(candle.getDate().getTime(), candle.getClose().doubleValue());
-            processWithNoCheck(record);
-        }
-//
-//        for(Record record : getRecordsHolder().getRecords()) {
-//            processWithNoCheck(record);
-//        }
-
-        RecordsHolder recordsHolder = new RecordsHolder(new RecordDao().getAll("GAZP.ME"));
-
-        new ExcelWriter().createTable(recordsHolder);
     }
 
 

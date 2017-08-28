@@ -4,7 +4,7 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.junit.Test;
 
-import static com.stocks.livermor.constants.Constants.Rule.*;
+import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordFactory.*;
 import static org.junit.Assert.assertEquals;

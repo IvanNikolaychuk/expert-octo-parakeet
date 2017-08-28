@@ -2,8 +2,8 @@ package com.stocks.livermor.utils;
 
 import com.stocks.livermor.entity.Record;
 
-import static com.stocks.livermor.constants.Constants.BASIC_CHANGE_PERCENTAGE;
-import static com.stocks.livermor.constants.Constants.BASIC_CHANGE_POINT;
+import static com.stocks.livermor.Constants.BASIC_CHANGE_PERCENTAGE;
+import static com.stocks.livermor.Constants.BASIC_CHANGE_POINT;
 import static com.stocks.livermor.utils.RecordUtils.ChangeMeasure.PERCENTAGE;
 import static com.stocks.livermor.utils.RecordUtils.ChangeMeasure.POINTS;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.*;

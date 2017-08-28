@@ -1,7 +1,7 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.Executor;
-import com.stocks.livermor.constants.Constants;
+import com.stocks.livermor.Constants;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.strategy.book.utils.DateGenerator;

@@ -1,6 +1,6 @@
 package com.stocks.livermor.entity;
 
-import com.stocks.livermor.constants.Constants;
+import com.stocks.livermor.Constants;
 import lombok.Data;
 
 import javax.persistence.*;
