@@ -822,3 +822,5 @@ INSERT INTO stocks.company_candle (company_name, candles_id) VALUES ('ROSN.ME', 
 INSERT INTO stocks.company_candle (company_name, candles_id) VALUES ('ROSN.ME', 822);
 INSERT INTO stocks.company_candle (company_name, candles_id) VALUES ('ROSN.ME', 823);
 INSERT INTO stocks.company_candle (company_name, candles_id) VALUES ('ROSN.ME', 824);
+INSERT INTO stocks.company_candle (company_name, candles_id) VALUES ('GAZP.ME', 825);
+INSERT INTO stocks.company_candle (company_name, candles_id) VALUES ('ROSN.ME', 826);

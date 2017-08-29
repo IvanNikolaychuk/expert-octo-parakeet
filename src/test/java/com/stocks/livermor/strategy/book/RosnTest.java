@@ -2,8 +2,8 @@ package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.excel.ExcelWriter;
-import com.stocks.livermor.utils.RecordsHolder;
-import com.stocks.technical.core.db.dao.RecordDao;
+import com.stocks.technical.core.db.dao.CompanyDao;
+import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +35,12 @@ public class RosnTest {
         thirdQuarter();
         fourthQuarter();
 
-        new ExcelWriter().createTable(new RecordsHolder(new RecordDao().getAll("ROSN.ME")));
+        for (Candle candle : filterFirstQuarter(new CompanyDao().getByName("ROSN.ME").getCandles())) {
+            Record record = new Record(candle.getDate().getTime(), candle.getClose().doubleValue());
+            processWithNoCheck(record);
+        }
+
+        new ExcelWriter().createTable(getRecordsHolder());
     }
 
 

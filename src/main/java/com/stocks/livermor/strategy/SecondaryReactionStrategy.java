@@ -11,16 +11,31 @@ import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 
 public class SecondaryReactionStrategy implements StateProcessor {
+
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_REACTION);
 
-        checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);
-        checkPriceIsLowerThanLastPivotPointInNaturalReaction(recordsHolder, newRecord);
+        checkPriceIsHigherThanLastInUpperTrend(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
         checkStrongRally(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
+
+        checkPriceIsLowerThanLastPivotPointInNaturalReaction(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
+        checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);
+        if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, last);
+    }
+
+    private void checkPriceIsHigherThanLastInUpperTrend(RecordsHolder recordsHolder, Record newRecord) {
+        Record lastUpperTrend = recordsHolder.last(UPPER_TREND);
+        if (lastUpperTrend == NULL_OBJECT) return;
+
+        if (newRecord.getPrice() > lastUpperTrend.getPrice())
+            newRecord.setStateAndRule(UPPER_TREND, _11a);
     }
 
     private void checkStrongRally(RecordsHolder recordsHolder, Record newRecord) {

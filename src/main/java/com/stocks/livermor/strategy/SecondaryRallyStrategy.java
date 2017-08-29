@@ -19,14 +19,12 @@ public class SecondaryRallyStrategy implements StateProcessor {
 
         checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
-
-        checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
+        checkStrongReaction(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
 
         checkPriceIsHigherThanLastPivotPointInNaturalRally(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
-
-        checkStrongReaction(recordsHolder, newRecord);
+        checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, last);
