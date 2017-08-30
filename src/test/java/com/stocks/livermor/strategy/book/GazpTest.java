@@ -285,8 +285,8 @@ public class GazpTest {
         processAndCheckNext(136.85, NATURAL_REACTION, _12_reaction, true);
         processAndCheckNext(140.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(137.7, NONE, null, false);
-        processAndCheckNext(134.5, NATURAL_REACTION, _6b, false);
-        processAndCheckNext(134.65, DOWN_TREND, _5b, false);
+        processAndCheckNext(134.5, DOWN_TREND, _5b, false);
+        processAndCheckNext(134.65, NONE, null, false);
         processAndCheckNext(135.81, NONE, null, false);
         processAndCheckNext(135.6, NONE, null, false);
         processAndCheckNext(133.8, DOWN_TREND, _12_down, false);

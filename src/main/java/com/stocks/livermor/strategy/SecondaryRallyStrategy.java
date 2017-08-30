@@ -49,8 +49,19 @@ public class SecondaryRallyStrategy implements StateProcessor {
             Record lastReaction = recordsHolder.last(NATURAL_REACTION);
             if (lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice())
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
-            else
+            else {
+                Record lastReactionPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_REACTION);
+                if (lastReactionPivotPoint == NULL_OBJECT || !recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint))  {
+                    newRecord.setStateAndRule(NATURAL_REACTION, _6b);
+                    return;
+                }
+
+                if (anyReaction(lastReactionPivotPoint, newRecord))
+                    newRecord.setStateAndRule(DOWN_TREND, _5b);
+                else
+                    newRecord.setStateAndRule(NATURAL_REACTION, _6b);
                 newRecord.setStateAndRule(NATURAL_REACTION, _6b);
+            }
         }
     }
 
@@ -67,15 +78,7 @@ public class SecondaryRallyStrategy implements StateProcessor {
         Record lastRally = recordsHolder.last(NATURAL_RALLY);
         if (lastRally != NULL_OBJECT) {
             if (newRecord.getPrice() > lastRally.getPrice()) {
-                Record lastRallyPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_RALLY);
-                if (lastRallyPivotPoint == NULL_OBJECT || !recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)) {
-                    newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
-                    return;
-                }
-                if (anyRally(lastRallyPivotPoint, newRecord))
-                    newRecord.setStateAndRule(UPPER_TREND, _5a);
-                else
-                    newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
+                newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
             }
         }
     }

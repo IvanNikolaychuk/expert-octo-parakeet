@@ -51,7 +51,16 @@ public class NaturalRallyStrategy implements StateProcessor {
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
             else {
                 markAsPicotPointIfNeeded(recordsHolder);
-                newRecord.setStateAndRule(NATURAL_REACTION, _6b);
+                Record lastReactionPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_REACTION);
+                if (lastReactionPivotPoint == NULL_OBJECT || !recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint))  {
+                    newRecord.setStateAndRule(NATURAL_REACTION, _6b);
+                    return;
+                }
+
+                if (anyReaction(lastReactionPivotPoint, newRecord))
+                    newRecord.setStateAndRule(DOWN_TREND, _5b);
+                else
+                    newRecord.setStateAndRule(NATURAL_REACTION, _6b);
             }
         }
     }
