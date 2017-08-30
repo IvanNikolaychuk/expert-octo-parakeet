@@ -243,8 +243,8 @@ public class GazpTest {
     private void fourthQuarter() {
         processAndCheckNext(132.9, NONE, null, false);
         processAndCheckNext(131.5, NATURAL_REACTION, _6b, false);
-        processAndCheckNext(136.8, NATURAL_RALLY, _6d, false);
-        processAndCheckNext(137.87, UPPER_TREND, _5a, false);
+        processAndCheckNext(136.8, UPPER_TREND, _5a, false);
+        processAndCheckNext(137.87, UPPER_TREND, _12_upper, false);
         processAndCheckNext(140.0, UPPER_TREND, _12_upper, false);
         processAndCheckNext(139.8, NONE, null, false);
         processAndCheckNext(143.81, UPPER_TREND, _12_upper, true);

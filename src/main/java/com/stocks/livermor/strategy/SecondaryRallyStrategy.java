@@ -67,7 +67,15 @@ public class SecondaryRallyStrategy implements StateProcessor {
         Record lastRally = recordsHolder.last(NATURAL_RALLY);
         if (lastRally != NULL_OBJECT) {
             if (newRecord.getPrice() > lastRally.getPrice()) {
-                newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
+                Record lastRallyPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_RALLY);
+                if (lastRallyPivotPoint == NULL_OBJECT || !recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)) {
+                    newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
+                    return;
+                }
+                if (anyRally(lastRallyPivotPoint, newRecord))
+                    newRecord.setStateAndRule(UPPER_TREND, _5a);
+                else
+                    newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
             }
         }
     }

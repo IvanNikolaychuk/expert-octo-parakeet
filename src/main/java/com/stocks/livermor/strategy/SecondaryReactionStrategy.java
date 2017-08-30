@@ -49,7 +49,15 @@ public class SecondaryReactionStrategy implements StateProcessor {
             if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice())
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
             else {
-                newRecord.setStateAndRule(NATURAL_RALLY, _6d);
+                Record lastRallyPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_RALLY);
+                if (lastRallyPivotPoint == NULL_OBJECT || !recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)) {
+                    newRecord.setStateAndRule(NATURAL_RALLY, _6d);
+                    return;
+                }
+                if (anyRally(lastRallyPivotPoint, newRecord))
+                    newRecord.setStateAndRule(UPPER_TREND, _5a);
+                else
+                    newRecord.setStateAndRule(NATURAL_RALLY, _6d);
             }
         }
     }

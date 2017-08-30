@@ -81,8 +81,8 @@ public class KeyPriceTest {
 
     private void firstQuarter() {
         processAndCheckNext(330.7, NONE, null, false);
-        processAndCheckNext(339.22, NATURAL_RALLY, _6d, false);
-        processAndCheckNext(361.41, UPPER_TREND, _5a, true);
+        processAndCheckNext(339.22, UPPER_TREND, _5a, false);
+        processAndCheckNext(361.41, UPPER_TREND, _12_upper, true);
         processAndCheckNext(348.3, NATURAL_REACTION, _6a, false);
         processAndCheckNext(344.22, NATURAL_REACTION, _12_reaction, true);
         processAndCheckNext(347.54, NONE, null, false);

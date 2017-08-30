@@ -102,8 +102,8 @@ public class RosnTest {
         processAndCheckNext(244.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(242.7, NONE, null, false);
         processAndCheckNext(237.1, SECONDARY_REACTION, _6h, false);
-        processAndCheckNext(247.5, NATURAL_RALLY, _6d, false);
-        processAndCheckNext(252.15, UPPER_TREND, _5a, false);
+        processAndCheckNext(247.5, UPPER_TREND, _5a, false);
+        processAndCheckNext(252.15, UPPER_TREND, _12_upper, false);
     }
 
     private void secondQuarter() {
