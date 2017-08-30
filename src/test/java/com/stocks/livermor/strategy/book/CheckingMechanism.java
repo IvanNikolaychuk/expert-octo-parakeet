@@ -42,16 +42,12 @@ public class CheckingMechanism {
             recordToNotPpChecksCounterMap.put(newRecord, 0);
     }
 
-    static List<Candle> filterFirstQuarter(List<Candle> candles) {
+    static List<Candle> filter2016(List<Candle> candles) {
         List<Candle> filtered = new ArrayList<>();
 
         for (Candle candle : candles) {
-            final Calendar date = candle.getDate();
-            if (date.get(Calendar.YEAR) == 2016) {
-                final int month = date.get(Calendar.MONTH);
-                if (month == Calendar.JANUARY || month == Calendar.FEBRUARY || month == Calendar.MARCH) {
-                    filtered.add(candle);
-                }
+            if (candle.getDate().get(Calendar.YEAR) == 2016) {
+                filtered.add(candle);
             }
         }
         return filtered;

@@ -7,6 +7,9 @@ import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Comparator;
+import java.util.List;
+
 import static com.stocks.livermor.Constants.NULL_DATE;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
@@ -36,10 +39,18 @@ public class GazpTest {
         thirdQuarter();
         fourthQuarter();
 
-        for (Candle candle : filterFirstQuarter(new CompanyDao().getByName("GAZP.ME").getCandles())) {
+        List<Candle> candles = filter2016(new CompanyDao().getByName("GAZP.ME").getCandles());
+        candles.sort(Comparator.comparing(Candle::getDate));
+
+        for (Candle candle : candles) {
             Record record = new Record(candle.getDate().getTime(), candle.getClose().doubleValue());
             processWithNoCheck(record);
         }
+
+//        RecordDao recordDao = new RecordDao();
+//        for(Record record : getRecordsHolder().getRecords()) {
+//            recordDao.save(record);
+//        }
 
         new ExcelWriter().createTable(getRecordsHolder());
     }
@@ -220,9 +231,9 @@ public class GazpTest {
         processAndCheckNext(139.5, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(139.45, NATURAL_REACTION, _12_reaction, false);
         processAndCheckNext(136.4, NATURAL_REACTION, _12_reaction, false);
-        processAndCheckNext(134.3, DOWN_TREND, _6b3, false);
+        processAndCheckNext(134.3, NATURAL_REACTION, _12_reaction, false);
 
-        processAndCheckNext(132.2, DOWN_TREND, _12_down, false);
+        processAndCheckNext(132.2, DOWN_TREND, _6b3, false);
         processAndCheckNext(133.85, NONE, null, false);
         processAndCheckNext(130.9, DOWN_TREND, _12_down, true);
         processAndCheckNext(133.2, NONE, null, false);

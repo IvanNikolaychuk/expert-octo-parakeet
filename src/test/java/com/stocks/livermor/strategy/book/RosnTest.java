@@ -7,6 +7,9 @@ import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Comparator;
+import java.util.List;
+
 import static com.stocks.livermor.Constants.NULL_DATE;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
@@ -35,10 +38,19 @@ public class RosnTest {
         thirdQuarter();
         fourthQuarter();
 
-        for (Candle candle : filterFirstQuarter(new CompanyDao().getByName("ROSN.ME").getCandles())) {
+        List<Candle> candles = filter2016(new CompanyDao().getByName("ROSN.ME").getCandles());
+        candles.sort(Comparator.comparing(Candle::getDate));
+
+        for (Candle candle : candles) {
             Record record = new Record(candle.getDate().getTime(), candle.getClose().doubleValue());
             processWithNoCheck(record);
         }
+
+//        RecordDao recordDao = new RecordDao();
+//        for(Record record : getRecordsHolder().getRecords()) {
+//            recordDao.save(record);
+//        }
+
 
         new ExcelWriter().createTable(getRecordsHolder());
     }

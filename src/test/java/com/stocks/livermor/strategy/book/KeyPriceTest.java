@@ -7,6 +7,7 @@ import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static com.stocks.livermor.Constants.NULL_DATE;
@@ -53,16 +54,25 @@ public class KeyPriceTest {
         thirdQuarter();
         fourthQuarter();
 
-        List<Candle> rosnCandles = filterFirstQuarter(new CompanyDao().getByName("ROSN.ME").getCandles());
-        List<Candle> gazpCandles = filterFirstQuarter(new CompanyDao().getByName("GAZP.ME").getCandles());
+        List<Candle> rosnCandles = filter2016(new CompanyDao().getByName("ROSN.ME").getCandles());
+        List<Candle> gazpCandles = filter2016(new CompanyDao().getByName("GAZP.ME").getCandles());
+        rosnCandles.sort(Comparator.comparing(Candle::getDate));
+        gazpCandles.sort(Comparator.comparing(Candle::getDate));
 
         for (int i = 0; i < rosnCandles.size(); i++) {
             final Candle rosnCandle = rosnCandles.get(i);
+
             final Candle gazpCandle = gazpCandles.get(i);
 
             Record record = new Record(gazpCandle.getDate().getTime(), (rosnCandle.getClose().add(gazpCandle.getClose())).doubleValue());
             processWithNoCheck(record);
         }
+
+//        RecordDao recordDao = new RecordDao();
+//        for(Record record : getRecordsHolder().getRecords()) {
+//            record.setTicker("GAZP.ME_ROSN.ME_KEY");
+//            recordDao.save(record);
+//        }
 
         new ExcelWriter().createTable(getRecordsHolder());
 
@@ -197,7 +207,7 @@ public class KeyPriceTest {
         processAndCheckNext(377.5, NONE, null, false);
         processAndCheckNext(377.0, NONE, null, false);
         processAndCheckNext(372.73, NATURAL_REACTION, _6h3, false);
-        processAndCheckNext(365.8, DOWN_TREND, _6b3, false);
+        processAndCheckNext(365.8, DOWN_TREND, _5b, false);
         processAndCheckNext(363.0, DOWN_TREND, _12_down, false);
         processAndCheckNext(360.5, DOWN_TREND, _12_down, true);
         processAndCheckNext(367.37, NONE, null, false);

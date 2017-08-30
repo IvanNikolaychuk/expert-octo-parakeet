@@ -5,10 +5,12 @@ import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.Trend.UP;
+import static com.stocks.livermor.utils.RecordUtils.anyRally;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.Trend.DOWN;
+import static com.stocks.livermor.utils.Trend.UP;
 import static org.springframework.util.Assert.isTrue;
 
 public class NaturalReactionStrategy implements StateProcessor {
@@ -69,7 +71,10 @@ public class NaturalReactionStrategy implements StateProcessor {
 
         if (newRecord.getPrice() > lastUpperTrend.getPrice()) {
             markAsPicotPointIfNeeded(recordsHolder);
-            newRecord.setStateAndRule(UPPER_TREND, _11a);
+            if (recordsHolder.currentTrend() == UP)
+                newRecord.setStateAndRule(UPPER_TREND, _11a);
+            else if (anyRally(lastUpperTrend, newRecord))
+                newRecord.setStateAndRule(UPPER_TREND, _11a);
         }
     }
 
@@ -77,8 +82,13 @@ public class NaturalReactionStrategy implements StateProcessor {
         Record lastDownTrend = recordsHolder.last(DOWN_TREND);
         if (lastDownTrend == NULL_OBJECT) return;
 
-        if (newRecord.getPrice() < lastDownTrend.getPrice())
-            newRecord.setStateAndRule(DOWN_TREND, _6b3);
+        if (newRecord.getPrice() < lastDownTrend.getPrice()) {
+            // если тренд меняется, нужна реакция как минимум на 1% во избежани ложных пробитий.
+            if (recordsHolder.currentTrend() == DOWN) {
+                newRecord.setStateAndRule(DOWN_TREND, _6b3);
+            } else if (anyReaction(lastDownTrend, newRecord))
+                newRecord.setStateAndRule(DOWN_TREND, _6b3);
+        }
     }
 
     private void markAsPicotPointIfNeeded(RecordsHolder recordsHolder) {

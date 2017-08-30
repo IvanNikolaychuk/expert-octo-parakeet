@@ -5,10 +5,12 @@ import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.Trend.DOWN;
 import static com.stocks.livermor.utils.RecordUtils.anyRally;
+import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.Trend.DOWN;
+import static com.stocks.livermor.utils.Trend.UP;
 import static org.springframework.util.Assert.isTrue;
 
 public class NaturalRallyStrategy implements StateProcessor {
@@ -67,8 +69,12 @@ public class NaturalRallyStrategy implements StateProcessor {
         Record lastUpperTrend = recordsHolder.last(UPPER_TREND);
         if (lastUpperTrend == NULL_OBJECT) return;
 
-        if (newRecord.getPrice() > lastUpperTrend.getPrice())
-            newRecord.setStateAndRule(UPPER_TREND, _6d3);
+        if (newRecord.getPrice() > lastUpperTrend.getPrice()) {
+            if (recordsHolder.currentTrend() == UP)
+                newRecord.setStateAndRule(UPPER_TREND, _6d3);
+            else if (anyRally(lastUpperTrend, newRecord))
+                newRecord.setStateAndRule(UPPER_TREND, _6d3);
+        }
     }
 
     private void checkPriceIsLowerThanLastInDownTrend(RecordsHolder recordsHolder, Record newRecord) {
@@ -76,8 +82,13 @@ public class NaturalRallyStrategy implements StateProcessor {
         if (lastDownTrend == NULL_OBJECT) return;
 
         if (newRecord.getPrice() < lastDownTrend.getPrice()) {
-            markAsPicotPointIfNeeded(recordsHolder);
-            newRecord.setStateAndRule(DOWN_TREND, _11b);
+            if (recordsHolder.currentTrend() == DOWN) {
+                markAsPicotPointIfNeeded(recordsHolder);
+                newRecord.setStateAndRule(DOWN_TREND, _11b);
+            } else if (anyReaction(lastDownTrend, newRecord)) {
+                markAsPicotPointIfNeeded(recordsHolder);
+                newRecord.setStateAndRule(DOWN_TREND, _11b);
+            }
         }
     }
 

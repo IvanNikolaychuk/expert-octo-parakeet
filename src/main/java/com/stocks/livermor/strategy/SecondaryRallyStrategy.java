@@ -7,8 +7,10 @@ import org.springframework.util.Assert;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.anyRally;
+import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.Trend.DOWN;
 
 public class SecondaryRallyStrategy implements StateProcessor {
 
@@ -35,7 +37,10 @@ public class SecondaryRallyStrategy implements StateProcessor {
         if (lastDownTrend == NULL_OBJECT) return;
 
         if (newRecord.getPrice() < lastDownTrend.getPrice()) {
-            newRecord.setStateAndRule(DOWN_TREND, _11b);
+            if (recordsHolder.currentTrend() == DOWN)
+                newRecord.setStateAndRule(DOWN_TREND, _11b);
+            else if (anyReaction(lastDownTrend, newRecord))
+                newRecord.setStateAndRule(DOWN_TREND, _11b);
         }
     }
 
