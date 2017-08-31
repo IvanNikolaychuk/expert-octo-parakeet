@@ -4,10 +4,7 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.RecordsHolder.ByDateComparator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.stocks.livermor.entity.State.DOWN_TREND;
 import static com.stocks.livermor.entity.State.UPPER_TREND;
@@ -64,6 +61,7 @@ public class PivotPointsHolder {
 
     public boolean isAfterSupportOrResistence(Record record) {
         List<Record> supportAndResistance = getSupportAndResistance();
+        if (supportAndResistance.contains(record)) return true;
         if (supportAndResistance.isEmpty()) return false;
         final Date oldest = supportAndResistance.get(0).getDate();
         final Date currentRecordDate = record.getDate();
@@ -96,5 +94,26 @@ public class PivotPointsHolder {
 
         boolean wasUperTrendBetween = lastSeparateTrendDate.compareTo(lastTrendRecord.getDate()) > 0;
         return !wasUperTrendBetween;
+    }
+
+    public Record getOldestTrendPoint() {
+        List<Record> recordsCopy = new ArrayList<>(records);
+        Collections.reverse(recordsCopy);
+
+        Record oldestTrendRecord = null;
+        for (Record record : recordsCopy) {
+            final State recordState = record.getState();
+            if (recordState == UPPER_TREND || recordState == DOWN_TREND) {
+                if (oldestTrendRecord == null) {
+                    oldestTrendRecord = record;
+                } else if (oldestTrendRecord.getState() != recordState) {
+                    break;
+                } else {
+                    oldestTrendRecord = record;
+                }
+            }
+        }
+
+        return oldestTrendRecord;
     }
 }

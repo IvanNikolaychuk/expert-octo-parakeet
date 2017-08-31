@@ -46,8 +46,9 @@ public class NaturalReactionStrategy implements StateProcessor {
     private void checkStrongRally(RecordsHolder recordsHolder, Record newRecord) {
         if (strongRally(recordsHolder.lastWithState(), newRecord)) {
             Record lastRally = recordsHolder.last(NATURAL_RALLY);
-            if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice() &&
-                    recordsHolder.getPivotPoints().isAfterSupportOrResistence(lastRally))
+            if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice()
+                    &&  recordsHolder.getPivotPoints().isAfterSupportOrResistence(lastRally)
+                    && recordsHolder.getStates().contains(NATURAL_RALLY))
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
             else {
                 markAsPicotPointIfNeeded(recordsHolder);

@@ -4,9 +4,7 @@ import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 
 import javax.persistence.Entity;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.stocks.livermor.entity.State.DOWN_TREND;
@@ -76,6 +74,27 @@ public class RecordsHolder {
         return NULL_OBJECT;
     }
 
+    public Set<State> getStates() {
+        List<State> states = new ArrayList<>();
+
+        int recordIndex = index(getPivotPoints().getOldestTrendPoint());
+        for (int i = records.size() - 1; i >= recordIndex; i--) {
+            states.add(0, records.get(i).getState());
+        }
+
+        return new HashSet<>(states);
+    }
+
+    private int index(Record searchedRecord) {
+        for (int i = 0; i < records.size(); i++) {
+            if (records.get(i).equals(searchedRecord)) {
+                return i;
+            }
+        }
+
+        throw new IllegalArgumentException("No such record: " + searchedRecord);
+    }
+
     private void sortByDate() {
         records.sort(new ByDateComparator());
     }
@@ -95,7 +114,7 @@ public class RecordsHolder {
 
         @Override
         public int compare(Record o1, Record o2) {
-            if (o1.getDate() == null  || o2.getDate() == null) {
+            if (o1.getDate() == null || o2.getDate() == null) {
                 return 0;
             }
             return o1.getDate().compareTo(o2.getDate());
