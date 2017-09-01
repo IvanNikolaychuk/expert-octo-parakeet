@@ -3,20 +3,10 @@ package com.stocks.livermor.utils;
 import com.stocks.livermor.entity.Record;
 
 import static com.stocks.livermor.Constants.BASIC_CHANGE_PERCENTAGE;
-import static com.stocks.livermor.Constants.BASIC_CHANGE_POINT;
-import static com.stocks.livermor.utils.RecordUtils.ChangeMeasure.PERCENTAGE;
-import static com.stocks.livermor.utils.RecordUtils.ChangeMeasure.POINTS;
 import static com.stocks.livermor.utils.RecordUtils.MovementType.*;
-import static com.stocks.livermor.utils.RecordUtils.MovementType.NONE;
 import static java.math.BigDecimal.valueOf;
 
 public class RecordUtils {
-    public static ChangeMeasure CHANGE_MEASURE = PERCENTAGE;
-
-    public enum ChangeMeasure {
-        POINTS, PERCENTAGE
-    }
-
     public enum MovementType {
         RALLY, REACTION, STRONG_RALLY, STRONG_REACTION, NONE
     }
@@ -58,14 +48,10 @@ public class RecordUtils {
         final double prevPrice = prev.getPrice();
 
         double netPercChange = valueOf(100 - (currPrice * 100 / prevPrice)).abs().doubleValue();
-        double netPointsChange = valueOf(currPrice - prevPrice).abs().doubleValue();
-
-        if (CHANGE_MEASURE == PERCENTAGE && netPercChange >= BASIC_CHANGE_PERCENTAGE * 2 ||
-                CHANGE_MEASURE == POINTS && netPointsChange >= BASIC_CHANGE_POINT * 2) {
+        if (netPercChange >= BASIC_CHANGE_PERCENTAGE * 2) {
             return currPrice < prevPrice ? STRONG_REACTION : STRONG_RALLY;
         }
-        if (CHANGE_MEASURE == PERCENTAGE && netPercChange >= BASIC_CHANGE_PERCENTAGE ||
-                CHANGE_MEASURE == POINTS && netPointsChange >= BASIC_CHANGE_POINT) {
+        if (netPercChange >= BASIC_CHANGE_PERCENTAGE) {
             return currPrice < prevPrice ? REACTION : RALLY;
         }
 
@@ -78,9 +64,7 @@ public class RecordUtils {
         double percChange = valueOf((last.getPrice() * 100 / prev.getPrice()) - 100).abs().doubleValue();
         double pointsChange = valueOf(last.getPrice() - prev.getPrice()).abs().doubleValue();
 
-        return CHANGE_MEASURE == PERCENTAGE ?
-                percChange <= BASIC_CHANGE_PERCENTAGE :
-                pointsChange <= BASIC_CHANGE_POINT;
+        return percChange <= BASIC_CHANGE_PERCENTAGE;
     }
 
 }

@@ -14,15 +14,12 @@ import static com.stocks.livermor.Constants.NULL_DATE;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.strategy.book.CheckingMechanism.*;
-import static com.stocks.livermor.utils.RecordUtils.CHANGE_MEASURE;
-import static com.stocks.livermor.utils.RecordUtils.ChangeMeasure.PERCENTAGE;
 
 public class RosnTest {
 
     @Before
     public void init() {
         clear();
-        CHANGE_MEASURE = PERCENTAGE;
         Record firstNoDate = newRecord(201.8, UPPER_TREND, true);
         firstNoDate.setDate(NULL_DATE);
         Record secondNoDate = newRecord(195.8, NATURAL_REACTION, true);
