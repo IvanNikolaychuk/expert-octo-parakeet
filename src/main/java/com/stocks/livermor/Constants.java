@@ -59,5 +59,17 @@ public class Constants {
         public String getExplanation() {
             return explanation;
         }
+
+        public static Rule find(String explanation) {
+            if (explanation == null) return null;
+
+            for(Rule rule : values()) {
+                if (rule.getExplanation().equals(explanation)) {
+                    return rule;
+                }
+            }
+
+            throw new IllegalArgumentException("No such rule: " + explanation);
+        }
     }
 }
