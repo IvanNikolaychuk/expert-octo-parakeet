@@ -3,7 +3,6 @@ package com.stocks.livermor.utils;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 
-import javax.persistence.Entity;
 import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -12,13 +11,14 @@ import static com.stocks.livermor.entity.State.UPPER_TREND;
 import static com.stocks.livermor.utils.Trend.*;
 import static java.util.stream.Collectors.toList;
 
-@Entity
 public class RecordsHolder {
     public static final Record NULL_OBJECT = new Record(null, 0d);
     private List<Record> records;
+    private List<Record> newRecords;
 
     public RecordsHolder(List<Record> records) {
         this.records = records;
+        this.newRecords = new ArrayList<>();
         sortByDate();
     }
 
@@ -28,6 +28,7 @@ public class RecordsHolder {
 
     public void add(Record record) {
         records.add(record);
+        newRecords.add(record);
         sortByDate();
     }
 
@@ -105,6 +106,10 @@ public class RecordsHolder {
 
     public void setRecords(List<Record> records) {
         this.records = records;
+    }
+
+    public List<Record> getNewRecords() {
+        return newRecords;
     }
 
     /**

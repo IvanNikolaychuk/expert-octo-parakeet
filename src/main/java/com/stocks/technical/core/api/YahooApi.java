@@ -4,6 +4,7 @@ import com.stocks.fundamental.dao.IndexDao;
 import com.stocks.fundamental.entity.Index;
 import com.stocks.technical.core.api.dto.StockData;
 import javafx.util.Pair;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,8 +30,13 @@ public class YahooApi {
             return convert(json);
         } catch (HttpClientErrorException exception) {
             try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
+                if (exception.getStatusCode() == HttpStatus.BAD_REQUEST) {
+                    System.out.println("Bad request.");
+                    return new ArrayList<>();
+                } else {
+                    Thread.sleep(1000);
+                }
+            } catch (InterruptedException ignored) {
             }
             return query(companyName, period);
         }
