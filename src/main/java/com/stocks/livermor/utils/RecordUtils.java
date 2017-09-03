@@ -62,8 +62,6 @@ public class RecordUtils {
 
     public static boolean check6aaccRule(Record prev, Record last) {
         double percChange = valueOf((last.getPrice() * 100 / prev.getPrice()) - 100).abs().doubleValue();
-        double pointsChange = valueOf(last.getPrice() - prev.getPrice()).abs().doubleValue();
-
         return percChange <= BASIC_CHANGE_PERCENTAGE;
     }
 

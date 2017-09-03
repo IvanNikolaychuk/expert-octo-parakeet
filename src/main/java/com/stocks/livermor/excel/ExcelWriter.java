@@ -18,6 +18,7 @@ import static org.apache.poi.ss.usermodel.Row.MissingCellPolicy.CREATE_NULL_AS_B
 public class ExcelWriter {
     private static final String BASE_PATH = "src/main/resources/livermore/";
     private static final String PATH_TO_TEMPLATE = BASE_PATH + "Livermore.xlsx";
+    private static final String PATH_TO_NEW_FILE = BASE_PATH + "Livermore " + date() + ".xlsx";
 
     private static final int DATE_ROW_COLUMN = 1;
     private static final int SECONDARY_RALLY_COLUMN = 2;
@@ -29,14 +30,23 @@ public class ExcelWriter {
 
     private int currentRow;
     private final Workbook workbook;
+    private int offset;
+    private int prevColumnIndex = -1;
 
     public ExcelWriter() throws Exception {
         currentRow = 3;
         workbook = new XSSFWorkbook(OPCPackage.open(PATH_TO_TEMPLATE));
     }
 
-    public void createTable(String ticker, RecordsHolder recordsHolder) throws Exception {
-        final String newFilePath = BASE_PATH + "Livermore " + date() + " " + ticker + ".xlsx";
+    public void next() {
+        currentRow = 3;
+        prevColumnIndex = -1;
+
+        offset = (offset == 0) ? 6 : offset * 2;
+    }
+
+
+    public void createTable(RecordsHolder recordsHolder) throws Exception {
 
         for (Record record : recordsHolder.getRecords()) {
             if (record.getDate() != NULL_DATE) {
@@ -46,7 +56,7 @@ public class ExcelWriter {
             currentRow++;
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream(newFilePath)) {
+        try (FileOutputStream fileOut = new FileOutputStream(PATH_TO_NEW_FILE)) {
             workbook.write(fileOut);
         }
     }
@@ -76,14 +86,13 @@ public class ExcelWriter {
         }
     }
 
-    private int prevColumnIndex = -1;
-
     private Cell getCell(int columnIndex) {
         if (columnIndex != DATE_ROW_COLUMN) prevColumnIndex = columnIndex;
 
+        int realIndex = (columnIndex == DATE_ROW_COLUMN) ? columnIndex : columnIndex + offset;
         return workbook.getSheetAt(0)
                 .getRow(currentRow)
-                .getCell(columnIndex, CREATE_NULL_AS_BLANK);
+                .getCell(realIndex, CREATE_NULL_AS_BLANK);
     }
 
     private static String date() {

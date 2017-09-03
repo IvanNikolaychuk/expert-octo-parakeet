@@ -50,7 +50,7 @@ public class RosnTest {
 //        }
 
 
-        new ExcelWriter().createTable("ROSN", getRecordsHolder());
+        new ExcelWriter().createTable(getRecordsHolder());
     }
 
     private void allQuarters2016() {

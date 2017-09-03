@@ -46,7 +46,7 @@ public class GazpTest {
         }
 
 
-        new ExcelWriter().createTable("GAZP", getRecordsHolder());
+        new ExcelWriter().createTable(getRecordsHolder());
     }
 
     private void allQuarters2016() {
