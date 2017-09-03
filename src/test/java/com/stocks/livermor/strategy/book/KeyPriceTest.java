@@ -1,12 +1,13 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.excel.ExcelWriter;
 import com.stocks.technical.core.db.dao.CompanyDao;
+import com.stocks.technical.core.db.dao.RecordDao;
 import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
 
@@ -66,7 +67,17 @@ public class KeyPriceTest {
             processWithNoCheck(record);
         }
 
-        new ExcelWriter().createTable(getRecordsHolder());
+        RecordDao recordDao = new RecordDao();
+        for(Record record : getRecordsHolder().getRecords()) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(record.getDate());
+
+            if (calendar.get(Calendar.YEAR) >= 2016) {
+                record.setTicker("GAZP.ME_ROSN.ME");
+                recordDao.saveOrUpdate(record);
+            }
+        }
+//        new ExcelWriter().createTable("GAZP_ROSN", getRecordsHolder());
     }
 
     private void allQuarters2016() {

@@ -18,7 +18,6 @@ import static org.apache.poi.ss.usermodel.Row.MissingCellPolicy.CREATE_NULL_AS_B
 public class ExcelWriter {
     private static final String BASE_PATH = "src/main/resources/livermore/";
     private static final String PATH_TO_TEMPLATE = BASE_PATH + "Livermore.xlsx";
-    private static final String NEW_FILE_PATH = BASE_PATH + "Livermore " + date() + ".xlsx";
 
     private static final int DATE_ROW_COLUMN = 1;
     private static final int SECONDARY_RALLY_COLUMN = 2;
@@ -29,21 +28,16 @@ public class ExcelWriter {
     private static final int SECONDARY_REACTION_COLUMN = 7;
 
     private int currentRow;
-    private int offset;
     private final Workbook workbook;
 
     public ExcelWriter() throws Exception {
-        this(0);
-        offset = 0;
-    }
-
-    public ExcelWriter(int offset) throws Exception{
         currentRow = 3;
-        this.offset = offset;
         workbook = new XSSFWorkbook(OPCPackage.open(PATH_TO_TEMPLATE));
     }
 
-    public void createTable(RecordsHolder recordsHolder) throws Exception {
+    public void createTable(String ticker, RecordsHolder recordsHolder) throws Exception {
+        final String newFilePath = BASE_PATH + "Livermore " + date() + " " + ticker + ".xlsx";
+
         for (Record record : recordsHolder.getRecords()) {
             if (record.getDate() != NULL_DATE) {
                 DateFieldWriter.write(workbook, getCell(DATE_ROW_COLUMN), record);
@@ -52,7 +46,7 @@ public class ExcelWriter {
             currentRow++;
         }
 
-        try (FileOutputStream fileOut = new FileOutputStream(NEW_FILE_PATH)) {
+        try (FileOutputStream fileOut = new FileOutputStream(newFilePath)) {
             workbook.write(fileOut);
         }
     }
@@ -86,15 +80,10 @@ public class ExcelWriter {
 
     private Cell getCell(int columnIndex) {
         if (columnIndex != DATE_ROW_COLUMN) prevColumnIndex = columnIndex;
-        final int cellIndex = columnIndex == DATE_ROW_COLUMN ? columnIndex : offset + columnIndex;
 
         return workbook.getSheetAt(0)
                 .getRow(currentRow)
-                .getCell(cellIndex, CREATE_NULL_AS_BLANK);
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
+                .getCell(columnIndex, CREATE_NULL_AS_BLANK);
     }
 
     private static String date() {
