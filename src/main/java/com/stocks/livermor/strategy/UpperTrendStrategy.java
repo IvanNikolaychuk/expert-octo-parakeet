@@ -37,9 +37,5 @@ public class UpperTrendStrategy implements StateProcessor {
 
             last.markAsPivotPoint();
         }
-
-        if (!newRecord.hasState()) {
-            newRecord.setState(NONE);
-        }
     }
 }

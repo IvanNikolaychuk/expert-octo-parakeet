@@ -87,7 +87,5 @@ public class SecondaryReactionStrategy implements StateProcessor {
 
         if (newRecord.getPrice() < lastRecord.getPrice())
             newRecord.setStateAndRule(SECONDARY_REACTION, _12_secondary_reaction);
-        else
-            newRecord.setState(NONE);
     }
 }

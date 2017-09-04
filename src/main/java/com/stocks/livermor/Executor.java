@@ -5,6 +5,8 @@ import com.stocks.livermor.strategy.StateProcessor;
 import com.stocks.livermor.strategy.factory.StrategyPicker;
 import com.stocks.livermor.utils.RecordsHolder;
 
+import static com.stocks.livermor.entity.State.NONE;
+
 public class Executor {
     private final StrategyPicker strategyPicker;
 
@@ -12,9 +14,11 @@ public class Executor {
         this.strategyPicker = strategyPicker;
     }
 
-    public void process(RecordsHolder recordsHolder, Record current) {
+    public void process(RecordsHolder recordsHolder, Record newRecord) {
         final StateProcessor stateProcessor = strategyPicker.pick(recordsHolder.lastWithState());
-        stateProcessor.process(recordsHolder, current);
-        recordsHolder.add(current);
+        stateProcessor.process(recordsHolder, newRecord);
+        if (newRecord.getState() == null) newRecord.setState(NONE);
+
+        recordsHolder.add(newRecord);
     }
 }

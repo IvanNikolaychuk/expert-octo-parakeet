@@ -6,8 +6,9 @@ import org.springframework.util.Assert;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.RecordUtils.*;
-import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
+import static com.stocks.livermor.utils.RecordUtils.priceIsLower;
+import static com.stocks.livermor.utils.RecordUtils.strongRally;
 
 public class DownTrendStrategy implements StateProcessor {
 
@@ -22,24 +23,15 @@ public class DownTrendStrategy implements StateProcessor {
         }
 
         if (strongRally(last, newRecord)) {
-            Record lastRallyPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_RALLY);
-            if (lastRallyPivotPoint != NULL_OBJECT
-                    && recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)
-                    && anyRally(lastRallyPivotPoint, newRecord)) {
+            if (rallyPivotPointIsBroken(recordsHolder, newRecord)) {
                 newRecord.setStateAndRule(UPPER_TREND, _5a);
-                last.markAsPivotPoint();
-                return;
+            } else {
+                boolean rule6cc = recordsHolder.getPivotPoints().check6ccRuleWhenReactionOccurred(last);
+                newRecord.setState(rule6cc ? SECONDARY_RALLY : NATURAL_RALLY);
+                newRecord.setExplanation(rule6cc ? _6cc.getExplanation() : _6c.getExplanation());
             }
 
-            boolean rule6cc = recordsHolder.getPivotPoints().check6ccRuleWhenReactionOccurred(last);
-            newRecord.setState(rule6cc ? SECONDARY_RALLY : NATURAL_RALLY);
-            newRecord.setExplanation(rule6cc ? _6cc.getExplanation() : _6c.getExplanation());
-
             last.markAsPivotPoint();
-        }
-
-        if (!newRecord.hasState()) {
-            newRecord.setState(NONE);
         }
     }
 }

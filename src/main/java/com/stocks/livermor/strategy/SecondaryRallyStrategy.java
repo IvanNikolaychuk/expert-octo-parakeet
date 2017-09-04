@@ -92,7 +92,5 @@ public class SecondaryRallyStrategy implements StateProcessor {
 
         if (newRecord.getPrice() > lastRecord.getPrice())
             newRecord.setStateAndRule(SECONDARY_RALLY, _12_secondary_rally);
-        else
-            newRecord.setState(NONE);
     }
 }

@@ -38,8 +38,6 @@ public class NaturalReactionStrategy implements StateProcessor {
         if (newRecord.getState() == null) {
             if (newRecord.getPrice() < lastRecord.getPrice())
                 newRecord.setStateAndRule(NATURAL_REACTION, _12_reaction);
-            else
-                newRecord.setState(NONE);
         }
     }
 

@@ -92,8 +92,8 @@ public class PivotPointsHolder {
 
         final Date lastSeparateTrendDate = seperateTrendRecords.getDate();
 
-        boolean wasUperTrendBetween = lastSeparateTrendDate.compareTo(lastTrendRecord.getDate()) > 0;
-        return !wasUperTrendBetween;
+        boolean wasSeparateTrendBetween = lastSeparateTrendDate.compareTo(lastTrendRecord.getDate()) > 0;
+        return !wasSeparateTrendBetween;
     }
 
     public Record getOldestTrendPoint() {
