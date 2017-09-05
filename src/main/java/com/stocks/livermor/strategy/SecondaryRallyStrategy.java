@@ -1,12 +1,15 @@
 package com.stocks.livermor.strategy;
 
+import com.stocks.livermor.Constants;
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
@@ -55,17 +58,9 @@ public class SecondaryRallyStrategy implements StateProcessor {
                     && recordsHolder.getStates().contains(NATURAL_REACTION))
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
             else {
-                Record lastReactionPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_REACTION);
-                if (lastReactionPivotPoint == NULL_OBJECT || !recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint)) {
-                    newRecord.setStateAndRule(NATURAL_REACTION, _6b);
-                    return;
-                }
-
-                if (anyReaction(lastReactionPivotPoint, newRecord))
-                    newRecord.setStateAndRule(DOWN_TREND, _5b);
-                else
-                    newRecord.setStateAndRule(NATURAL_REACTION, _6b);
-                newRecord.setStateAndRule(NATURAL_REACTION, _6b);
+                final State newState = reactionPivotPointIsBroken(recordsHolder, newRecord) ? DOWN_TREND : NATURAL_REACTION;
+                final Constants.Rule rule = reactionPivotPointIsBroken(recordsHolder, newRecord) ? _5b : _6b;
+                newRecord.setStateAndRule(newState, rule);
             }
         }
     }

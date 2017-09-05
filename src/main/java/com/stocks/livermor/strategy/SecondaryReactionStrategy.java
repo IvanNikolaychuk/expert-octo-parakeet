@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
 import static com.stocks.livermor.utils.RecordUtils.*;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 import static com.stocks.livermor.utils.Trend.UP;
@@ -25,8 +26,11 @@ public class SecondaryReactionStrategy implements StateProcessor {
         checkStrongRally(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
 
-        checkPriceIsLowerThanLastPivotPointInNaturalReaction(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
+        if (reactionPivotPointIsBroken(recordsHolder, newRecord)) {
+            newRecord.setStateAndRule(DOWN_TREND, _5b);
+            return;
+        }
+
         checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
 
@@ -57,15 +61,6 @@ public class SecondaryReactionStrategy implements StateProcessor {
                 newRecord.setStateAndRule(newState, rule);
             }
         }
-    }
-
-    private void checkPriceIsLowerThanLastPivotPointInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastReactionPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_REACTION);
-        if (lastReactionPivotPoint == NULL_OBJECT) return;
-        if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint)) return;
-
-        if (anyReaction(lastReactionPivotPoint, newRecord))
-            newRecord.setStateAndRule(DOWN_TREND, _5b);
     }
 
     private void checkPriceIsLowerThanLastInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {

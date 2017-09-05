@@ -1,6 +1,7 @@
 package com.stocks.livermor.strategy;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.RecordsHolder;
 
 public interface StateProcessor {

@@ -6,8 +6,9 @@ import org.springframework.util.Assert;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.RecordUtils.*;
-import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
+import static com.stocks.livermor.utils.RecordUtils.priceIsGrater;
+import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 
 public class UpperTrendStrategy implements StateProcessor {
 
@@ -22,18 +23,13 @@ public class UpperTrendStrategy implements StateProcessor {
         }
 
         if (strongReaction(last, newRecord)) {
-            Record lastReactionPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_REACTION);
-            if (lastReactionPivotPoint != NULL_OBJECT
-                    && recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint)
-                    && anyReaction(lastReactionPivotPoint, newRecord)) {
+            if (reactionPivotPointIsBroken(recordsHolder, newRecord)) {
                 newRecord.setStateAndRule(DOWN_TREND, _5b);
-                last.markAsPivotPoint();
-                return;
+            } else {
+                boolean rule6aa = recordsHolder.getPivotPoints().check6aaRuleWhenReactionOccurred(last);
+                newRecord.setState(rule6aa ? SECONDARY_REACTION : NATURAL_REACTION);
+                newRecord.setExplanation(rule6aa ? _6aa.getExplanation() : _6a.getExplanation());
             }
-
-            boolean rule6aa = recordsHolder.getPivotPoints().check6aaRuleWhenReactionOccurred(last);
-            newRecord.setState(rule6aa ? SECONDARY_REACTION : NATURAL_REACTION);
-            newRecord.setExplanation(rule6aa ? _6aa.getExplanation() : _6a.getExplanation());
 
             last.markAsPivotPoint();
         }
