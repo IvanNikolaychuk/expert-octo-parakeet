@@ -1,6 +1,8 @@
 package com.stocks.livermor.strategy;
 
+import com.stocks.livermor.Constants;
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.RecordsHolder;
 import org.springframework.util.Assert;
 
@@ -24,12 +26,20 @@ public class UpperTrendStrategy implements StateProcessor {
             if (reactionPivotPointIsBroken(recordsHolder, newRecord)) {
                 newRecord.setStateAndRule(DOWN_TREND, _5b);
             } else {
-                boolean rule6aa = recordsHolder.getPivotPoints().check6aaRuleWhenReactionOccurred(last);
-                newRecord.setState(rule6aa ? SECONDARY_REACTION : NATURAL_REACTION);
-                newRecord.setExplanation(rule6aa ? _6aa.getExplanation() : _6a.getExplanation());
+                State state = weakDownTrend(recordsHolder) ? SECONDARY_REACTION : NATURAL_REACTION;
+                Constants.Rule rule = weakDownTrend(recordsHolder) ? _6aa : _6a;
+                newRecord.setStateAndRule(state, rule);
             }
 
             last.markAsPivotPoint();
         }
+    }
+
+    /**
+     * Это значит, что тренд пробивает свой предыдущий максимум, но меньше чем на 1%.
+     */
+    private boolean weakDownTrend(RecordsHolder recordsHolder) {
+        final Record lastUpTrend = recordsHolder.lastWithState();
+        return recordsHolder.getPivotPoints().check6aaRuleWhenReactionOccurred(lastUpTrend);
     }
 }
