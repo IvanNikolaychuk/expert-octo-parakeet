@@ -11,7 +11,6 @@ import static com.stocks.livermor.utils.RecordUtils.priceIsLower;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
 
 public class DownTrendStrategy implements StateProcessor {
-
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.lastWithState();

@@ -5,6 +5,7 @@ import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
 import static com.stocks.livermor.utils.RecordUtils.anyRally;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
@@ -21,8 +22,11 @@ public class NaturalRallyStrategy implements StateProcessor {
 
         checkPriceIsHigherThanLastInUpperTrend(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
-        checkPriceIsHigherThanLastLastPivotPointInNaturalRally(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
+
+        if (rallyPivotPointIsBroken(recordsHolder, newRecord)) {
+            newRecord.setStateAndRule(UPPER_TREND, _5a);
+            return;
+        }
 
         checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
@@ -64,15 +68,6 @@ public class NaturalRallyStrategy implements StateProcessor {
                     newRecord.setStateAndRule(NATURAL_REACTION, _6b);
             }
         }
-    }
-
-    private void checkPriceIsHigherThanLastLastPivotPointInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastRallyPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_RALLY);
-        if (lastRallyPivotPoint == NULL_OBJECT) return;
-        if (!recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint)) return;
-
-        if (anyRally(lastRallyPivotPoint, newRecord))
-            newRecord.setStateAndRule(UPPER_TREND, _5a);
     }
 
     private void checkPriceIsHigherThanLastInUpperTrend(RecordsHolder recordsHolder, Record newRecord) {

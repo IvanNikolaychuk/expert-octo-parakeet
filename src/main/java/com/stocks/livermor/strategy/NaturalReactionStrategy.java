@@ -1,10 +1,13 @@
 package com.stocks.livermor.strategy;
 
+import com.stocks.livermor.Constants;
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
 import static com.stocks.livermor.utils.RecordUtils.anyRally;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
@@ -49,16 +52,10 @@ public class NaturalReactionStrategy implements StateProcessor {
                     && recordsHolder.getStates().contains(NATURAL_RALLY))
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
             else {
-                markAsPicotPointIfNeeded(recordsHolder);
-                Record lastRallyPivotPoint = recordsHolder.getPivotPoints().last(NATURAL_RALLY);
-                if (lastRallyPivotPoint == NULL_OBJECT || !recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastRallyPivotPoint))  {
-                    newRecord.setStateAndRule(NATURAL_RALLY, _6d);
-                    return;
-                }
-                if (anyRally(lastRallyPivotPoint, newRecord))
-                    newRecord.setStateAndRule(UPPER_TREND, _5a);
-                else
-                    newRecord.setStateAndRule(NATURAL_RALLY, _6d);
+                markAsPivotPointIfNeeded(recordsHolder);
+                final State newState = rallyPivotPointIsBroken(recordsHolder, newRecord) ? UPPER_TREND : NATURAL_RALLY;
+                final Constants.Rule rule = rallyPivotPointIsBroken(recordsHolder, newRecord) ? _5a : _6d;
+                newRecord.setStateAndRule(newState, rule);
             }
         }
     }
@@ -77,7 +74,7 @@ public class NaturalReactionStrategy implements StateProcessor {
         if (lastUpperTrend == NULL_OBJECT) return;
 
         if (newRecord.getPrice() > lastUpperTrend.getPrice()) {
-            markAsPicotPointIfNeeded(recordsHolder);
+            markAsPivotPointIfNeeded(recordsHolder);
             if (recordsHolder.currentTrend() == UP)
                 newRecord.setStateAndRule(UPPER_TREND, _11a);
             else if (anyRally(lastUpperTrend, newRecord))
@@ -98,7 +95,7 @@ public class NaturalReactionStrategy implements StateProcessor {
         }
     }
 
-    private void markAsPicotPointIfNeeded(RecordsHolder recordsHolder) {
+    private void markAsPivotPointIfNeeded(RecordsHolder recordsHolder) {
         if (recordsHolder.currentTrend() == UP && recordsHolder.getPivotPoints().last().getState() != NATURAL_REACTION)
             recordsHolder.lastWithState().markAsPivotPoint();
     }
