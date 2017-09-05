@@ -58,7 +58,7 @@ public class NaturalRallyStrategy implements StateProcessor {
                     && recordsHolder.getStates().contains(NATURAL_REACTION))
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
             else {
-                markAsPicotPointIfNeeded(recordsHolder);
+                markAsPivotPointIfNeeded(recordsHolder);
                 final State newState = reactionPivotPointIsBroken(recordsHolder, newRecord) ? DOWN_TREND : NATURAL_REACTION;
                 final Constants.Rule rule = reactionPivotPointIsBroken(recordsHolder, newRecord) ? _5b : _6b;
                 newRecord.setStateAndRule(newState, rule);
@@ -84,16 +84,16 @@ public class NaturalRallyStrategy implements StateProcessor {
 
         if (newRecord.getPrice() < lastDownTrend.getPrice()) {
             if (recordsHolder.currentTrend() == DOWN) {
-                markAsPicotPointIfNeeded(recordsHolder);
+                markAsPivotPointIfNeeded(recordsHolder);
                 newRecord.setStateAndRule(DOWN_TREND, _11b);
             } else if (anyReaction(lastDownTrend, newRecord)) {
-                markAsPicotPointIfNeeded(recordsHolder);
+                markAsPivotPointIfNeeded(recordsHolder);
                 newRecord.setStateAndRule(DOWN_TREND, _11b);
             }
         }
     }
 
-    private void markAsPicotPointIfNeeded(RecordsHolder recordsHolder) {
+    private void markAsPivotPointIfNeeded(RecordsHolder recordsHolder) {
         if (recordsHolder.currentTrend() == DOWN && recordsHolder.getPivotPoints().last().getState() != NATURAL_RALLY)
             recordsHolder.lastWithState().markAsPivotPoint();
     }
