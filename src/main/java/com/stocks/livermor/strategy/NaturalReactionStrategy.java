@@ -7,9 +7,7 @@ import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordUtils.anyRally;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
@@ -18,19 +16,25 @@ import static com.stocks.livermor.utils.Trend.UP;
 import static org.springframework.util.Assert.isTrue;
 
 public class NaturalReactionStrategy implements StateProcessor {
+
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
         isTrue(recordsHolder.lastWithState().getState() == NATURAL_REACTION);
 
         checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
+
         if (reactionPivotPointIsBroken(recordsHolder, newRecord)) {
             newRecord.setStateAndRule(DOWN_TREND, _5b);
             return;
         }
 
-        checkPriceIsHigherThanLastInUpperTrend(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
+        if (upperTrendPivotPointIsBroken(recordsHolder, newRecord)) {
+            markAsPivotPointIfNeeded(recordsHolder);
+            newRecord.setStateAndRule(UPPER_TREND, _11a);
+            return;
+        }
+
         checkStrongRally(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
 
@@ -63,19 +67,6 @@ public class NaturalReactionStrategy implements StateProcessor {
         }
     }
 
-
-    private void checkPriceIsHigherThanLastInUpperTrend(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastUpperTrend = recordsHolder.last(UPPER_TREND);
-        if (lastUpperTrend == NULL_OBJECT) return;
-
-        if (newRecord.getPrice() > lastUpperTrend.getPrice()) {
-            markAsPivotPointIfNeeded(recordsHolder);
-            if (recordsHolder.currentTrend() == UP)
-                newRecord.setStateAndRule(UPPER_TREND, _11a);
-            else if (anyRally(lastUpperTrend, newRecord))
-                newRecord.setStateAndRule(UPPER_TREND, _11a);
-        }
-    }
 
     private void checkPriceIsLowerThanLastInDownTrend(RecordsHolder recordsHolder, Record newRecord) {
         Record lastDownTrend = recordsHolder.last(DOWN_TREND);

@@ -2,11 +2,11 @@ package com.stocks.livermor.utils;
 
 import com.stocks.livermor.entity.Record;
 
-import static com.stocks.livermor.entity.State.NATURAL_RALLY;
-import static com.stocks.livermor.entity.State.NATURAL_REACTION;
+import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.anyRally;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.Trend.UP;
 
 public class RecordPriceMovementUtils {
     public static boolean rallyPivotPointIsBroken(RecordsHolder recordsHolder, Record newRecord) {
@@ -23,5 +23,22 @@ public class RecordPriceMovementUtils {
         return lastReactionPivotPoint != NULL_OBJECT
                 && recordsHolder.getPivotPoints().getSupportAndResistance().contains(lastReactionPivotPoint)
                 && anyReaction(lastReactionPivotPoint, newRecord);
+    }
+
+    /**
+     *  Пробита upper-точка или нет зависит от того, в каком тренде мы сейчас находимся. Если тренд восходящий, то любое
+     *  пробитие считается пробитием. Если нисходящим - нужно пробитие больше 1% (чтобы не было ложных пробитий)
+     */
+    public static boolean upperTrendPivotPointIsBroken(RecordsHolder recordsHolder, Record newRecord) {
+        Record lastUpperTrend = recordsHolder.last(UPPER_TREND);
+
+        if (lastUpperTrend != NULL_OBJECT && newRecord.getPrice() > lastUpperTrend.getPrice()) {
+            if (recordsHolder.currentTrend() == UP)
+                return true;
+            else if (anyRally(lastUpperTrend, newRecord))
+                return true;
+        }
+
+        return false;
     }
 }

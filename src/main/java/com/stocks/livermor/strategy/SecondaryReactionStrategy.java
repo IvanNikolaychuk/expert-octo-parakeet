@@ -8,11 +8,9 @@ import org.springframework.util.Assert;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordUtils.*;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
+import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
-import static com.stocks.livermor.utils.Trend.UP;
 
 public class SecondaryReactionStrategy implements StateProcessor {
 
@@ -21,8 +19,11 @@ public class SecondaryReactionStrategy implements StateProcessor {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_REACTION);
 
-        checkPriceIsHigherThanLastInUpperTrend(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
+        if (upperTrendPivotPointIsBroken(recordsHolder, newRecord)) {
+            newRecord.setStateAndRule(UPPER_TREND, _11a);
+            return;
+        }
+
         checkStrongRally(recordsHolder, newRecord);
         if (newRecord.hasState()) return;
 
@@ -35,17 +36,6 @@ public class SecondaryReactionStrategy implements StateProcessor {
         if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, last);
-    }
-
-    private void checkPriceIsHigherThanLastInUpperTrend(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastUpperTrend = recordsHolder.last(UPPER_TREND);
-        if (lastUpperTrend == NULL_OBJECT) return;
-
-        if (newRecord.getPrice() > lastUpperTrend.getPrice())
-            if (recordsHolder.currentTrend() == UP)
-                newRecord.setStateAndRule(UPPER_TREND, _11a);
-            else if (anyRally(lastUpperTrend, newRecord))
-                newRecord.setStateAndRule(UPPER_TREND, _11a);
     }
 
     private void checkStrongRally(RecordsHolder recordsHolder, Record newRecord) {
