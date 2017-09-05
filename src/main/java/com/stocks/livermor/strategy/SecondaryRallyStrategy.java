@@ -29,7 +29,8 @@ public class SecondaryRallyStrategy implements StateProcessor {
 
         checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
 
-        setStateIfNotYet(newRecord, last);
+        if (newRecord.getPrice() > last.getPrice())
+            newRecord.setStateAndRule(SECONDARY_RALLY, _12_secondary_rally);
     }
 
     private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
@@ -55,13 +56,5 @@ public class SecondaryRallyStrategy implements StateProcessor {
                 newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
             }
         }
-    }
-
-
-    private void setStateIfNotYet(Record newRecord, Record lastRecord) {
-        if (newRecord.getState() != null) return;
-
-        if (newRecord.getPrice() > lastRecord.getPrice())
-            newRecord.setStateAndRule(SECONDARY_RALLY, _12_secondary_rally);
     }
 }

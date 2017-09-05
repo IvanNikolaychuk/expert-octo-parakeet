@@ -17,7 +17,8 @@ public class NaturalReactionStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
-        isTrue(recordsHolder.lastWithState().getState() == NATURAL_REACTION);
+        Record last = recordsHolder.lastWithState();
+        isTrue(last.getState() == NATURAL_REACTION);
 
         if (downTrendPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(DOWN_TREND, _6b3);
@@ -32,24 +33,16 @@ public class NaturalReactionStrategy implements StateProcessor {
 
         checkStrongRally(recordsHolder, newRecord);
 
-        setStateIfNotYet(newRecord, recordsHolder.lastWithState());
+        if (newRecord.getPrice() < last.getPrice())
+            newRecord.setStateAndRule(NATURAL_REACTION, _12_reaction);
     }
 
-    /**
-     * Выставляется только в том случае, если у записи еще нет stat'а.
-     */
-    private void setStateIfNotYet(Record newRecord, Record lastRecord) {
-        if (newRecord.getState() == null) {
-            if (newRecord.getPrice() < lastRecord.getPrice())
-                newRecord.setStateAndRule(NATURAL_REACTION, _12_reaction);
-        }
-    }
 
     private void checkStrongRally(RecordsHolder recordsHolder, Record newRecord) {
         if (strongRally(recordsHolder.lastWithState(), newRecord)) {
             Record lastRally = recordsHolder.last(NATURAL_RALLY);
             if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice()
-                    &&  recordsHolder.getPivotPoints().isAfterSupportOrResistence(lastRally)
+                    && recordsHolder.getPivotPoints().isAfterSupportOrResistence(lastRally)
                     && recordsHolder.getStates().contains(NATURAL_RALLY))
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
             else {

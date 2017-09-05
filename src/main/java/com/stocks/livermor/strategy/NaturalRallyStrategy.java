@@ -17,7 +17,8 @@ public class NaturalRallyStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
-        isTrue(recordsHolder.lastWithState().getState() == NATURAL_RALLY);
+        final Record last = recordsHolder.lastWithState();
+        isTrue(last.getState() == NATURAL_RALLY);
 
         if (upperTrendPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _6d3);
@@ -32,17 +33,8 @@ public class NaturalRallyStrategy implements StateProcessor {
 
         checkStrongReaction(recordsHolder, newRecord);
 
-        setStateIfNotYet(newRecord, recordsHolder.lastWithState());
-    }
-
-    /**
-     * Выставляется только в том случае, если у записи еще нет stat'а.
-     */
-    private void setStateIfNotYet(Record newRecord, Record lastRecord) {
-        if (newRecord.getState() == null) {
-            if (newRecord.getPrice() > lastRecord.getPrice())
-                newRecord.setStateAndRule(NATURAL_RALLY, _12_rally);
-        }
+        if (newRecord.getPrice() > last.getPrice())
+            newRecord.setStateAndRule(NATURAL_RALLY, _12_rally);
     }
 
     private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
