@@ -8,10 +8,8 @@ import com.stocks.livermor.utils.RecordsHolder;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
-import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
-import static com.stocks.livermor.utils.Trend.DOWN;
 import static com.stocks.livermor.utils.Trend.UP;
 import static org.springframework.util.Assert.isTrue;
 
@@ -21,22 +19,18 @@ public class NaturalReactionStrategy implements StateProcessor {
     public void process(RecordsHolder recordsHolder, Record newRecord) {
         isTrue(recordsHolder.lastWithState().getState() == NATURAL_REACTION);
 
-        checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
+        if (downTrendPivotPointIsBroken(recordsHolder, newRecord))
+            newRecord.setStateAndRule(DOWN_TREND, _6b3);
 
-        if (reactionPivotPointIsBroken(recordsHolder, newRecord)) {
+        if (reactionPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(DOWN_TREND, _5b);
-            return;
-        }
 
         if (upperTrendPivotPointIsBroken(recordsHolder, newRecord)) {
             markAsPivotPointIfNeeded(recordsHolder);
             newRecord.setStateAndRule(UPPER_TREND, _11a);
-            return;
         }
 
         checkStrongRally(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, recordsHolder.lastWithState());
     }
@@ -64,20 +58,6 @@ public class NaturalReactionStrategy implements StateProcessor {
                 final Constants.Rule rule = rallyPivotPointIsBroken(recordsHolder, newRecord) ? _5a : _6d;
                 newRecord.setStateAndRule(newState, rule);
             }
-        }
-    }
-
-
-    private void checkPriceIsLowerThanLastInDownTrend(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastDownTrend = recordsHolder.last(DOWN_TREND);
-        if (lastDownTrend == NULL_OBJECT) return;
-
-        if (newRecord.getPrice() < lastDownTrend.getPrice()) {
-            // если тренд меняется, нужна реакция как минимум на 1% во избежани ложных пробитий.
-            if (recordsHolder.currentTrend() == DOWN) {
-                newRecord.setStateAndRule(DOWN_TREND, _6b3);
-            } else if (anyReaction(lastDownTrend, newRecord))
-                newRecord.setStateAndRule(DOWN_TREND, _6b3);
         }
     }
 

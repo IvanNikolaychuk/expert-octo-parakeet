@@ -35,7 +35,12 @@ public class Record {
         pivotPoint = true;
     }
 
+    @Transient
     public void setStateAndRule(State state, Constants.Rule rule) {
+        if (this.state != null && this.explanation != null) {
+            return;
+        }
+
         this.state = state;
         this.explanation = rule.getExplanation();
     }

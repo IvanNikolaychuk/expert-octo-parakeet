@@ -19,21 +19,15 @@ public class SecondaryReactionStrategy implements StateProcessor {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_REACTION);
 
-        if (upperTrendPivotPointIsBroken(recordsHolder, newRecord)) {
+        if (upperTrendPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _11a);
-            return;
-        }
 
         checkStrongRally(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
 
-        if (reactionPivotPointIsBroken(recordsHolder, newRecord)) {
+        if (reactionPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(DOWN_TREND, _5b);
-            return;
-        }
 
         checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, last);
     }

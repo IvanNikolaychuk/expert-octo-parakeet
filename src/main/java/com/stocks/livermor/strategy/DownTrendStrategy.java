@@ -16,10 +16,8 @@ public class DownTrendStrategy implements StateProcessor {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == DOWN_TREND);
 
-        if (priceIsLower(last, newRecord)) {
+        if (priceIsLower(last, newRecord))
             newRecord.setStateAndRule(DOWN_TREND, _12_down);
-            return;
-        }
 
         if (strongRally(last, newRecord)) {
             if (rallyPivotPointIsBroken(recordsHolder, newRecord)) {

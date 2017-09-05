@@ -17,10 +17,8 @@ public class UpperTrendStrategy implements StateProcessor {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == UPPER_TREND);
 
-        if (priceIsGrater(last, newRecord)) {
+        if (priceIsGrater(last, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _12_upper);
-            return;
-        }
 
         if (strongReaction(last, newRecord)) {
             if (reactionPivotPointIsBroken(recordsHolder, newRecord)) {

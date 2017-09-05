@@ -6,6 +6,7 @@ import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordUtils.anyRally;
 import static com.stocks.livermor.utils.RecordUtils.anyReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.Trend.DOWN;
 import static com.stocks.livermor.utils.Trend.UP;
 
 public class RecordPriceMovementUtils {
@@ -36,6 +37,19 @@ public class RecordPriceMovementUtils {
             if (recordsHolder.currentTrend() == UP)
                 return true;
             else if (anyRally(lastUpperTrend, newRecord))
+                return true;
+        }
+
+        return false;
+    }
+
+    public static boolean downTrendPivotPointIsBroken(RecordsHolder recordsHolder, Record newRecord) {
+        Record lastDownTrend = recordsHolder.last(DOWN_TREND);
+
+        if (lastDownTrend != NULL_OBJECT && newRecord.getPrice() < lastDownTrend.getPrice()) {
+            if (recordsHolder.currentTrend() == DOWN)
+                return true;
+            else if (anyReaction(lastDownTrend, newRecord))
                 return true;
         }
 

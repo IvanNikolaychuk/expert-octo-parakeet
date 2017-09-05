@@ -8,12 +8,9 @@ import org.springframework.util.Assert;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordUtils.anyReaction;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
-import static com.stocks.livermor.utils.Trend.DOWN;
 
 public class SecondaryRallyStrategy implements StateProcessor {
 
@@ -22,31 +19,17 @@ public class SecondaryRallyStrategy implements StateProcessor {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_RALLY);
 
-        checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
-        checkStrongReaction(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
+        if (downTrendPivotPointIsBroken(recordsHolder, newRecord))
+            newRecord.setStateAndRule(DOWN_TREND, _11b);
 
-        if (rallyPivotPointIsBroken(recordsHolder, newRecord)) {
+        checkStrongReaction(recordsHolder, newRecord);
+
+        if (rallyPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _5a);
-            return;
-        }
+
         checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, last);
-    }
-
-    private void checkPriceIsLowerThanLastInDownTrend(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastDownTrend = recordsHolder.last(DOWN_TREND);
-        if (lastDownTrend == NULL_OBJECT) return;
-
-        if (newRecord.getPrice() < lastDownTrend.getPrice()) {
-            if (recordsHolder.currentTrend() == DOWN)
-                newRecord.setStateAndRule(DOWN_TREND, _11b);
-            else if (anyReaction(lastDownTrend, newRecord))
-                newRecord.setStateAndRule(DOWN_TREND, _11b);
-        }
     }
 
     private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {

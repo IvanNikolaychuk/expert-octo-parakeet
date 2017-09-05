@@ -7,10 +7,7 @@ import com.stocks.livermor.utils.RecordsHolder;
 
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.upperTrendPivotPointIsBroken;
-import static com.stocks.livermor.utils.RecordUtils.anyReaction;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 import static com.stocks.livermor.utils.Trend.DOWN;
@@ -22,20 +19,18 @@ public class NaturalRallyStrategy implements StateProcessor {
     public void process(RecordsHolder recordsHolder, Record newRecord) {
         isTrue(recordsHolder.lastWithState().getState() == NATURAL_RALLY);
 
-        if (upperTrendPivotPointIsBroken(recordsHolder, newRecord)) {
+        if (upperTrendPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _6d3);
-            return;
-        }
 
-        if (rallyPivotPointIsBroken(recordsHolder, newRecord)) {
+        if (rallyPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _5a);
-            return;
+
+        if (downTrendPivotPointIsBroken(recordsHolder, newRecord)) {
+            markAsPivotPointIfNeeded(recordsHolder);
+            newRecord.setStateAndRule(DOWN_TREND, _11b);
         }
 
-        checkPriceIsLowerThanLastInDownTrend(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
         checkStrongReaction(recordsHolder, newRecord);
-        if (newRecord.hasState()) return;
 
         setStateIfNotYet(newRecord, recordsHolder.lastWithState());
     }
@@ -63,21 +58,6 @@ public class NaturalRallyStrategy implements StateProcessor {
                 final State newState = reactionPivotPointIsBroken(recordsHolder, newRecord) ? DOWN_TREND : NATURAL_REACTION;
                 final Constants.Rule rule = reactionPivotPointIsBroken(recordsHolder, newRecord) ? _5b : _6b;
                 newRecord.setStateAndRule(newState, rule);
-            }
-        }
-    }
-
-    private void checkPriceIsLowerThanLastInDownTrend(RecordsHolder recordsHolder, Record newRecord) {
-        Record lastDownTrend = recordsHolder.last(DOWN_TREND);
-        if (lastDownTrend == NULL_OBJECT) return;
-
-        if (newRecord.getPrice() < lastDownTrend.getPrice()) {
-            if (recordsHolder.currentTrend() == DOWN) {
-                markAsPivotPointIfNeeded(recordsHolder);
-                newRecord.setStateAndRule(DOWN_TREND, _11b);
-            } else if (anyReaction(lastDownTrend, newRecord)) {
-                markAsPivotPointIfNeeded(recordsHolder);
-                newRecord.setStateAndRule(DOWN_TREND, _11b);
             }
         }
     }
