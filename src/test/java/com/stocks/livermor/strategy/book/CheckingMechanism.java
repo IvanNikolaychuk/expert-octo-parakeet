@@ -30,7 +30,6 @@ public class CheckingMechanism {
     public static void processAndCheckNext(double price, State expectedState, Constants.Rule expectedRule, boolean shouldBePivotPoint) {
         Record newRecord = newRecord(price);
         executor.process(recordsHolder, newRecord);
-        recordsHolder.getStates();
         assertEquals(newRecord.getState(), expectedState);
         if (expectedRule != null) {
             assertEquals(newRecord.getExplanation(), expectedRule.getExplanation());

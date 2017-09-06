@@ -37,7 +37,7 @@ public class SecondaryRallyStrategy implements StateProcessor {
         if (strongReaction(recordsHolder.lastWithState(), newRecord)) {
             Record lastReaction = recordsHolder.last(NATURAL_REACTION);
             if (lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice()
-                    && recordsHolder.getPivotPoints().isAfterSupportOrResistence(lastReaction)
+                    && recordsHolder.getPivotPoints().isAfterSupportOrResistance(lastReaction)
                     // пишем во вторичную только если в текущем тренде была естественная реакция.
                     && recordsHolder.getStates().contains(NATURAL_REACTION))
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
@@ -51,10 +51,9 @@ public class SecondaryRallyStrategy implements StateProcessor {
 
     private void checkPriceIsHigherThanLastInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
         Record lastRally = recordsHolder.last(NATURAL_RALLY);
-        if (lastRally != NULL_OBJECT) {
-            if (newRecord.getPrice() > lastRally.getPrice()) {
-                newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
-            }
+
+        if (lastRally != NULL_OBJECT && newRecord.getPrice() > lastRally.getPrice()) {
+            newRecord.setStateAndRule(NATURAL_RALLY, _6g3);
         }
     }
 }

@@ -1,13 +1,8 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.technical.core.db.dao.CompanyDao;
-import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Comparator;
-import java.util.List;
 
 import static com.stocks.livermor.Constants.NULL_DATE;
 import static com.stocks.livermor.Constants.Rule.*;
@@ -50,32 +45,6 @@ public class KeyPriceTest {
         thirdQuarter();
         fourthQuarter();
         allQuarters2016();
-
-        List<Candle> rosnCandles = filter2016(new CompanyDao().getByName("ROSN.ME").getCandles());
-        List<Candle> gazpCandles = filter2016(new CompanyDao().getByName("GAZP.ME").getCandles());
-        rosnCandles.sort(Comparator.comparing(Candle::getDate));
-        gazpCandles.sort(Comparator.comparing(Candle::getDate));
-
-        for (int i = 0; i < rosnCandles.size(); i++) {
-            final Candle rosnCandle = rosnCandles.get(i);
-
-            final Candle gazpCandle = gazpCandles.get(i);
-
-            Record record = new Record(gazpCandle.getDate().getTime(), (rosnCandle.getClose().add(gazpCandle.getClose())).doubleValue());
-            processWithNoCheck(record);
-        }
-
-//        RecordDao recordDao = new RecordDao();
-//        for(Record record : getRecordsHolder().getRecords()) {
-//            Calendar calendar = Calendar.getInstance();
-//            calendar.setTime(record.getDate());
-//
-//            if (calendar.get(Calendar.YEAR) >= 2016) {
-//                record.setTicker("GAZP.ME_ROSN.ME");
-//                recordDao.saveOrUpdate(record);
-//            }
-//        }
-//        new ExcelWriter().createTable("GAZP_ROSN", getRecordsHolder());
     }
 
     private void allQuarters2016() {
@@ -580,6 +549,5 @@ public class KeyPriceTest {
         processAndCheckNext(380.28, SECONDARY_REACTION, _6h, false);
         processAndCheckNext(392.49, SECONDARY_RALLY, _6g, false);
         processAndCheckNext(389.34, NONE, null, false);
-
     }
 }

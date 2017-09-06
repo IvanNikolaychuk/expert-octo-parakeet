@@ -1,14 +1,8 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
-import com.stocks.livermor.excel.ExcelWriter;
-import com.stocks.technical.core.db.dao.CompanyDao;
-import com.stocks.technical.core.db.entity.Candle;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.Comparator;
-import java.util.List;
 
 import static com.stocks.livermor.Constants.NULL_DATE;
 import static com.stocks.livermor.Constants.Rule.*;
@@ -36,17 +30,6 @@ public class GazpTest {
         thirdQuarter();
         fourthQuarter();
         allQuarters2016();
-
-        List<Candle> candles = filter2016(new CompanyDao().getByName("GAZP.ME").getCandles());
-        candles.sort(Comparator.comparing(Candle::getDate));
-
-        for (Candle candle : candles) {
-            Record record = new Record(candle.getDate().getTime(), candle.getClose().doubleValue());
-            processWithNoCheck(record);
-        }
-
-
-        new ExcelWriter().createTable(getRecordsHolder());
     }
 
     private void allQuarters2016() {

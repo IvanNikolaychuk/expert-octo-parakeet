@@ -37,7 +37,7 @@ public class SecondaryReactionStrategy implements StateProcessor {
         if (strongRally(recordsHolder.lastWithState(), newRecord)) {
             Record lastRally = recordsHolder.last(NATURAL_RALLY);
             if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice()
-                    && recordsHolder.getPivotPoints().isAfterSupportOrResistence(lastRally)
+                    && recordsHolder.getPivotPoints().isAfterSupportOrResistance(lastRally)
                     && recordsHolder.getStates().contains(NATURAL_RALLY))
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
             else {
@@ -50,10 +50,8 @@ public class SecondaryReactionStrategy implements StateProcessor {
 
     private void checkPriceIsLowerThanLastInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
         Record lastReaction = recordsHolder.last(NATURAL_REACTION);
-        if (lastReaction != NULL_OBJECT) {
-            if (newRecord.getPrice() < lastReaction.getPrice()) {
-                newRecord.setStateAndRule(NATURAL_REACTION, _6h3);
-            }
-        }
+
+        if (lastReaction != NULL_OBJECT && newRecord.getPrice() < lastReaction.getPrice())
+            newRecord.setStateAndRule(NATURAL_REACTION, _6h3);
     }
-    }
+}

@@ -59,10 +59,10 @@ public class PivotPointsHolder {
         return Arrays.asList(lastPivotPoint, oneBeforeLast);
     }
 
-    public boolean isAfterSupportOrResistence(Record record) {
+    public boolean isAfterSupportOrResistance(Record record) {
         List<Record> supportAndResistance = getSupportAndResistance();
-        if (supportAndResistance.contains(record)) return true;
         if (supportAndResistance.isEmpty()) return false;
+        if (supportAndResistance.contains(record)) return true;
         final Date oldest = supportAndResistance.get(0).getDate();
         final Date currentRecordDate = record.getDate();
 

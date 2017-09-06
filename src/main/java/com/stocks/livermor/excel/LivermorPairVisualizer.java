@@ -36,7 +36,7 @@ public class LivermorPairVisualizer {
         LivermorPairVisualizer livermorPairVisualizer = new LivermorPairVisualizer();
 
         for (LivermorPair livermorPair : new LivermorPairDao().getAll()) {
-            livermorPairVisualizer.visualize(livermorPair, 2016);
+            livermorPairVisualizer.visualize(livermorPair, 2015);
         }
     }
 }

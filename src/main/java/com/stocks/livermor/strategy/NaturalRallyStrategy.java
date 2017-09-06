@@ -41,7 +41,7 @@ public class NaturalRallyStrategy implements StateProcessor {
         if (strongReaction(recordsHolder.lastWithState(), newRecord)) {
             Record lastReaction = recordsHolder.last(NATURAL_REACTION);
             if (lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice()
-                    && recordsHolder.getPivotPoints().isAfterSupportOrResistence(lastReaction)
+                    && recordsHolder.getPivotPoints().isAfterSupportOrResistance(lastReaction)
                     // пишем во вторичную только если в текущем тренде была естественная реакция.
                     && recordsHolder.getStates().contains(NATURAL_REACTION))
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
