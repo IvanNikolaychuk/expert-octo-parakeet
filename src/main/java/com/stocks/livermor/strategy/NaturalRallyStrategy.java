@@ -30,13 +30,6 @@ public class NaturalRallyStrategy implements StateProcessor {
             newRecord.setStateAndRule(DOWN_TREND, _11b);
         }
 
-        checkStrongReaction(recordsHolder, newRecord);
-
-        if (newRecord.getPrice() > last.getPrice())
-            newRecord.setStateAndRule(NATURAL_RALLY, _12_rally);
-    }
-
-    private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
         if (strongReaction(recordsHolder.lastWithState(), newRecord)) {
             if (priceIsGraterThanLastNaturalReaction(recordsHolder, newRecord))
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
@@ -47,10 +40,15 @@ public class NaturalRallyStrategy implements StateProcessor {
                 newRecord.setStateAndRule(newState, rule);
             }
         }
+
+        if (newRecord.getPrice() > last.getPrice())
+            newRecord.setStateAndRule(NATURAL_RALLY, _12_rally);
     }
 
+
     private void markAsPivotPointIfNeeded(RecordsHolder recordsHolder) {
-        if (recordsHolder.currentTrend() == DOWN && recordsHolder.getPivotPoints().last().getState() != NATURAL_RALLY)
+        if (recordsHolder.currentTrend() == DOWN
+                && recordsHolder.getPivotPoints().last().getState() != NATURAL_RALLY)
             recordsHolder.lastWithState().markAsPivotPoint();
     }
 }

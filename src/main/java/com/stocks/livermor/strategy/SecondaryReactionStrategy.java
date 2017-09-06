@@ -22,18 +22,6 @@ public class SecondaryReactionStrategy implements StateProcessor {
         if (upperTrendPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(UPPER_TREND, _11a);
 
-        checkStrongRally(recordsHolder, newRecord);
-
-        if (reactionPivotPointIsBroken(recordsHolder, newRecord))
-            newRecord.setStateAndRule(DOWN_TREND, _5b);
-
-        checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);
-
-        if (newRecord.getPrice() < last.getPrice())
-            newRecord.setStateAndRule(SECONDARY_REACTION, _12_secondary_reaction);
-    }
-
-    private void checkStrongRally(RecordsHolder recordsHolder, Record newRecord) {
         if (strongRally(recordsHolder.lastWithState(), newRecord)) {
             if (priceIsLowerThanLastNaturalRally(recordsHolder, newRecord))
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
@@ -43,7 +31,16 @@ public class SecondaryReactionStrategy implements StateProcessor {
                 newRecord.setStateAndRule(newState, rule);
             }
         }
+        if (reactionPivotPointIsBroken(recordsHolder, newRecord))
+            newRecord.setStateAndRule(DOWN_TREND, _5b);
+
+        checkPriceIsLowerThanLastInNaturalReaction(recordsHolder, newRecord);
+
+        if (newRecord.getPrice() < last.getPrice())
+            newRecord.setStateAndRule(SECONDARY_REACTION, _12_secondary_reaction);
     }
+
+
 
     private void checkPriceIsLowerThanLastInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
         Record lastReaction = recordsHolder.last(NATURAL_REACTION);

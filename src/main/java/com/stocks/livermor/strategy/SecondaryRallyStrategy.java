@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
+import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 
@@ -22,18 +23,6 @@ public class SecondaryRallyStrategy implements StateProcessor {
         if (downTrendPivotPointIsBroken(recordsHolder, newRecord))
             newRecord.setStateAndRule(DOWN_TREND, _11b);
 
-        checkStrongReaction(recordsHolder, newRecord);
-
-        if (rallyPivotPointIsBroken(recordsHolder, newRecord))
-            newRecord.setStateAndRule(UPPER_TREND, _5a);
-
-        checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
-
-        if (newRecord.getPrice() > last.getPrice())
-            newRecord.setStateAndRule(SECONDARY_RALLY, _12_secondary_rally);
-    }
-
-    private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
         if (strongReaction(recordsHolder.lastWithState(), newRecord)) {
             if (priceIsGraterThanLastNaturalReaction(recordsHolder, newRecord))
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
@@ -43,7 +32,15 @@ public class SecondaryRallyStrategy implements StateProcessor {
                 newRecord.setStateAndRule(newState, rule);
             }
         }
+        if (rallyPivotPointIsBroken(recordsHolder, newRecord))
+            newRecord.setStateAndRule(UPPER_TREND, _5a);
+
+        checkPriceIsHigherThanLastInNaturalRally(recordsHolder, newRecord);
+
+        if (newRecord.getPrice() > last.getPrice())
+            newRecord.setStateAndRule(SECONDARY_RALLY, _12_secondary_rally);
     }
+
 
     private void checkPriceIsHigherThanLastInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
         Record lastRally = recordsHolder.last(NATURAL_RALLY);
