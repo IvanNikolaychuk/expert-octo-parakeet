@@ -59,10 +59,14 @@ public class PivotPointsHolder {
         return Arrays.asList(lastPivotPoint, oneBeforeLast);
     }
 
+    /**
+     * TODO: здесь есть ошибка, когда новая запись становится сопротивлением или поддержкой, а мы берем старые 2 записи, не учитывая это.
+     */
     public boolean isAfterSupportOrResistance(Record record) {
         List<Record> supportAndResistance = getSupportAndResistance();
         if (supportAndResistance.isEmpty()) return false;
         if (supportAndResistance.contains(record)) return true;
+
         final Date oldest = supportAndResistance.get(0).getDate();
         final Date currentRecordDate = record.getDate();
 

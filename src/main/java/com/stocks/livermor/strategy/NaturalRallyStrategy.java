@@ -9,7 +9,6 @@ import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
-import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
 import static com.stocks.livermor.utils.Trend.DOWN;
 import static org.springframework.util.Assert.isTrue;
 
@@ -39,11 +38,7 @@ public class NaturalRallyStrategy implements StateProcessor {
 
     private void checkStrongReaction(RecordsHolder recordsHolder, Record newRecord) {
         if (strongReaction(recordsHolder.lastWithState(), newRecord)) {
-            Record lastReaction = recordsHolder.last(NATURAL_REACTION);
-            if (lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice()
-                    && recordsHolder.getPivotPoints().isAfterSupportOrResistance(lastReaction)
-                    // пишем во вторичную только если в текущем тренде была естественная реакция.
-                    && recordsHolder.getStates().contains(NATURAL_REACTION))
+            if (priceIsGraterThanLastNaturalReaction(recordsHolder, newRecord))
                 newRecord.setStateAndRule(SECONDARY_REACTION, _6h);
             else {
                 markAsPivotPointIfNeeded(recordsHolder);

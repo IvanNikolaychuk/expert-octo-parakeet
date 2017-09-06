@@ -35,10 +35,7 @@ public class SecondaryReactionStrategy implements StateProcessor {
 
     private void checkStrongRally(RecordsHolder recordsHolder, Record newRecord) {
         if (strongRally(recordsHolder.lastWithState(), newRecord)) {
-            Record lastRally = recordsHolder.last(NATURAL_RALLY);
-            if (lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice()
-                    && recordsHolder.getPivotPoints().isAfterSupportOrResistance(lastRally)
-                    && recordsHolder.getStates().contains(NATURAL_RALLY))
+            if (priceIsLowerThanLastNaturalRally(recordsHolder, newRecord))
                 newRecord.setStateAndRule(SECONDARY_RALLY, _6g);
             else {
                 final State newState = rallyPivotPointIsBroken(recordsHolder, newRecord) ? UPPER_TREND : NATURAL_RALLY;

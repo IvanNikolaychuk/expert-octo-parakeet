@@ -55,4 +55,20 @@ public class RecordPriceMovementUtils {
 
         return false;
     }
+
+    public static boolean priceIsGraterThanLastNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {
+        Record lastReaction = recordsHolder.last(NATURAL_REACTION);
+
+        return lastReaction != NULL_OBJECT && newRecord.getPrice() >= lastReaction.getPrice()
+                && recordsHolder.getPivotPoints().isAfterSupportOrResistance(lastReaction)
+                && recordsHolder.getStates().contains(NATURAL_REACTION);
+    }
+
+    public static boolean priceIsLowerThanLastNaturalRally(RecordsHolder recordsHolder, Record newRecord) {
+        Record lastRally = recordsHolder.last(NATURAL_RALLY);
+
+        return lastRally != NULL_OBJECT && newRecord.getPrice() <= lastRally.getPrice()
+                && recordsHolder.getPivotPoints().isAfterSupportOrResistance(lastRally)
+                && recordsHolder.getStates().contains(NATURAL_RALLY);
+    }
 }
