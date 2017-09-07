@@ -1,6 +1,8 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.excel.ExcelWriter;
+import com.stocks.livermor.utils.RecordsHolder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +30,8 @@ public class RosnTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
-        allQuarters2016();
+//        allQuarters2016();
+        new ExcelWriter().createTable(new RecordsHolder(getRecordsHolder().getRecords()));
     }
 
     private void allQuarters2016() {
@@ -330,6 +333,8 @@ public class RosnTest {
         processAndCheckNext(237.0, NONE, null, false);
         processAndCheckNext(243.4, NATURAL_RALLY, _6c, true);
         processAndCheckNext(237.05, NATURAL_REACTION, _6b, false);
+        processAndCheckNext(239.3, NONE, null, false);
+        processAndCheckNext(239.95, NONE, null, false);
         processAndCheckNext(244.0, NATURAL_RALLY, _6d, false);
         processAndCheckNext(242.7, NONE, null, false);
         processAndCheckNext(237.1, SECONDARY_REACTION, _6h, false);

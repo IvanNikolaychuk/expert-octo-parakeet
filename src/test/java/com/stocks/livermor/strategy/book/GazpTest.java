@@ -1,6 +1,8 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.excel.ExcelWriter;
+import com.stocks.livermor.utils.RecordsHolder;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +31,9 @@ public class GazpTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
-        allQuarters2016();
+//        allQuarters2016();
+
+        new ExcelWriter().createTable(new RecordsHolder(getRecordsHolder().getRecords()));
     }
 
     private void allQuarters2016() {

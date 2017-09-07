@@ -1,14 +1,15 @@
 package com.stocks.livermor.strategy;
 
-import com.stocks.livermor.Constants;
 import com.stocks.livermor.entity.Record;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.utils.RecordsHolder;
 
+import static com.stocks.livermor.Constants.Rule;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
+import static com.stocks.livermor.utils.RecordsSignageSearcher.searchForSignals;
 import static com.stocks.livermor.utils.Trend.UP;
 import static org.springframework.util.Assert.isTrue;
 
@@ -16,6 +17,11 @@ public class NaturalReactionStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
+        processState(recordsHolder, newRecord);
+        searchForSignals(recordsHolder, newRecord);
+    }
+
+    private void processState(RecordsHolder recordsHolder, Record newRecord) {
         Record last = recordsHolder.lastWithState();
         isTrue(last.getState() == NATURAL_REACTION);
 
@@ -36,7 +42,7 @@ public class NaturalReactionStrategy implements StateProcessor {
             else {
                 markAsPivotPointIfNeeded(recordsHolder);
                 final State newState = rallyPivotPointIsBroken(recordsHolder, newRecord) ? UPPER_TREND : NATURAL_RALLY;
-                final Constants.Rule rule = rallyPivotPointIsBroken(recordsHolder, newRecord) ? _5a : _6d;
+                final Rule rule = rallyPivotPointIsBroken(recordsHolder, newRecord) ? _5a : _6d;
                 newRecord.setStateAndRule(newState, rule);
             }
         }

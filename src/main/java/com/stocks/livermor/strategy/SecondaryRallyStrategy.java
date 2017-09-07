@@ -9,14 +9,20 @@ import org.springframework.util.Assert;
 import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
-import static com.stocks.livermor.utils.RecordPriceMovementUtils.reactionPivotPointIsBroken;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.RecordsSignageSearcher.searchForSignals;
 
 public class SecondaryRallyStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
+        processState(recordsHolder, newRecord);
+        searchForSignals(recordsHolder, newRecord);
+    }
+
+    private void processState(RecordsHolder recordsHolder, Record newRecord) {
+
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_RALLY);
 
@@ -40,6 +46,8 @@ public class SecondaryRallyStrategy implements StateProcessor {
         if (newRecord.getPrice() > last.getPrice())
             newRecord.setStateAndRule(SECONDARY_RALLY, _12_secondary_rally);
     }
+
+
 
 
     private void checkPriceIsHigherThanLastInNaturalRally(RecordsHolder recordsHolder, Record newRecord) {

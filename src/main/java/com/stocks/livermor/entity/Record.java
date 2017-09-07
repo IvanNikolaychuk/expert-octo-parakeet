@@ -20,6 +20,10 @@ public class Record {
     @Enumerated(EnumType.STRING)
     private State state;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "_signal")
+    private Signal signal;
+
     private boolean pivotPoint;
 
     private String explanation;
@@ -47,5 +51,9 @@ public class Record {
 
     public boolean hasState() {
         return state != null;
+    }
+
+    public boolean hasSignal() {
+        return signal != null;
     }
 }

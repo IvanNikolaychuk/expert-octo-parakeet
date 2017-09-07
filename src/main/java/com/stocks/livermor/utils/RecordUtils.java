@@ -43,6 +43,13 @@ public class RecordUtils {
         return getMovementType(prev, current) == STRONG_RALLY;
     }
 
+    public static double percentageChange(Record firstRecord, Record secondRecord) {
+        final double first = firstRecord.getPrice();
+        final double second = secondRecord.getPrice();
+
+        return 100 - second * 100 / first;
+    }
+
     public static MovementType getMovementType(Record prev, Record current) {
         final double currPrice = current.getPrice();
         final double prevPrice = prev.getPrice();

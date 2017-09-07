@@ -9,6 +9,7 @@ import static com.stocks.livermor.Constants.Rule.*;
 import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
 import static com.stocks.livermor.utils.RecordUtils.strongReaction;
+import static com.stocks.livermor.utils.RecordsSignageSearcher.searchForSignals;
 import static com.stocks.livermor.utils.Trend.DOWN;
 import static org.springframework.util.Assert.isTrue;
 
@@ -16,6 +17,11 @@ public class NaturalRallyStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
+        processState(recordsHolder, newRecord);
+        searchForSignals(recordsHolder, newRecord);
+    }
+
+    private void processState(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.lastWithState();
         isTrue(last.getState() == NATURAL_RALLY);
 

@@ -11,11 +11,17 @@ import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.*;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
 import static com.stocks.livermor.utils.RecordsHolder.NULL_OBJECT;
+import static com.stocks.livermor.utils.RecordsSignageSearcher.searchForSignals;
 
 public class SecondaryReactionStrategy implements StateProcessor {
 
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
+        processState(recordsHolder, newRecord);
+        searchForSignals(recordsHolder, newRecord);
+    }
+
+    private void processState(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == SECONDARY_REACTION);
 
@@ -39,7 +45,6 @@ public class SecondaryReactionStrategy implements StateProcessor {
         if (newRecord.getPrice() < last.getPrice())
             newRecord.setStateAndRule(SECONDARY_REACTION, _12_secondary_reaction);
     }
-
 
 
     private void checkPriceIsLowerThanLastInNaturalReaction(RecordsHolder recordsHolder, Record newRecord) {

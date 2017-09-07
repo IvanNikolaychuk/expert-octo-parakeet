@@ -1,6 +1,7 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.excel.ExcelWriter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,7 +45,8 @@ public class KeyPriceTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
-        allQuarters2016();
+        new ExcelWriter().createTable(getRecordsHolder());
+//        allQuarters2016();
     }
 
     private void allQuarters2016() {

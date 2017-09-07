@@ -29,4 +29,12 @@ public class Styles {
         return cellStyle;
     }
 
+    public static CellStyle cellStyleBackgroundColor(Workbook workbook, short backgroundColor) {
+        CellStyle cellStyle = defaultCellStyle(workbook);
+        cellStyle.setFillForegroundColor(backgroundColor);
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        return cellStyle;
+    }
+
 }

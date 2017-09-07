@@ -55,6 +55,11 @@ public class RecordsHolder {
         return NULL_OBJECT;
     }
 
+    public Record last() {
+        if (records.isEmpty()) return NULL_OBJECT;
+        return records.get(records.size() - 1);
+    }
+
     public PivotPointsHolder getPivotPoints() {
         List<Record> pivotPoints = records.stream()
                 .filter(Record::isPivotPoint)
