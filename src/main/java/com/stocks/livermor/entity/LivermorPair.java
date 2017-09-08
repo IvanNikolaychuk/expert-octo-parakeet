@@ -2,10 +2,9 @@ package com.stocks.livermor.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import static javax.persistence.EnumType.STRING;
 
 @Entity(name = "livermor_pair")
 @Data
@@ -22,4 +21,8 @@ public class LivermorPair {
 
     @Column(name = "key_price_ticker")
     private String keyPriceTicker;
+
+    @Column(name = "business_type")
+    @Enumerated(value = STRING)
+    private BusinessType businessType;
 }

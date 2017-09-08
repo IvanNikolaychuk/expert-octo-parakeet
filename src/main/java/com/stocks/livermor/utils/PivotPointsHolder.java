@@ -96,7 +96,7 @@ public class PivotPointsHolder {
         if (!check6aaccRule(lastTrendRecord, last)) return false;
 
         Record seperateTrendRecords = last(recordState == UPPER_TREND ? DOWN_TREND : UPPER_TREND);
-`        if (seperateTrendRecords == NULL_OBJECT) return false;
+        if (seperateTrendRecords == NULL_OBJECT) return false;
 
         final Date lastSeparateTrendDate = seperateTrendRecords.getDate();
 
