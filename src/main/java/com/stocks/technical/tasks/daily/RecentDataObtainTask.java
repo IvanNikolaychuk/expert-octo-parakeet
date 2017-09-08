@@ -4,6 +4,7 @@ import com.stocks.technical.core.api.dto.StockData;
 import com.stocks.technical.core.db.dao.CompanyDao;
 import com.stocks.technical.core.db.entity.Candle;
 import com.stocks.technical.core.db.entity.company.Company;
+import com.stocks.technical.core.db.service.CompanyService;
 import com.stocks.technical.tasks.utils.CandleUtils;
 import com.stocks.technical.tasks.utils.converter.StockDataToCandleConverter;
 import com.stocks.technical.tasks.utils.filters.CandlesFilter;
@@ -26,9 +27,10 @@ public class RecentDataObtainTask {
 
             Calendar firstDateWithNoCandle = getInstance();
             firstDateWithNoCandle.setTime(mostRecentCandle.getDate().getTime());
-            firstDateWithNoCandle.add(DATE, 1);
+//            firstDateWithNoCandle.add(DATE, 1);
 
             Calendar yesterday = getInstance();
+            yesterday.set(yesterday.get(YEAR), yesterday.get(MONTH), yesterday.get(DAY_OF_MONTH), 23, 0);
             yesterday.add(DAY_OF_MONTH, -1);
 
             List<StockData> stockDataList = query(company.getName(), new Pair<>(firstDateWithNoCandle.getTime(), yesterday.getTime()));
@@ -37,8 +39,7 @@ public class RecentDataObtainTask {
                 continue;
             }
 
-            company.getCandles().addAll(StockDataToCandleConverter.convert(stockDataList));
-            companyDao.saveOrUpdate(company);
+            new CompanyService().addCandles(company, StockDataToCandleConverter.convert(stockDataList));
         }
     }
 

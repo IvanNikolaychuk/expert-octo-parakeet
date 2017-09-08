@@ -18,10 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.stocks.livermor.utils.DateUtils.sameDate;
 import static java.math.BigDecimal.ROUND_HALF_DOWN;
-import static java.util.Calendar.DAY_OF_MONTH;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
 
 public class ObtainAndProcessTask {
     private static final RecordDao recordDao = new RecordDao();
@@ -76,18 +74,6 @@ public class ObtainAndProcessTask {
 
             saveOrUpdateNewRecords(keyPriceRecordsHolder);
         }
-    }
-
-    private static boolean sameDate(Record firstRecord, Record secondRecord) {
-        final Calendar firstDate = Calendar.getInstance();
-        firstDate.setTime(firstRecord.getDate());
-
-        final Calendar secondDate = Calendar.getInstance();
-        secondDate.setTime(secondRecord.getDate());
-
-        return firstDate.get(YEAR) == secondDate.get(YEAR) &&
-                firstDate.get(MONTH) == secondDate.get(MONTH) &&
-                firstDate.get(DAY_OF_MONTH) == secondDate.get(DAY_OF_MONTH);
     }
 
     private static List<Candle> filterNewCandles(Company company) {
