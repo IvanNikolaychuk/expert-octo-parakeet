@@ -11,10 +11,16 @@ import static com.stocks.livermor.entity.State.*;
 import static com.stocks.livermor.utils.RecordPriceMovementUtils.rallyPivotPointIsBroken;
 import static com.stocks.livermor.utils.RecordUtils.priceIsLower;
 import static com.stocks.livermor.utils.RecordUtils.strongRally;
+import static com.stocks.livermor.utils.RecordsSignageSearcher.searchForSignals;
 
 public class DownTrendStrategy implements StateProcessor {
     @Override
     public void process(RecordsHolder recordsHolder, Record newRecord) {
+        processState(recordsHolder, newRecord);
+        searchForSignals(recordsHolder, newRecord);
+    }
+
+    private void processState(RecordsHolder recordsHolder, Record newRecord) {
         final Record last = recordsHolder.lastWithState();
         Assert.isTrue(last.getState() == DOWN_TREND);
 

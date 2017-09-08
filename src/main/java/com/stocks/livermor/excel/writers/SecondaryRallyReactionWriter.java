@@ -8,10 +8,11 @@ import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 
-import static com.stocks.livermor.entity.Signal.DOWN_TREND_IS_OVER;
-import static com.stocks.livermor.entity.Signal.UPPER_TREND_IS_OVER;
+import static com.stocks.livermor.entity.Signal.*;
 import static com.stocks.livermor.excel.Styles.cellStyleBackgroundColor;
 import static com.stocks.livermor.excel.Styles.defaultFont;
+import static org.apache.poi.ss.usermodel.IndexedColors.LIGHT_GREEN;
+import static org.apache.poi.ss.usermodel.IndexedColors.LIGHT_YELLOW;
 
 public class SecondaryRallyReactionWriter {
     public static void write(Workbook workbook, Cell cell, Record record) {
@@ -20,8 +21,13 @@ public class SecondaryRallyReactionWriter {
         cell.setCellValue(richTextString);
 
         final Signal signal = record.getSignal();
-        if (signal == DOWN_TREND_IS_OVER || signal == UPPER_TREND_IS_OVER) {
-            cell.setCellStyle(cellStyleBackgroundColor(workbook, IndexedColors.LIGHT_GREEN.index));
+        if (signal == DOWN_TREND_IS_OVER_BECAUSE_PRICE_JUMPS_FROM_NEAR_DOWN_TREND_POINT
+                || signal == UPPER_TREND_IS_OVER_BECAUSE_PRICE_JUMPS_FROM_NEAR_UPPER_TREND_POINT) {
+            cell.setCellStyle(cellStyleBackgroundColor(workbook, LIGHT_GREEN.index));
+        }
+        if (signal == DOWN_TREND_IS_OVER_BECAUSE_LAST_DOWN_PIVOT_POINT_IS_BROKEN_WEAK
+                || signal == UPPER_TREND_IS_OVER_BECAUSE_LAST_UPPER_PIVOT_POINT_IS_BROKEN_WEAK) {
+            cell.setCellStyle(cellStyleBackgroundColor(workbook, LIGHT_YELLOW.index));
         }
     }
 }

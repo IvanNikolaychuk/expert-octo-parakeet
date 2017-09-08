@@ -20,6 +20,10 @@ public class PivotPointsHolder {
         this.records.sort(new ByDateComparator());
     }
 
+    public List<Record> getRecords() {
+        return records;
+    }
+
     public Record last(State state) {
         List<Record> pivotPoints = records.stream()
                 .filter(record -> record.getState() == state && record.isPivotPoint())

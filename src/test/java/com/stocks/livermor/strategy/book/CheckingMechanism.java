@@ -1,8 +1,8 @@
 package com.stocks.livermor.strategy.book;
 
 import com.stocks.livermor.Executor;
-import com.stocks.livermor.Constants;
 import com.stocks.livermor.entity.Record;
+import com.stocks.livermor.entity.Signal;
 import com.stocks.livermor.entity.State;
 import com.stocks.livermor.strategy.book.utils.DateGenerator;
 import com.stocks.livermor.strategy.factory.StrategyPicker;
@@ -11,9 +11,8 @@ import com.stocks.technical.core.db.entity.Candle;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static com.stocks.livermor.Constants.Rule;
+import static org.junit.Assert.*;
 
 public class CheckingMechanism {
     private static final int PP_CHECKS_COUNTER = 5;
@@ -27,13 +26,18 @@ public class CheckingMechanism {
         executor.process(recordsHolder, record);
     }
 
-    public static void processAndCheckNext(double price, State expectedState, Constants.Rule expectedRule, boolean shouldBePivotPoint) {
+    public static void processAndCheckNext(double price, State expectedState, Rule expectedRule,
+                                           boolean shouldBePivotPoint, Signal expectedSignal) {
         Record newRecord = newRecord(price);
         executor.process(recordsHolder, newRecord);
         assertEquals(newRecord.getState(), expectedState);
+
         if (expectedRule != null) {
             assertEquals(newRecord.getExplanation(), expectedRule.getExplanation());
         }
+        assertEquals(expectedSignal, newRecord.getSignal());
+
+
         checkPivotPoints();
         if (shouldBePivotPoint)
             recordToPpChecksCounterMap.put(newRecord, 0);
