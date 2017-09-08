@@ -39,9 +39,9 @@ public class GazpTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
+        allQuarters2016();
 
-//        allQuarters2016();
-        processAndSaveRecordsFromDatabase();
+//        processAndSaveRecordsFromDatabase();
         new ExcelWriter().createTable(new RecordsHolder(getRecordsHolder().getRecords()));
     }
 

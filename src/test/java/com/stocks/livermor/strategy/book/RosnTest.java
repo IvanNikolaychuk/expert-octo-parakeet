@@ -38,8 +38,8 @@ public class RosnTest {
         secondQuarter();
         thirdQuarter();
         fourthQuarter();
-//        allQuarters2016();
-        processAndSaveRecordsFromDatabase();
+        allQuarters2016();
+//        processAndSaveRecordsFromDatabase();
         new ExcelWriter().createTable(new RecordsHolder(getRecordsHolder().getRecords()));
     }
 
