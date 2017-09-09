@@ -26,9 +26,7 @@ public class StockService {
         return QuandlApi.query(company.getName(), Period.of(november(2015, 1), forDate(now)));
     }
 
-    public List<StockData> queryStocksSince2015Yahoo(Company company) {
-        Calendar from = Calendar.getInstance();
-        from.set(2016, Calendar.JANUARY, 1);
+    public List<StockData> queryStocksSinceYahoo(Company company, Calendar from) {
         Calendar to = Calendar.getInstance();
         to.set(now.get(YEAR), now.get(MONTH), now.get(DAY_OF_MONTH));
 

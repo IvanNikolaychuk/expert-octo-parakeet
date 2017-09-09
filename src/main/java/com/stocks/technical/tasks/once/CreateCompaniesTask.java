@@ -6,6 +6,7 @@ import com.stocks.technical.core.db.entity.company.Company;
 import com.stocks.technical.core.service.StockService;
 import com.stocks.technical.tasks.utils.converter.StockDataToCandleConverter;
 
+import java.util.Calendar;
 import java.util.List;
 
 import static com.stocks.technical.tasks.once.data.CompanyStaticDataHolder.getAllCompanies;
@@ -19,7 +20,9 @@ public class CreateCompaniesTask {
 //        clearPrevious();
 
         for (Company company :  getAllCompanies()) {
-            List<StockData> stockDataList = new StockService().queryStocksSince2015Yahoo(company);
+            Calendar date2016 = Calendar.getInstance();
+            date2016.set(2016, Calendar.JANUARY, 1);
+            List<StockData> stockDataList = new StockService().queryStocksSinceYahoo(company, date2016);
 
             company.addCandles(StockDataToCandleConverter.convert(stockDataList));
 
