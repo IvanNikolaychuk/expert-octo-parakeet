@@ -18,5 +18,7 @@ public enum BusinessType {
     TRANSPORT,
     TELECOMMUNICATION,
     OTHER,
-    BANKING
+    BANKING,
+    // полупроводники
+    PROCESSORS
 }

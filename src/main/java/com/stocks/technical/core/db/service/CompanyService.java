@@ -4,6 +4,7 @@ import com.stocks.technical.core.db.dao.CompanyDao;
 import com.stocks.technical.core.db.entity.Candle;
 import com.stocks.technical.core.db.entity.company.Company;
 
+import java.util.Calendar;
 import java.util.List;
 
 import static com.stocks.livermor.utils.DateUtils.sameDate;
@@ -21,7 +22,8 @@ public class CompanyService {
         for (Candle potentiallyNew : newCandles) {
             boolean isNew = true;
             for (Candle companyCandle : allCandles) {
-                if (sameDate(companyCandle.getDate(), potentiallyNew.getDate())) {
+                if (sameDate(companyCandle.getDate(), potentiallyNew.getDate())
+                        || sameDate(companyCandle.getDate(), Calendar.getInstance())) {
                     isNew = false;
                     break;
                 }
