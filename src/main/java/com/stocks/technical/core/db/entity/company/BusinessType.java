@@ -22,5 +22,6 @@ public enum BusinessType {
     // полупроводники
     PROCESSORS,
     TRANSACTION_SYSTEM,
-    AIRLINES
+    AIRLINES,
+    AUTO_PRODUCTION
 }
