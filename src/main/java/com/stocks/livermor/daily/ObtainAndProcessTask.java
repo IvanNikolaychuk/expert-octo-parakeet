@@ -51,7 +51,10 @@ public class ObtainAndProcessTask {
             firstTickerRecords.sort(new RecordsHolder.ByDateComparator());
             final List<Record> secondTickerRecords = recordDao.getAll(livermorPair.getSecondTicker());
             secondTickerRecords.sort(new RecordsHolder.ByDateComparator());
-
+            if (firstTickerRecords.size() != secondTickerRecords.size()) {
+                throw new IllegalArgumentException("Number of records not eq in " +
+                        livermorPair.getFirstTicker() + " and " + livermorPair.getSecondTicker());
+            }
 
             List<Record> keyPriceRecords = recordDao.getAll(livermorPair.getKeyPriceTicker());
             keyPriceRecords.sort(new RecordsHolder.ByDateComparator().reversed());

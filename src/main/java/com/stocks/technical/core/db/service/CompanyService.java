@@ -23,7 +23,7 @@ public class CompanyService {
             boolean isNew = true;
             for (Candle companyCandle : allCandles) {
                 if (sameDate(companyCandle.getDate(), potentiallyNew.getDate())
-                        || sameDate(companyCandle.getDate(), Calendar.getInstance())) {
+                        || sameDate(potentiallyNew.getDate(), Calendar.getInstance())) {
                     isNew = false;
                     break;
                 }

@@ -20,5 +20,7 @@ public enum BusinessType {
     OTHER,
     BANKING,
     // полупроводники
-    PROCESSORS
+    PROCESSORS,
+    TRANSACTION_SYSTEM,
+    AIRLINES
 }

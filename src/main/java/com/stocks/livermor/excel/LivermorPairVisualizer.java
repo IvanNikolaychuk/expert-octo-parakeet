@@ -33,10 +33,7 @@ public class LivermorPairVisualizer {
     }
 
     public static void main(String[] args) throws Exception {
-        LivermorPairVisualizer livermorPairVisualizer = new LivermorPairVisualizer();
-
-        for (LivermorPair livermorPair : new LivermorPairDao().getAll()) {
-            livermorPairVisualizer.visualize(livermorPair, 2015);
-        }
+        final LivermorPair livermorPair = new LivermorPairDao().getByKeyTicker("DAL_AAL");
+        new LivermorPairVisualizer().visualize(livermorPair, 2015);
     }
 }
