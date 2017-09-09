@@ -1,5 +1,6 @@
 package com.stocks.livermor.entity;
 
+import com.stocks.technical.core.db.entity.company.BusinessType;
 import lombok.Data;
 
 import javax.persistence.*;

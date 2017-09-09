@@ -11,10 +11,12 @@ public enum BusinessType {
     FOOD,
     IT,
     METALLURGY,
+    OIL,
     MOUNTAIN,
     PETROCHEMICAL,
     RETAIL,
     TRANSPORT,
     TELECOMMUNICATION,
-    OTHER
+    OTHER,
+    BANKING
 }
