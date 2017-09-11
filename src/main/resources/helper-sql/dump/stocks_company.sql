@@ -1,2 +1,15 @@
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('AAL', 'AIRLINES', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('AMD', 'PROCESSORS', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('BAC', 'BANKING', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('C', 'BANKING', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('DAL', 'AIRLINES', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('F', 'AUTO_PRODUCTION', 'DOLLAR');
 INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('GAZP.ME', 'OTHER', 'RUBLE');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('GILD', 'PHARMACEUTICS', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('GM', 'AUTO_PRODUCTION', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('INTC', 'PROCESSORS', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('JPM', 'BANKING', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('MA', 'TRANSACTION_SYSTEM', 'DOLLAR');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('MS', 'BANKING', 'DOLLAR');
 INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('ROSN.ME', 'OTHER', 'RUBLE');
+INSERT INTO stocks.company (name, business_type, stock_currency) VALUES ('V', 'TRANSACTION_SYSTEM', 'DOLLAR');

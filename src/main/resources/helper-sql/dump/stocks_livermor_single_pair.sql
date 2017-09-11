@@ -1,0 +1,15 @@
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25397, 'AAL');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25398, 'AMD');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25399, 'BAC');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25400, 'C');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25401, 'DAL');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25402, 'F');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25403, 'GAZP.ME');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25404, 'GM');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25405, 'INTC');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25406, 'JPM');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25407, 'MA');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25408, 'MS');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25409, 'ROSN.ME');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25410, 'V');
+INSERT INTO stocks.livermor_single_pair (id, ticker) VALUES (25411, 'GILD');
