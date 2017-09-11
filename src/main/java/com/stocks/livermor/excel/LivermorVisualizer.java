@@ -42,7 +42,7 @@ public class LivermorVisualizer {
 //        final LivermorPair livermorPair = new LivermorPairDao().getByKeyTicker("GM_F");
 //        new LivermorVisualizer().visualize(livermorPair, 2015);
 
-        LivermorSingleCompany livermorSingleCompany = new LivermorSingleCompanyDao().getByKeyTicker("V");
+        LivermorSingleCompany livermorSingleCompany = new LivermorSingleCompanyDao().getByKeyTicker("AAL");
         new LivermorVisualizer().visualize(livermorSingleCompany, 2015);
     }
 }
